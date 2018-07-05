@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FB540EC7-0D37-4F28-B605-B5EDBC4F0B2E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StaffManager</RootNamespace>
+    <AssemblyName>StaffManager</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\FootManager\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;   </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\FootManager\bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>..\FootManager\bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="ClientCenter, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FootManager\bin\x64\Debug\ClientCenter.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Diagram.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraDiagram.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraRichEdit.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enity\LevelVo.cs" />
+    <Compile Include="Enity\QuickStaffVo.cs" />
+    <Compile Include="Enity\ServerShipVo.cs" />
+    <Compile Include="Enity\ServerSkillVo.cs" />
+    <Compile Include="Enity\StaffSkillVo.cs" />
+    <Compile Include="Enity\StaffVo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AddDepartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddDepartmentForm.Designer.cs">
+      <DependentUpon>AddDepartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AddStaffClassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddStaffClassForm.Designer.cs">
+      <DependentUpon>AddStaffClassForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AddStaffForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddStaffForm.Designer.cs">
+      <DependentUpon>AddStaffForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AddStaffLevel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddStaffLevel.Designer.cs">
+      <DependentUpon>AddStaffLevel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DepartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DepartmentForm.Designer.cs">
+      <DependentUpon>DepartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LevelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\LevelForm.Designer.cs">
+      <DependentUpon>LevelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\QuickStaff.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\QuickStaff.Designer.cs">
+      <DependentUpon>QuickStaff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ServerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ServerForm.Designer.cs">
+      <DependentUpon>ServerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ServerSkillForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ServerSkillForm.Designer.cs">
+      <DependentUpon>ServerSkillForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SkillForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SkillForm.Designer.cs">
+      <DependentUpon>SkillForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Staff.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Staff.Designer.cs">
+      <DependentUpon>Staff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StaffMainNewUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StaffMainNewUI.Designer.cs">
+      <DependentUpon>StaffMainNewUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StaffManagerInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\StaffManagerInfoUI.Designer.cs">
+      <DependentUpon>StaffManagerInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StaffSkillForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\StaffSkillForm.Designer.cs">
+      <DependentUpon>StaffSkillForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StaffWorkInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\StaffWorkInfoUI.Designer.cs">
+      <DependentUpon>StaffWorkInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StaffManagerUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\StaffManagerUI.Designer.cs">
+      <DependentUpon>StaffManagerUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StaffsUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\StaffsUI.Designer.cs">
+      <DependentUpon>StaffsUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StaffWork.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\StaffWork.Designer.cs">
+      <DependentUpon>StaffWork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UpdateDepartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UpdateDepartmentForm.Designer.cs">
+      <DependentUpon>UpdateDepartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UpdateStaffClassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UpdateStaffClassForm.Designer.cs">
+      <DependentUpon>UpdateStaffClassForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UpdateStaffForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UpdateStaffForm.Designer.cs">
+      <DependentUpon>UpdateStaffForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UpdateStaffLevel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UpdateStaffLevel.Designer.cs">
+      <DependentUpon>UpdateStaffLevel.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\DepartmentForm.resx">
+      <DependentUpon>DepartmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LevelForm.resx">
+      <DependentUpon>LevelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\QuickStaff.resx">
+      <DependentUpon>QuickStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ServerForm.resx">
+      <DependentUpon>ServerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ServerSkillForm.resx">
+      <DependentUpon>ServerSkillForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SkillForm.resx">
+      <DependentUpon>SkillForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Staff.resx">
+      <DependentUpon>Staff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StaffMainNewUI.resx">
+      <DependentUpon>StaffMainNewUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StaffManagerInfoUI.resx">
+      <DependentUpon>StaffManagerInfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StaffSkillForm.resx">
+      <DependentUpon>StaffSkillForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StaffWorkInfoUI.resx">
+      <DependentUpon>StaffWorkInfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StaffManagerUI.resx">
+      <DependentUpon>StaffManagerUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StaffsUI.resx">
+      <DependentUpon>StaffsUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StaffWork.resx">
+      <DependentUpon>StaffWork.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bodepartment_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bodepartment_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bodetails_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bodetails_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\team_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\team_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\role_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\role_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bodepartment_32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bodetails_32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\team_32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pagesetup_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\createfromselection_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customization_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\customization_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boresume_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boresume_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\highlightcellsrules_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\highlightcellsrules_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mapit_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mapit_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bule.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B40EB7B2-0F21-44C1-B314-9281236D5499}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FrontCashierManager</RootNamespace>
+    <AssemblyName>FrontCashierManager</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\FootManager\bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>..\FootManager\bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClientCenter, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FootManager\bin\x64\Debug\ClientCenter.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enity\HandRoomVo.cs" />
+    <Compile Include="Enity\MemberRoomVo.cs" />
+    <Compile Include="Enity\QuickStaffVo.cs" />
+    <Compile Include="Enity\RoomVo.cs" />
+    <Compile Include="Enity\StaffMonitorVo.cs" />
+    <Compile Include="ForntCashierMainUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ForntCashierMainUI.Designer.cs">
+      <DependentUpon>ForntCashierMainUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CashierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CashierForm.Designer.cs">
+      <DependentUpon>CashierForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ClockRoom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ClockRoom.Designer.cs">
+      <DependentUpon>ClockRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\HandRoom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\HandRoom.Designer.cs">
+      <DependentUpon>HandRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MemberRoom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MemberRoom.Designer.cs">
+      <DependentUpon>MemberRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\QuickStaff.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\QuickStaff.Designer.cs">
+      <DependentUpon>QuickStaff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\QuickRoom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\QuickRoom.Designer.cs">
+      <DependentUpon>QuickRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Room.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Room.Designer.cs">
+      <DependentUpon>Room.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StaffMonitor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\StaffMonitor.Designer.cs">
+      <DependentUpon>StaffMonitor.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ForntCashierMainUI.resx">
+      <DependentUpon>ForntCashierMainUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CashierForm.resx">
+      <DependentUpon>CashierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ClockRoom.resx">
+      <DependentUpon>ClockRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\HandRoom.resx">
+      <DependentUpon>HandRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MemberRoom.resx">
+      <DependentUpon>MemberRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\QuickStaff.resx">
+      <DependentUpon>QuickStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\QuickRoom.resx">
+      <DependentUpon>QuickRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Room.resx">
+      <DependentUpon>Room.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StaffMonitor.resx">
+      <DependentUpon>StaffMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_16x162.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_16x163.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_16x164.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_16x165.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_16x166.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_16x167.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home_32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\currency2_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\currency2_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_32x321.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
