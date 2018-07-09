@@ -10,10 +10,10 @@ namespace ClientCenter.Enity
     [DataAttr("OrderInfo")]
     public class OrderInfoVo
     {
-        private int orderID;
+        private Int64 orderID;
         [ColumnAttr("订单编号", false)]
         [DataAttr(false,true)]
-        public int OrderID
+        public Int64 OrderID
         {
             get { return orderID; }
             set { orderID = value; }
