@@ -73,6 +73,7 @@
     <Compile Include="Core\D3Core.cs" />
     <Compile Include="Core\DataAttr.cs" />
     <Compile Include="Core\FilterUtil.cs" />
+    <Compile Include="Core\SystemConst.cs" />
     <Compile Include="Core\TimeUtil.cs" />
     <Compile Include="Core\UserRight.cs" />
     <Compile Include="Core\XmlUtil.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="DB\UpdateDao.cs" />
     <Compile Include="Enity\BusyRoomVo.cs" />
     <Compile Include="Enity\CardVo.cs" />
+    <Compile Include="Enity\CompanyVo.cs" />
     <Compile Include="Enity\DepartmentVo.cs" />
     <Compile Include="Enity\DetailedOrderVo.cs" />
     <Compile Include="Enity\FreeRoomVo.cs" />

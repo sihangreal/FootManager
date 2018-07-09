@@ -29,6 +29,7 @@ namespace FootManager.UI
 
             this.btnUserSetting.Click += SimpleButton_Click;
             this.btnDataServer.Click += SimpleButton_Click;
+            this.btnCompany.Click += SimpleButton_Click;
         }
 
         private void FillControl()
@@ -38,6 +39,7 @@ namespace FootManager.UI
             //controlDic.Add("服务项目设置", new SkillSettingNew());
             controlDic.Add("用户权限设置", new OperatSetting());
             controlDic.Add("数据库设置",new DataBaseSetting());
+            controlDic.Add("公司信息设置", new CompanySetting());
         }
         #endregion
 

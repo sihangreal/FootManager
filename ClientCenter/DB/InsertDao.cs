@@ -148,15 +148,15 @@ namespace ClientCenter.DB
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             StringBuilder sb = new StringBuilder();
-            sb.Append("INSERT INTO OrderInfo(RoomID,StaffName,StartTime,EndTime,Price,Remark) ");
-            sb.Append(" VALUES(@RoomID,@StaffName,@StartTime,@EndTime,@Price,@Remark); select @@identity");
+            sb.Append("INSERT INTO OrderInfo(OrderID, RoomID,StaffName,StartTime,EndTime,Price) ");
+            sb.Append(" VALUES(@OrderID,@RoomID,@StaffName,@StartTime,@EndTime,@Price); select @@identity");
             MySqlParameter[] parameters = new MySqlParameter[6];
-            parameters[0] = new MySqlParameter("@RoomID", orderVo.RoomID);
-            parameters[1] = new MySqlParameter("@StaffName", orderVo.StaffName);
-            parameters[2] = new MySqlParameter("@StartTime", orderVo.StartTime);
-            parameters[3] = new MySqlParameter("@EndTime", orderVo.EndTime);
-            parameters[4] = new MySqlParameter("@Price", orderVo.Price);
-            parameters[5] = new MySqlParameter("@Remark", orderVo.Remark);
+            parameters[0] = new MySqlParameter("@OrderID", orderVo.OrderID);
+            parameters[1] = new MySqlParameter("@RoomID", orderVo.RoomID);
+            parameters[2] = new MySqlParameter("@StaffName", orderVo.StaffName);
+            parameters[3] = new MySqlParameter("@StartTime", orderVo.StartTime);
+            parameters[4] = new MySqlParameter("@EndTime", orderVo.EndTime);
+            parameters[5] = new MySqlParameter("@Price", orderVo.Price);
 
             object orderID = mySqlclient.ExecuteScalar(sb.ToString(), parameters.ToList(), CommandType.Text);
             foreach (DetailedOrderVo detailedVo in detailedVoList)

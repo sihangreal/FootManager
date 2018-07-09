@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using ClientCenter.Core;
 
 namespace FootManager.UI
 {
@@ -47,8 +48,8 @@ namespace FootManager.UI
         /// <param name="e"></param>
         private void BtnCheck_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            CheckCashierForm cashierForm = new CheckCashierForm();
-            cashierForm.ShowDialog();
+            //CheckCashierForm cashierForm = new CheckCashierForm();
+            //cashierForm.ShowDialog();
         }
 
         private void SetSkin()
@@ -73,6 +74,10 @@ namespace FootManager.UI
         #region event
         private void MainFormNew_Load(object sender, EventArgs e)
         {
+            //获取公司ID
+            string str = XmlUtil.ReadDataInfo(SystemConst.APPPATH, "CompanyId");
+            if (!string.IsNullOrWhiteSpace(str))
+                SystemConst.companyId = Convert.ToInt32(str);
             factory = UIFactory.GetUIFactory();
             factory.ShowControl(this.mainPanel, "钟房管理");
             SetSkin();

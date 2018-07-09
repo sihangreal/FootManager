@@ -128,6 +128,25 @@ namespace ClientCenter.DB
             }
         }
 
+        public MySqlDataReader ExecuteReader(string cmdText, CommandType cmdType = CommandType.Text)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            try
+            {
+                cmd.CommandText = cmdText;
+                //调用 MySqlCommand  的 ExecuteReader 方法
+                MySqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                return reader;
+            }
+            catch
+            {
+                //关闭连接，抛出异常
+                conn.Close();
+                throw;
+            }
+        }
+
         // 返回DataSet
         public DataSet GetDataSet(string cmdText,List<MySqlParameter> commandParameters, CommandType cmdType = CommandType.Text)
         {
@@ -228,6 +247,9 @@ namespace ClientCenter.DB
                     break;
                 case "Double":
                     dbType = MySqlDbType.Double;
+                    break;
+                case "Int64":
+                    dbType = MySqlDbType.Int64;
                     break;
             }
             return dbType;

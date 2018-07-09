@@ -53,7 +53,6 @@ namespace ClockRoomManager.UI
             {
                 OrderInfoVo orderVo = new OrderInfoVo();
                 orderVo.RoomID = vo.RoomId;
-                orderVo.Remark = this.memoRemark.Text;
                 orderVo.StartTime = DateTime.Now.ToString();
             }
         }

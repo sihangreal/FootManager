@@ -671,5 +671,81 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return  ds.Tables[0];
         }
+
+        public static List<T> SelectDataByID<T>(object id)
+        {
+            List<T> tList = new List<T>();
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            Type type = typeof(T);
+            DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
+            StringBuilder sb = new StringBuilder();
+            PropertyInfo[] propertyInfos = type.GetProperties();
+            string strkey = "";
+            Type keyType = null;
+            foreach (PropertyInfo info in propertyInfos)
+            {
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr.Key)
+                {
+                    strkey = info.Name;
+                    keyType = info.PropertyType;
+                    break;
+                }
+            }
+            sb.Append(" SELECT * FROM " + dataAttr.TableName +" WHERE "+ strkey +"@"+strkey);
+
+            List<MySqlParameter> parameters = new List<MySqlParameter>();
+            MySqlParameter parameter = new MySqlParameter("@" + strkey, mySqlclient.ConvertDBType(keyType));
+            parameter.Value = id;
+            parameters.Add(parameter);
+
+            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataTable dt = ds.Tables[0];
+
+            for (int i = 0; i < dt.Rows.Count; ++i)
+            {
+                T t = (T)Activator.CreateInstance(type);
+                object objPacked = t;
+                for (int j = 0; j < ds.Tables[0].Columns.Count && j < propertyInfos.Length; ++j)
+                {
+                    PropertyInfo info = propertyInfos[j];
+                    DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                    if (infoAttr == null)
+                        continue;
+                    if (dt.Rows[i][j] == null)
+                    {
+                        info.SetValue(t, "");
+                    }
+                    else if (dt.Rows[i][j] == System.DBNull.Value)
+                    {
+                        info.SetValue(t, null);
+                    }
+                    else
+                        info.SetValue(t, dt.Rows[i][j]);
+                }
+                t = (T)objPacked;
+                tList.Add(t);
+            }
+            return tList;
+        }
+
+        public static string CreateOrderHandle()
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string strsql = "SELECT MAX(OrderID) FROM OrderInfo WHERE StartTime>"+DateTime.Today.ToString();
+            MySqlDataReader sr=mySqlclient.ExecuteReader(strsql,CommandType.Text);
+            string orderId = default(string);
+            while(sr.Read())
+            {
+                orderId = sr[0].ToString();
+            }
+            if(string.IsNullOrWhiteSpace(orderId))
+            {
+                orderId = DateTime.Now.ToString("yyyyMMddhhmmss") + SystemConst.companyId + "00000";
+            }
+            return orderId;
+        }
     }
 }
