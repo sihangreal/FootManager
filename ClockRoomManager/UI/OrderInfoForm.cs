@@ -253,6 +253,12 @@ namespace ClockRoomManager.UI
                 else
                     vo.Id = id;
             }
+            OrderInfoVo orderVo = new OrderInfoVo();
+
+            orderVo.RoomID =roomVo.RoomId;
+            orderVo.StartTime = DateTime.Now.ToString();
+            orderVo.Status = "未完成";
+            InsertDao.InsertData(orderVo,typeof(OrderInfoVo));
 
             this.btnCancelOrder1.Enabled = true;
             this.btnOrder.Enabled = false;

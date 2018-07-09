@@ -31,7 +31,9 @@ namespace ClockRoomManager.UI
             this.Load += PayOrderForm_Load;
             this.comboType.SelectedValueChanged += ComboType_SelectedValueChanged;
             this.btnReadCard.Click += BtnReadCard_Click;
+            this.btnQuery.Click += BtnQuery_Click;
         }
+
 
         private void FillComType()
         {
@@ -73,56 +75,16 @@ namespace ClockRoomManager.UI
         }
         private void BtnReadCard_Click(object sender, EventArgs e)
         {
-            int icdev = -1;
-            if ((icdev = D3Core.dc_init(100, 115200)) <= 0)
-            {
-                XtraMessageBox.Show("读卡失败1！");
-                return;
-            }
-
-            if (D3Core.dc_beep(icdev, 10u) != 0)
-            {
-                XtraMessageBox.Show("读卡失败2！");
-                return;
-            }
-            ulong num = 0uL;
-            char mode = '\0';
-            uint sec = 0u;
-            int num2 = (int)D3Core.dc_reset(icdev, sec);
-            num2 = (int)D3Core.dc_card(icdev, mode, ref num);
-            if (num != 0uL)
-            {
-                byte[] nkey = new byte[] { 255, 255, 255, 255, 255, 255 };
-                num2 = (int)D3Core.dc_load_key(icdev, 0, 0, nkey);
-                int num3 = 0;
-                if (D3Core.dc_authentication(icdev, 0, num3) == 0)
-                {
-                    byte[] expr_179 = new byte[] { 106, 194, 146, 250, 161, 49, 91, 77, 106, 194, 146, 250, 161, 49, 91, 77 };
-                    string text = "".PadLeft(32, ' ');
-                    int adr = num3 * 4 + 2;
-
-                    StringBuilder stringBuilder = new StringBuilder(64);
-                    StringBuilder stringBuilder2 = new StringBuilder(64);
-                    if (D3Core.dc_read(icdev, adr, stringBuilder2) == 0)
-                    {
-                        this.textMemberId.Text = stringBuilder2.ToString();
-                    }
-                    else
-                    {
-                        try
-                        {
-                            if (D3Core.dc_read_hex(icdev, adr, stringBuilder) == 0)
-                            {
-                                this.textMemberId.Text = stringBuilder.ToString();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("读卡失败3！");
-                        }
-                    }
-                }
-            }
+            string errorStr = default(string);
+            string memberId=D3Core.ReadMemberCard(out errorStr);
+            if (memberId != null)
+                this.textMemberId.Text = memberId;
+            else
+                XtraMessageBox.Show(errorStr);
+        }
+        private void BtnQuery_Click(object sender, EventArgs e)
+        {
+      
         }
         #endregion
     }

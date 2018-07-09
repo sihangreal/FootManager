@@ -56,13 +56,13 @@ namespace ClientCenter.Enity
             get { return price; }
             set { price = value; }
         }
-        private string remark;
-        [ColumnAttr("备注", true)]
+        private string status;
+        [ColumnAttr("状态", true)]
         [DataAttr(true)]
-        public string Remark
+        public string Status
         {
-            get { return remark; }
-            set { remark = value; }
+            get { return status; }
+            set { status = value; }
         }
     }
 }
