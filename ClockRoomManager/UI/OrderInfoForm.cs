@@ -18,6 +18,9 @@ namespace ClockRoomManager.UI
         //private string remark;
         private double price;
         private int itype;//轮钟0，点钟1， 加钟2
+        private string orderId;//订单编号
+        private string staffName;
+        private string staffId;
 
         public OrderInfoForm(RoomVo roomVo)
         {
@@ -253,12 +256,6 @@ namespace ClockRoomManager.UI
                 else
                     vo.Id = id;
             }
-            OrderInfoVo orderVo = new OrderInfoVo();
-
-            orderVo.RoomID =roomVo.RoomId;
-            orderVo.StartTime = DateTime.Now.ToString();
-            orderVo.Status = "未完成";
-            InsertDao.InsertData(orderVo,typeof(OrderInfoVo));
 
             this.btnCancelOrder1.Enabled = true;
             this.btnOrder.Enabled = false;
@@ -269,8 +266,9 @@ namespace ClockRoomManager.UI
             this.gridControl1.RefreshDataSource();
 
             int index = comboStaff.Text.LastIndexOf('_');
-            string staffName = comboStaff.Text.Substring(index + 1);
-            string staffId = comboStaff.Text.Substring(0, index);
+            staffName = comboStaff.Text.Substring(index + 1);
+            staffId = comboStaff.Text.Substring(0, index);
+            #region  改变工作状态
             StaffWorkInfoVo workVo = new StaffWorkInfoVo();
             workVo.StaffID = staffId;
             workVo.StaffName = staffName;
@@ -279,19 +277,38 @@ namespace ClockRoomManager.UI
             workVo.RoomId = roomVo.RoomId;
             workVo.RoomName = roomVo.RoomName;
             workVo.Skill = "xxx";
-            workVo.StartTime= DateTime.Now.ToString();
-
-            if (UpdateDao.UpdateByID(workVo) >0)
+            workVo.StartTime = DateTime.Now.ToString();
+            if (UpdateDao.UpdateByID(workVo) > 0)
             {
                 EventBus.PublishEvent("StaffWorkStatusChange");
             }
+            #endregion
+            //下单
+            if (!InsertOrder())
+            {
+                return;
+            }
             XtraMessageBox.Show("下单成功！");
+        }
+        private bool InsertOrder()
+        {
+            OrderInfoVo orderVo = new OrderInfoVo();
+            orderId = SelectDao.CreateOrderHandle();
+            orderVo.OrderID = orderId;
+            orderVo.RoomID = roomVo.RoomId;
+            orderVo.StaffName = staffName;
+            orderVo.StartTime = DateTime.Now.ToString();
+            orderVo.Status = "未完成";
+            if (InsertDao.InsertData(orderVo, typeof(OrderInfoVo)) > 0)
+                return true;
+            else
+                return false;
         }
         private void BtnPay_Click(object sender, EventArgs e)
         {
             PayOrderForm payForm = new PayOrderForm();
-            payForm.TempOrderList = (List<TempOrderVo>)this.gridControl1.DataSource;
-            payForm.IType = itype;
+            List<TempOrderVo> tempOrderList= (List<TempOrderVo>)this.gridControl1.DataSource;
+            payForm.SetData(tempOrderList, itype, orderId, staffName, staffId, roomVo);
             payForm.ShowDialog();
         }
         private void GridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)

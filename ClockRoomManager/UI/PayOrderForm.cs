@@ -11,21 +11,25 @@ using DevExpress.XtraEditors;
 using ClientCenter.Enity;
 using ClientCenter.DB;
 using ClientCenter.Core;
+using ClientCenter.Event;
 
 namespace ClockRoomManager.UI
 {
     public partial class PayOrderForm : DevExpress.XtraEditors.XtraForm
     {
         private List<TempOrderVo> tempOrderList;//单
-        public List<TempOrderVo> TempOrderList { set { tempOrderList = value; } }
         private int iType;//轮钟0，点钟1， 加钟2
-        public int IType { set { iType = value; } }
+        private string orderId;//订单编号
+        private string staffName;
+        private string staffId;
+        private RoomVo roomVo;
 
         public PayOrderForm()
         {
             InitializeComponent();
             InitEvents();
         }
+
         private void InitEvents()
         {
             this.Load += PayOrderForm_Load;
@@ -33,7 +37,15 @@ namespace ClockRoomManager.UI
             this.btnReadCard.Click += BtnReadCard_Click;
             this.btnQuery.Click += BtnQuery_Click;
         }
-
+        public void SetData(List<TempOrderVo> tempOrderList, int iType,string orderId,string staffName,string staffId,RoomVo vo)
+        {
+            this.tempOrderList = tempOrderList;
+            this.iType = iType;
+            this.orderId = orderId;
+            this.staffName = staffName;
+            this.staffId = staffId;
+            this.roomVo = vo;
+        }
 
         private void FillComType()
         {
@@ -84,7 +96,43 @@ namespace ClockRoomManager.UI
         }
         private void BtnQuery_Click(object sender, EventArgs e)
         {
-      
+            string orderId =SelectDao.CreateOrderHandle();
+            OrderInfoVo vo = new OrderInfoVo();
+            vo.OrderID = orderId;
+            vo.Price = Convert.ToDouble(this.textPrice.Text);
+            vo.Status = "完成";
+            vo.PriceType = this.comboType.Text;
+            vo.EndTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            if(InsertDao.InsertData(vo, typeof(OrderInfoVo))>0)
+            {
+                //改变员工的工作状态
+                UpdateWorkInfo();
+                //改变房间的状态
+                UpdataRoom();
+                XtraMessageBox.Show("买单成功!");
+            }
+        }
+        private void UpdataRoom()
+        {
+            this.roomVo.RoomStatus = "空闲";
+            UpdateDao.UpdateByID(this.roomVo);
+        }
+
+        private void UpdateWorkInfo()
+        {
+            StaffWorkInfoVo workVo = new StaffWorkInfoVo();
+            workVo.StaffID = staffId;
+            workVo.StaffName = staffName;
+            workVo.StaffSex = SelectDao.GetStaffSexByID(staffId);
+            workVo.StaffStatus = "工作中";
+            workVo.RoomId = roomVo.RoomId;
+            workVo.RoomName = roomVo.RoomName;
+            workVo.Skill = "xxx";
+            workVo.StartTime = DateTime.Now.ToString();
+            if (UpdateDao.UpdateByID(workVo) > 0)
+            {
+                EventBus.PublishEvent("StaffWorkStatusChange");
+            }
         }
         #endregion
     }
