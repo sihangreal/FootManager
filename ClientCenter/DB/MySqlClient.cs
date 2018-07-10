@@ -134,7 +134,7 @@ namespace ClientCenter.DB
             MySqlConnection conn = new MySqlConnection(connectionString);
             try
             {
-                cmd.CommandText = cmdText;
+                PrepareCommand(ref cmd, conn, null, cmdType, cmdText, null);
                 //调用 MySqlCommand  的 ExecuteReader 方法
                 MySqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 return reader;

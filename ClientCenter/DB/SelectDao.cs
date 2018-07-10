@@ -734,7 +734,7 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string strsql = "SELECT MAX(OrderID) FROM OrderInfo WHERE StartTime>"+DateTime.Today.ToString();
+            string strsql = "SELECT MAX(OrderID) FROM OrderInfo WHERE StartTime>"+DateTime.Today.ToString("yyyy-MM-dd");
             MySqlDataReader sr=mySqlclient.ExecuteReader(strsql,CommandType.Text);
             string orderId = default(string);
             while(sr.Read())

@@ -27,7 +27,7 @@ namespace ClientCenter.DB
                                  };
             parameters[0].Value = "挂失";
             parameters[1].Value = id;
-            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters,CommandType.Text);
+            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
         }
 
         public static int MemberActiveByID(string id)
@@ -44,7 +44,7 @@ namespace ClientCenter.DB
                                  };
             parameters[0].Value = "正常";
             parameters[1].Value = id;
-            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters,CommandType.Text);
+            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
         }
 
         public static int UpdateCardByID(int cardId, string cardName, double discount)
@@ -73,9 +73,9 @@ namespace ClientCenter.DB
             Type type = data.GetType();
             DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
             StringBuilder sb = new StringBuilder();
-            string key="";
-            object keyValue=null;
-            Type keyType=null;
+            string key = "";
+            object keyValue = null;
+            Type keyType = null;
             sb.Append("UPDATE  ");
             sb.Append(dataAttr.TableName);
             sb.Append(" Set ");
@@ -93,11 +93,11 @@ namespace ClientCenter.DB
                 }
                 else
                 {
-                    sb.Append(info.Name + " =@"+info.Name+" ,");
+                    sb.Append(info.Name + " =@" + info.Name + " ,");
                 }
             }
             sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
-            sb.Append("Where "+key+" =@"+key);
+            sb.Append("Where " + key + " =@" + key);
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
             for (int i = 0; i < propertyInfos.Length; ++i)
@@ -120,22 +120,44 @@ namespace ClientCenter.DB
             return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
         }
 
-        public static int StaffPaiZhong(int staffId)
+        public static int StaffPaiZhong(string staffId)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             StringBuilder sb = new StringBuilder();
-            sb.Append("UPDATE  StaffWork  SET  StaffStatus= @StaffStatus, DisCount=@DisCount ");
+            sb.Append("UPDATE  StaffWork  SET  StaffStatus= @StaffStatus ");
+            //筛选条件
+            sb.Append("WHERE StaffID  = @StaffID ");
+            List<MySqlParameter> parameters = new List<MySqlParameter>(){
+                                     new MySqlParameter("@StaffID",MySqlDbType.String),
+                                     new MySqlParameter("@StaffStatus", MySqlDbType.String)
+                                 };
+            parameters[0].Value = staffId;
+            parameters[1].Value = "占用";
+            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
+        }
+        /// <summary>
+        /// 下钟
+        /// </summary>
+        /// <returns></returns>
+        public static int StaffWorkUp(string StaffID)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            StringBuilder sb = new StringBuilder();
+            sb.Append("UPDATE  StaffWork  SET  StaffStatus= @StaffStatus,RoomId= @RoomId, RoomName= @RoomName ");
             //筛选条件
             sb.Append("WHERE StaffID  = @StaffID ");
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@StaffID",MySqlDbType.String),
                                      new MySqlParameter("@StaffStatus", MySqlDbType.String),
-                                     new MySqlParameter("@CardId",MySqlDbType.Int32)
+                                     new MySqlParameter("@RoomId", MySqlDbType.Int32),
+                                     new MySqlParameter("@RoomName", MySqlDbType.String)
                                  };
-            parameters[0].Value = staffId;
-            //parameters[1].Value = discount;
-            //parameters[2].Value = cardId;
+            parameters[0].Value = StaffID;
+            parameters[1].Value = "空闲";
+            parameters[2].Value = DBNull.Value;
+            parameters[3].Value = DBNull.Value;
             return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
         }
 

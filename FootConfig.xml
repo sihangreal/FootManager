@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DataSource>
+  <Name>foot</Name>
+  <Server>127.0.0.1</Server>
+  <DataBase>footm</DataBase>
+  <DataUser>root</DataUser>
+  <DataPassword>123456</DataPassword>
+  <User>sys</User>
+  <Password>mIVCSirP9v24ggRhW2T61gixlciZrF2wLx1Tq0k2Mt406cy1iA/pBkorOlZgXYhSBZaYQvjVH+IJp88n40g5mLvZXxbdurNNXh2zpftoyrH33pYRKXo/+v9BUCf0Lg4R/C1TJOHbX1AKdY817HUtYzk4Wjql9grhGKYqxOBtJr4=</Password>
+  <Remember>true</Remember>
+  <CompanyId>1</CompanyId>
+</DataSource>

@@ -62,10 +62,6 @@ namespace ClockRoomManager.UI
         private void StaffQueryUI_Load(object sender, EventArgs e)
         {
             GridViewUtil.CreateColumnForData(this.gridView1, typeof(StaffWorkInfoVo));
-            this.gridView1.Columns["StartTime"].Visible = false;
-            this.gridView1.Columns["EndTime"].Visible = false;
-            this.gridView1.Columns["StaffID"].Visible = false;
-
             RefeshStaffInfo();
         }
 

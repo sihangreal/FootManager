@@ -276,8 +276,6 @@ namespace ClockRoomManager.UI
             workVo.StaffStatus = "工作中";
             workVo.RoomId = roomVo.RoomId;
             workVo.RoomName = roomVo.RoomName;
-            workVo.Skill = "xxx";
-            workVo.StartTime = DateTime.Now.ToString();
             if (UpdateDao.UpdateByID(workVo) > 0)
             {
                 EventBus.PublishEvent("StaffWorkStatusChange");

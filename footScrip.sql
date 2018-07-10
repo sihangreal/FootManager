@@ -182,6 +182,7 @@ CREATE TABLE StaffSort(
 )
 
 DROP TABLE TempStaffSever
+Select * from TempStaffSever
 CREATE TABLE TempStaffSever(
   Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   StaffId VARCHAR(30) NOT NULL COMMENT '员工编号',
@@ -215,18 +216,19 @@ CREATE TABLE Room(
   RoomStatus VARCHAR(30) NOT NULL COMMENT '钟房状态'
 )
 
+DELETE from staffwork WHERE staffID='1';
+Select * from staffwork
 DROP TABLE StaffWork
 CREATE TABLE StaffWork(
   StaffID   VARCHAR(30) NOT NULL PRIMARY KEY COMMENT '员工工号',
   StaffName VARCHAR(30) NOT NULL COMMENT '员工姓名',
   StaffSex  VARCHAR(30) NOT NULL COMMENT '员工性别', 
   StaffStatus VARCHAR(30) NOT NULL COMMENT '员工状态',
-  Skill VARCHAR(30) COMMENT '服务名字',
-  StartTime VARCHAR(30) COMMENT '开始时间',
-  EndTime VARCHAR(30) COMMENT '结束时间',
   RoomId INT COMMENT '钟房编号',
   RoomName VARCHAR(30) COMMENT '房间'
 )
+
+UPDATE  StaffWork  SET  StaffStatus= @StaffStatus,RoomId= @RoomId, RoomName= @RoomName WHERE StaffID  = @StaffID 
 
 DROP TABLE StaffPreBook
 CREATE TABLE StaffPreBook(
@@ -242,6 +244,7 @@ CREATE TABLE StaffPreBook(
 DROP TABLE StaffQueue
 CREATE TABLE StaffQueue(
   QueueId INT NOT NULL COMMENT '顺序',
+  StaffID VARCHAR(30) NOT NULL COMMENT '员工工号',
   StaffName VARCHAR(30) NOT NULL COMMENT '员工姓名',
   StaffSex  VARCHAR(30) NOT NULL COMMENT '员工性别'
 )
@@ -256,10 +259,13 @@ CREATE TABLE OrderInfo(
   StaffName VARCHAR(30) NOT NULL COMMENT '员工姓名',
   StartTime VARCHAR(30) COMMENT '开始时间',
   EndTime VARCHAR(30) COMMENT '结束时间',
+  PriceType VARCHAR(30) COMMENT '收费类型',
   Price DOUBLE COMMENT '价格',
   Status VARCHAR(30) COMMENT '状态'
 )
+INSERT INTO OrderInfo(OrderID,RoomID,StartTime,EndTime,Status)VALUES(@OrderID,@RoomID,@StartTime,@EndTime,@Status)
 
+SELECT MAX(OrderID) FROM OrderInfo WHERE StartTime>2018-07-10 00:00:00
 SELECT MAX(OrderID) FROM OrderInfo
 
 Drop TABLE DetailedOrder
@@ -270,9 +276,12 @@ CREATE TABLE DetailedOrder(
   Price DOUBLE COMMENT '单价'
 )
 
+Select * from TempOrder
+
 DROP TABLE TempOrder
 CREATE TABLE TempOrder(
   Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '详细单号',
+  OrderID VARCHAR(20) NOT NULL PRIMARY KEY COMMENT '订单编号',
   RoomID INT NOT NULL COMMENT '房间编号',
   SkillId INT NOT NULL COMMENT '项目ID',
   SkillName VARCHAR(50) NOT NULL COMMENT '项目名字',

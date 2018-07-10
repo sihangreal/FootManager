@@ -96,7 +96,6 @@ namespace ClockRoomManager.UI
         }
         private void BtnQuery_Click(object sender, EventArgs e)
         {
-            string orderId =SelectDao.CreateOrderHandle();
             OrderInfoVo vo = new OrderInfoVo();
             vo.OrderID = orderId;
             vo.Price = Convert.ToDouble(this.textPrice.Text);
@@ -127,8 +126,6 @@ namespace ClockRoomManager.UI
             workVo.StaffStatus = "工作中";
             workVo.RoomId = roomVo.RoomId;
             workVo.RoomName = roomVo.RoomName;
-            workVo.Skill = "xxx";
-            workVo.StartTime = DateTime.Now.ToString();
             if (UpdateDao.UpdateByID(workVo) > 0)
             {
                 EventBus.PublishEvent("StaffWorkStatusChange");

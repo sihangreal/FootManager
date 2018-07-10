@@ -18,6 +18,14 @@ namespace ClientCenter.Enity
             get { return queueId; }
             set { queueId = value; }
         }
+        private string staffID;
+        [ColumnAttr("员工工号", true)]
+        [DataAttr(true)]
+        public string StaffID
+        {
+            get { return staffID; }
+            set { staffID = value; }
+        }
         private string staffName;
         [ColumnAttr("员工姓名", true)]
         [DataAttr(true)]

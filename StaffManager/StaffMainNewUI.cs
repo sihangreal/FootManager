@@ -19,7 +19,7 @@ namespace StaffManager
 {
     public partial class StaffMainNewUI : DevExpress.XtraEditors.XtraUserControl
     {
-        DataTable workDataSource;
+        //DataTable workDataSource;
         DataTable preDataSource;
         DataTable queueDataSource;
 
@@ -37,7 +37,7 @@ namespace StaffManager
             this.Load += StaffMainNewUI_Load;
             this.btnFind.Click += BtnFind_Click;
             this.btnPai.Click += BtnPai_Click;
-            this.comboLevel.SelectedIndexChanged += ComboLevel_SelectedIndexChanged;
+     
             this.comboStatus.SelectedIndexChanged += ComboStatus_SelectedIndexChanged;
 
             this.btnAdd.Click += BtnAdd_Click;
@@ -61,16 +61,16 @@ namespace StaffManager
             this.btnQueueDown.Click += BtnQueueDown_Click;
             this.btnQueueFirst.Click += BtnQueueFirst_Click;
             this.btnQueueLast.Click += BtnQueueLast_Click;
+
+            this.btnWorkUp.Click += BtnWorkUp_Click;
         }
-
-
-
         private void InitTable()
         {
-            workDataSource = GridViewUtil.CreateDataTabelForData(this.gridView1,typeof(StaffWorkInfoVo));
+            //workDataSource = GridViewUtil.CreateDataTabelForData(this.gridView1,typeof(StaffWorkInfoVo));
             preDataSource = GridViewUtil.CreateDataTabelForData(this.gridView2,typeof(StaffPreBookVo));
             queueDataSource = GridViewUtil.CreateDataTabelForData(this.gridView3, typeof(StaffQueueVo));
 
+            GridViewUtil.CreateColumnForData(this.gridView1, typeof(StaffWorkInfoVo));
             GridViewUtil.CreateColumnForData(this.gridView4, typeof(StaffInfoVo));
             GridViewUtil.CreateColumnForData(this.gridView5, typeof(StaffLevelVo));
             GridViewUtil.CreateColumnForData(this.gridView6, typeof(DepartmentVo));
@@ -88,17 +88,6 @@ namespace StaffManager
                 instance.CheckControl(ctr);
             }
         }
-        private void FillComLevel()
-        {
-            List<StaffLevelVo> levelVoList = new List<StaffLevelVo>();
-            SelectDao.SelectData<StaffLevelVo>(ref levelVoList);
-            comboLevel.Properties.Items.Add("所有技师");
-            foreach (StaffLevelVo vo in levelVoList)
-            {
-                comboLevel.Properties.Items.Add(vo.StaffLevel);
-            }
-            comboLevel.SelectedIndex = 0;
-        }
         private void FillComStatus()
         {
             comboStatus.Properties.Items.AddRange(new object[] { "所有技师", "空闲", "上钟", "请假" });
@@ -106,8 +95,9 @@ namespace StaffManager
         }
         private void RefreshWorkInfo()
         {
-            workDataSource = SelectDao.SelectData(typeof(StaffWorkInfoVo));
-            this.gridControl1.DataSource = workDataSource;
+            List<StaffWorkInfoVo> voList=new List<StaffWorkInfoVo>();
+            SelectDao.SelectData(ref voList);
+            this.gridControl1.DataSource = voList;
             this.gridControl1.RefreshDataSource();
         }
         private void RefreshStaffPreBook()
@@ -229,6 +219,20 @@ namespace StaffManager
         }
         #endregion
 
+        #region 员工状态维护
+        private void BtnWorkUp_Click(object sender, EventArgs e)
+        {
+            StaffWorkInfoVo vo = (StaffWorkInfoVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
+            if (vo == null)
+                return;
+            if(UpdateDao.StaffWorkUp(vo.StaffID)>0)
+            {
+                RefreshWorkInfo();
+                XtraMessageBox.Show("操作成功！");
+            }
+        }
+        #endregion
+
         #region 部门维护
         private void RefreshDepartment()
         {
@@ -261,34 +265,6 @@ namespace StaffManager
         }
         #endregion
 
-        #region eventbus
-        [EventAttr("AddLevelSuccessed")]
-        public void AddLevelSuccessed()
-        {
-            RefreshLevel();
-        }
-        [EventAttr("AddDepartmentSuccessed")]
-        public void AddDepartmentSuccessed()
-        {
-            RefreshDepartment();
-        }
-        [EventAttr("AddClassSuccessed")]
-        public void AddClassSuccessed()
-        {
-            RefreshClass();
-        }
-        [EventAttr("AddStaffSuccessed")]
-        public void AddStaffSuccessed()
-        {
-            RefreshStaff();
-        }
-        [EventAttr("AddStaffWorkSuccessed")]
-        public void AddStaffWorkSuccessed()
-        {
-            RefreshWorkInfo();
-        }
-        #endregion
-
         #region 员工轮钟顺序
         private void RefreshStaffQueue()
         {
@@ -302,11 +278,12 @@ namespace StaffManager
             List<StaffInfoVo> infoList = new List<StaffInfoVo>();
             SelectDao.SelectData(ref infoList);
             List<StaffQueueVo> queueList = new List<StaffQueueVo>();
-            for(int i=1;i<= infoList.Count;++i)
+            for (int i = 1; i <= infoList.Count; ++i)
             {
-                StaffInfoVo infoVo = infoList[i-1];
+                StaffInfoVo infoVo = infoList[i - 1];
                 StaffQueueVo queueVo = new StaffQueueVo();
                 queueVo.QueueId = i;
+                queueVo.StaffID = infoVo.StaffId;
                 queueVo.StaffName = infoVo.StaffName;
                 queueVo.StaffSex = infoVo.StaffSex;
                 queueList.Add(queueVo);
@@ -314,6 +291,7 @@ namespace StaffManager
             List<StaffQueueVo> newqueueList = RandomSortList(queueList);
             this.gridControl3.DataSource = newqueueList;
             this.gridControl3.RefreshDataSource();
+            SaveStaffQueue(newqueueList);
         }
 
         private void BtnQueueDown_Click(object sender, EventArgs e)
@@ -329,7 +307,7 @@ namespace StaffManager
             itemList.RemoveAt(index);
             itemList.Insert(index + 1, item);
             ReSortList(ref itemList);
-            this.gridView3.FocusedRowHandle = index +1;
+            this.gridView3.FocusedRowHandle = index + 1;
             this.gridControl3.RefreshDataSource();
             SaveStaffQueue(itemList);
         }
@@ -394,7 +372,7 @@ namespace StaffManager
         //重新排序
         private void ReSortList(ref List<StaffQueueVo> ListT)
         {
-            for(int i=1;i<=ListT.Count;++i)
+            for (int i = 1; i <= ListT.Count; ++i)
             {
                 StaffQueueVo vo = ListT[i - 1];
                 vo.QueueId = i;
@@ -405,21 +383,50 @@ namespace StaffManager
         {
             Random random = new Random();
             List<StaffQueueVo> newList = new List<StaffQueueVo>();
-            for (int i=1;i<=ListT.Count;++i)
+            for (int i = 1; i <= ListT.Count; ++i)
             {
-                StaffQueueVo item = ListT[i-1];
+                StaffQueueVo item = ListT[i - 1];
                 StaffQueueVo newItem = new StaffQueueVo();
                 newItem.QueueId = i;
+                newItem.StaffID = item.StaffID;
                 newItem.StaffName = item.StaffName;
                 newItem.StaffSex = item.StaffSex;
                 newList.Insert(random.Next(newList.Count + 1), item);
             }
-            for(int j=1;j<=newList.Count;j++)
+            for (int j = 1; j <= newList.Count; j++)
             {
-                StaffQueueVo item = newList[j-1];
+                StaffQueueVo item = newList[j - 1];
                 item.QueueId = j;
             }
             return newList;
+        }
+        #endregion
+
+        #region eventbus
+        [EventAttr("AddLevelSuccessed")]
+        public void AddLevelSuccessed()
+        {
+            RefreshLevel();
+        }
+        [EventAttr("AddDepartmentSuccessed")]
+        public void AddDepartmentSuccessed()
+        {
+            RefreshDepartment();
+        }
+        [EventAttr("AddClassSuccessed")]
+        public void AddClassSuccessed()
+        {
+            RefreshClass();
+        }
+        [EventAttr("AddStaffSuccessed")]
+        public void AddStaffSuccessed()
+        {
+            RefreshStaff();
+        }
+        [EventAttr("AddStaffWorkSuccessed")]
+        public void AddStaffWorkSuccessed()
+        {
+            RefreshWorkInfo();
         }
         #endregion
 
@@ -432,22 +439,8 @@ namespace StaffManager
             }
             else
             {
-                workDataSource = SelectDao.SelectStaffWorkByStatus(comboStatus.Text);
-                this.gridControl1.DataSource = workDataSource;
-                this.gridControl1.RefreshDataSource();
-            }
-        }
-
-        private void ComboLevel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboLevel.SelectedIndex == 0)
-            {
-                RefreshWorkInfo();
-            }
-            else
-            {
-                workDataSource = SelectDao.SelectStaffWorkByLevel(comboLevel.Text);
-                this.gridControl1.DataSource = workDataSource;
+                List<StaffWorkInfoVo> voList =  (List<StaffWorkInfoVo>)this.gridControl1.DataSource;
+                voList = voList.Where(v => v.StaffStatus == comboStatus.Text).ToList();
                 this.gridControl1.RefreshDataSource();
             }
         }
@@ -471,7 +464,6 @@ namespace StaffManager
             RefreshWorkInfo();
             RefreshStaffPreBook();
             RefreshStaffQueue();
-            FillComLevel();
             FillComStatus();
         }
         #endregion

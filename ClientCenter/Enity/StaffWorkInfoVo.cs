@@ -42,30 +42,6 @@ namespace ClientCenter.Enity
             get { return staffStatus; }
             set { staffStatus = value; }
         }
-        private string skill;
-        [ColumnAttr("服务项目",true)]
-        [DataAttr(true)]
-        public string Skill
-        {
-            get { return skill; }
-            set { skill = value; }
-        }
-        private string startTime;
-        [ColumnAttr("最近一次上钟时间", true)]
-        [DataAttr(true)]
-        public string StartTime
-        {
-            get { return startTime; }
-            set { startTime = value; }
-        }
-        private string endTime;
-        [ColumnAttr("最近一次下钟时间", true)]
-        [DataAttr(true)]
-        public string EndTime
-        {
-            get { return endTime; }
-            set { endTime = value; }
-        }
         private int ?roomId;
         [ColumnAttr("钟房编号", false)]
         [DataAttr(true)]

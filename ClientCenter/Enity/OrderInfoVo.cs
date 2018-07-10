@@ -28,6 +28,7 @@ namespace ClientCenter.Enity
         }
         private string staffName;
         [ColumnAttr("技师", true)]
+        [DataAttr(true)]
         public string StaffName
         {
             get { return staffName; }
@@ -49,15 +50,23 @@ namespace ClientCenter.Enity
             get { return endTime; }
             set { endTime = value; }
         }
+        private string priceType;
+        [ColumnAttr("收费类型", true)]
+        [DataAttr(true)]
+        public string PriceType
+        {
+            get { return priceType; }
+            set { priceType = value; }
+        }
         private double price;
         [ColumnAttr("价格", true)]
+        [DataAttr(true)]
         public double Price
         {
             get { return price; }
             set { price = value; }
         }
         private string status;
-        [ColumnAttr("状态", true)]
         [DataAttr(true)]
         public string Status
         {
