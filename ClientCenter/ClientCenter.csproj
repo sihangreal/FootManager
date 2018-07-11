@@ -58,9 +58,9 @@
       <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.8.0.11\lib\net452\MySql.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MySQL\Connector.NET 6.9\Assemblies\v4.5\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
@@ -96,6 +96,7 @@
     <Compile Include="DB\ProcedureDao.cs" />
     <Compile Include="DB\SelectDao.cs" />
     <Compile Include="DB\TransactionDao.cs" />
+    <Compile Include="DB\TransactionParameter.cs" />
     <Compile Include="DB\UpdateDao.cs" />
     <Compile Include="Enity\BusyRoomVo.cs" />
     <Compile Include="Enity\CardVo.cs" />

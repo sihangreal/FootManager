@@ -140,7 +140,7 @@ namespace ClientCenter.DB
         /// 下钟
         /// </summary>
         /// <returns></returns>
-        public static int StaffWorkUp(string StaffID)
+        public static int StaffWorkDown(string staffId)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
@@ -154,7 +154,28 @@ namespace ClientCenter.DB
                                      new MySqlParameter("@RoomId", MySqlDbType.Int32),
                                      new MySqlParameter("@RoomName", MySqlDbType.String)
                                  };
-            parameters[0].Value = StaffID;
+            parameters[0].Value = staffId;
+            parameters[1].Value = "空闲";
+            parameters[2].Value = DBNull.Value;
+            parameters[3].Value = DBNull.Value;
+            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
+        }
+
+        public static int StaffWorkUp(string staffId)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            StringBuilder sb = new StringBuilder();
+            sb.Append("UPDATE  StaffWork  SET  StaffStatus= @StaffStatus,RoomId= @RoomId, RoomName= @RoomName ");
+            //筛选条件
+            sb.Append("WHERE StaffID  = @StaffID ");
+            List<MySqlParameter> parameters = new List<MySqlParameter>(){
+                                     new MySqlParameter("@StaffID",MySqlDbType.String),
+                                     new MySqlParameter("@StaffStatus", MySqlDbType.String),
+                                     new MySqlParameter("@RoomId", MySqlDbType.Int32),
+                                     new MySqlParameter("@RoomName", MySqlDbType.String)
+                                 };
+            parameters[0].Value = staffId;
             parameters[1].Value = "空闲";
             parameters[2].Value = DBNull.Value;
             parameters[3].Value = DBNull.Value;

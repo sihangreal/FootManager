@@ -1,4 +1,5 @@
 ﻿using ClientCenter.Core;
+using ClientCenter.Enity;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -729,7 +730,18 @@ namespace ClientCenter.DB
             }
             return tList;
         }
-
+        public static object GetWorkStaffInfoByRoomId(int roomId)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string strsql = "SELECT * FROM StaffWorkInfo WHERE RoomId =@RoomId ";
+            List<MySqlParameter> parameters = new List<MySqlParameter>(){
+                                     new MySqlParameter("@RoomId", MySqlDbType.Int32)
+                                 };
+            parameters[0].Value = roomId;
+            object obj=mySqlclient.ExecuteScalar(strsql, parameters);
+            return obj;
+        }
         public static string CreateOrderHandle()
         {
             if (mySqlclient == null)

@@ -16,22 +16,25 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            Dictionary<string, List<MySqlParameter>> transactionDic = new Dictionary<string, List<MySqlParameter>>();
-            mySqlclient.GenerateInsertSql(staffworkVo,ref transactionDic);
-            mySqlclient.GenerateInsertSql(orderVo, ref transactionDic);
-            return mySqlclient.ExecuteTransaction(transactionDic);
+            List<TransactionParameter> parameterList = new List<TransactionParameter>();
+            TransactionParameter para1= mySqlclient.GenerateUpdateSql(staffworkVo);
+            TransactionParameter para2=mySqlclient.GenerateInsertSql(orderVo);
+            parameterList.Add(para1);
+            parameterList.Add(para2);
+            return mySqlclient.ExecuteTransaction(parameterList);
         }
 
         public static bool SendTempOrder(List<TempOrderVo> tempOrderList)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            Dictionary<string, List<MySqlParameter>> transactionDic = new Dictionary<string, List<MySqlParameter>>();
+            List<TransactionParameter> parameterList = new List<TransactionParameter>();
             foreach(TempOrderVo vo in tempOrderList)
             {
-                mySqlclient.GenerateInsertSql(vo, ref transactionDic);
+                TransactionParameter para= mySqlclient.GenerateInsertSql(vo);
+                parameterList.Add(para);
             }
-            return mySqlclient.ExecuteTransaction(transactionDic);
+            return mySqlclient.ExecuteTransaction(parameterList);
         }
     }
 }

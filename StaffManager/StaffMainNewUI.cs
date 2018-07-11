@@ -225,7 +225,7 @@ namespace StaffManager
             StaffWorkInfoVo vo = (StaffWorkInfoVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
             if (vo == null)
                 return;
-            if(UpdateDao.StaffWorkUp(vo.StaffID)>0)
+            if(UpdateDao.StaffWorkDown(vo.StaffID)>0)
             {
                 RefreshWorkInfo();
                 XtraMessageBox.Show("操作成功！");

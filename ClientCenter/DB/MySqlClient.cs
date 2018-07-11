@@ -201,7 +201,13 @@ namespace ClientCenter.DB
             }
         }
 
-        // 用指定的数据库连接字符串执行一个命令并返回一个数据集的第一列
+        /// <summary>
+        /// 用指定的数据库连接字符串执行一个命令并返回一个数据集的第一列
+        /// </summary>
+        /// <param name="cmdText"></param>
+        /// <param name="commandParameters"></param>
+        /// <param name="cmdType"></param>
+        /// <returns></returns>
         public object ExecuteScalar(string cmdText,  List<MySqlParameter> commandParameters, CommandType cmdType = CommandType.Text)
         {
             MySqlCommand cmd = new MySqlCommand();
@@ -214,15 +220,16 @@ namespace ClientCenter.DB
             }
         }
 
-        public bool ExecuteTransaction(Dictionary<string, List<MySqlParameter>> tranactionDic)
+        public bool ExecuteTransaction(List<TransactionParameter> parameterList)
         {
             MySqlCommand cmd = new MySqlCommand();
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
+                connection.Open();
                 MySqlTransaction transaction = connection.BeginTransaction();
-                foreach (string strsql in tranactionDic.Keys)
+                foreach (TransactionParameter para in parameterList)
                 {
-                    PrepareCommand(ref cmd, connection, transaction, CommandType.Text, strsql, tranactionDic[strsql]);
+                    PrepareCommand(ref cmd, connection, transaction, CommandType.Text, para.SqlString, para.SqlParameters);
                     int val = cmd.ExecuteNonQuery();
                     if (val < 0)
                     {
@@ -235,7 +242,7 @@ namespace ClientCenter.DB
              }
         }
 
-        public void GenerateInsertSql<T>(T data,ref Dictionary<string, List<MySqlParameter>> transactionDic)
+        public TransactionParameter GenerateInsertSql<T>(T data)
         {
             Type type = typeof(T);
             DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
@@ -284,8 +291,65 @@ namespace ClientCenter.DB
                     parameters.Add(parameter);
                 }
             }
-            Dictionary<string, List<MySqlParameter>> dic = new Dictionary<string, List<MySqlParameter>>();
-            transactionDic.Add(sb.ToString(), parameters);
+            TransactionParameter transPara = new TransactionParameter();
+            transPara.SqlString = sb.ToString();
+            transPara.SqlParameters = parameters;
+            return transPara;
+        }
+        public TransactionParameter GenerateUpdateSql<T>(T data)
+        {
+            Type type = data.GetType();
+            DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
+            StringBuilder sb = new StringBuilder();
+            string key = "";
+            object keyValue = null;
+            Type keyType = null;
+            sb.Append("UPDATE  ");
+            sb.Append(dataAttr.TableName);
+            sb.Append(" Set ");
+            PropertyInfo[] propertyInfos = type.GetProperties();
+            foreach (PropertyInfo info in propertyInfos)
+            {
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr == null)
+                    continue;
+                if (infoAttr.Key)
+                {
+                    key = info.Name;
+                    keyValue = info.GetValue(data);
+                    keyType = info.PropertyType;
+                }
+                else
+                {
+                    sb.Append(info.Name + " =@" + info.Name + " ,");
+                }
+            }
+            sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
+            sb.Append("Where " + key + " =@" + key);
+
+            List<MySqlParameter> parameters = new List<MySqlParameter>();
+            for (int i = 0; i < propertyInfos.Length; ++i)
+            {
+                PropertyInfo info = propertyInfos[i];
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr == null)
+                    continue;
+                if (!infoAttr.Key)
+                {
+                    string strPara = "@" + info.Name;
+                    MySqlParameter parameter = new MySqlParameter(strPara,ConvertDBType(info.PropertyType));
+                    parameter.Value = info.GetValue(data);
+                    parameters.Add(parameter);
+                }
+            }
+            MySqlParameter keyParameter = new MySqlParameter("@" + key, ConvertDBType(keyType));
+            keyParameter.Value = keyValue;
+            parameters.Add(keyParameter);
+
+            TransactionParameter transPara = new TransactionParameter();
+            transPara.SqlString = sb.ToString();
+            transPara.SqlParameters = parameters;
+            return transPara;
         }
         // 将参数集合添加到缓存
         public void CacheParameters(string cacheKey, params MySqlParameter[] commandParameters)

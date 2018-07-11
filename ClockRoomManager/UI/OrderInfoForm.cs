@@ -146,6 +146,9 @@ namespace ClockRoomManager.UI
                 this.gridControl1.DataSource = tempList;
                 this.gridControl1.RefreshDataSource();
 
+                StaffWorkInfoVo workVo=(StaffWorkInfoVo) SelectDao.GetWorkStaffInfoByRoomId(roomVo.RoomId);
+
+
                 this.gridView1.BestFitColumns();
                 this.panelControl3.Visible = false;
                 this.checkEdit1.Enabled = false;
@@ -182,10 +185,12 @@ namespace ClockRoomManager.UI
                 int index = comboStaff.Text.LastIndexOf('_');
                 string staffName = comboStaff.Text.Substring(index+1);
                 string staffId = comboStaff.Text.Substring(0,index);
+                orderId = SelectDao.CreateOrderHandle();
                 TempOrderVo tempVo = new TempOrderVo()
                 {
                     Id=0,
                     RoomID = roomVo.RoomId,
+                    OrderID=orderId,
                     SkillId = vo.SkillId,
                     SkillName = vo.SkillName,
                     StaffID = staffId,
@@ -260,9 +265,9 @@ namespace ClockRoomManager.UI
             workVo.StaffStatus = "工作中";
             workVo.RoomId = roomVo.RoomId;
             workVo.RoomName = roomVo.RoomName;
+            workVo.OrderID = orderId;
             //报单
             OrderInfoVo orderVo = new OrderInfoVo();
-            orderId = SelectDao.CreateOrderHandle();
             orderVo.OrderID = orderId;
             orderVo.RoomID = roomVo.RoomId;
             orderVo.StaffName = staffName;

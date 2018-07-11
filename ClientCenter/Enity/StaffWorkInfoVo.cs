@@ -58,5 +58,12 @@ namespace ClientCenter.Enity
             get { return roomName; }
             set { roomName = value; }
         }
+        private string orderID;
+        [DataAttr(true)]
+        public string OrderID
+        {
+            get { return orderID; }
+            set { orderID = value; }
+        }
     }
 }
