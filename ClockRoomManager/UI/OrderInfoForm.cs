@@ -230,45 +230,29 @@ namespace ClockRoomManager.UI
         }
         private void BtnOrder_Click(object sender, EventArgs e)
         {
-            OrderInfoVo orderInfoVo = new OrderInfoVo();
-            orderInfoVo.StaffName = this.comboStaff.Text;
-            //orderInfoVo.Price = price;
-            orderInfoVo.RoomID = roomVo.RoomId;
-            orderInfoVo.StartTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             List<TempOrderVo> tempVoList = (List<TempOrderVo>)this.gridView1.DataSource;
             if (tempVoList == null || tempVoList.Count == 0)
             {
                 XtraMessageBox.Show("请选择服务项目！");
                 return;
             }
-            List<DetailedOrderVo> detailedVoList = new List<DetailedOrderVo>();
-            foreach (TempOrderVo vo in tempVoList)
+            if(!TransactionDao.SendTempOrder(tempVoList))
             {
-                vo.StartTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
-                string strTime = SelectDao.GetSkillTime(vo.SkillId);
-                vo.EndTime = TimeUtil.AddMinute(DateTime.Now, strTime).ToString("yyyy-MM-dd HH:mm");
-                int id = Convert.ToInt32(InsertDao.InsertDataRetrunID(vo)) ;
-                if (id <= 0)
-                {
-                    XtraMessageBox.Show("下单失败！");
-                    return;
-                }
-                else
-                    vo.Id = id;
+                XtraMessageBox.Show("下单失败！");
+                return;
             }
 
             this.btnCancelOrder1.Enabled = true;
             this.btnOrder.Enabled = false;
             this.roomVo.RoomStatus = "占用";
-            UpdateDao.UpdateByID(this.roomVo);
-            this.DialogResult = DialogResult.OK;
-            this.gridView1.BestFitColumns();
-            this.gridControl1.RefreshDataSource();
-
+            if (UpdateDao.UpdateByID(this.roomVo) < 0)
+            {
+                XtraMessageBox.Show("下单失败！");
+                return;
+            }
             int index = comboStaff.Text.LastIndexOf('_');
             staffName = comboStaff.Text.Substring(index + 1);
             staffId = comboStaff.Text.Substring(0, index);
-            #region  改变工作状态
             StaffWorkInfoVo workVo = new StaffWorkInfoVo();
             workVo.StaffID = staffId;
             workVo.StaffName = staffName;
@@ -276,16 +260,24 @@ namespace ClockRoomManager.UI
             workVo.StaffStatus = "工作中";
             workVo.RoomId = roomVo.RoomId;
             workVo.RoomName = roomVo.RoomName;
-            if (UpdateDao.UpdateByID(workVo) > 0)
+            //报单
+            OrderInfoVo orderVo = new OrderInfoVo();
+            orderId = SelectDao.CreateOrderHandle();
+            orderVo.OrderID = orderId;
+            orderVo.RoomID = roomVo.RoomId;
+            orderVo.StaffName = staffName;
+            orderVo.StartTime = DateTime.Now.ToString();
+            orderVo.Status = "未完成";
+
+            if(!TransactionDao.SendStartOrder(workVo, orderVo))
             {
-                EventBus.PublishEvent("StaffWorkStatusChange");
-            }
-            #endregion
-            //下单
-            if (!InsertOrder())
-            {
+                XtraMessageBox.Show("下单失败！");
                 return;
             }
+            this.btnCancelOrder1.Enabled = true;
+            this.btnOrder.Enabled = false;
+            this.roomVo.RoomStatus = "占用";
+            EventBus.PublishEvent("StaffWorkStatusChange");
             XtraMessageBox.Show("下单成功！");
         }
         private bool InsertOrder()

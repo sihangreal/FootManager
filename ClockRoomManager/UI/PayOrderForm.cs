@@ -111,6 +111,44 @@ namespace ClockRoomManager.UI
                 XtraMessageBox.Show("买单成功!");
             }
         }
+        private double CalculationPrice(TempOrderVo vo)
+        {
+            string priceType = this.comboType.Text;
+            double serverPrice = SelectDao.GetSkillPriceDetail(vo.SkillName, iType, priceType);
+            double gstPrice = 0;
+            double totalPrice= 0;
+            if (priceType.Equals("现金") || priceType.Equals("Visa卡"))
+            {
+                gstPrice = (serverPrice * 6) / 106;
+            }
+            gstPrice = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
+            totalPrice = serverPrice + gstPrice;
+            return totalPrice;
+        }
+        private void RelationDetailedOrder()
+        {
+            List<DetailedOrderVo> detailedVoList = new List<DetailedOrderVo>();
+            string priceType = this.comboType.Text;
+            foreach (TempOrderVo vo in tempOrderList)
+            {
+                DetailedOrderVo detVo = new DetailedOrderVo();
+                detVo.OrderID = orderId;
+                detVo.SkillId = vo.SkillId;
+                detVo.Price = CalculationPrice(vo);
+                vo.StartTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+                //string strTime = SelectDao.GetSkillTime(vo.SkillId);
+                //vo.EndTime = TimeUtil.AddMinute(DateTime.Now, strTime).ToString("yyyy-MM-dd HH:mm");
+                int id = Convert.ToInt32(InsertDao.InsertDataRetrunID(vo));
+                if (id <= 0)
+                {
+                    XtraMessageBox.Show("下单失败！");
+                    return;
+                }
+                else
+                    vo.Id = id;
+            }
+        }
+
         private void UpdataRoom()
         {
             this.roomVo.RoomStatus = "空闲";

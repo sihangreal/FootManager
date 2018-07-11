@@ -17,9 +17,9 @@ namespace ClientCenter.Enity
             get { return detailID; }
             set { detailID = value; }
         }
-        private int orderID;
+        private string orderID;
         [DataAttr(true)]
-        public int OrderID
+        public string OrderID
         {
             get { return orderID; }
             set { orderID = value; }

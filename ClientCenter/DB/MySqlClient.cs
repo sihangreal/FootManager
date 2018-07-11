@@ -7,6 +7,7 @@ using ClientCenter.Core;
 using System.Data;
 using System.Collections;
 using MySql.Data.MySqlClient;
+using System.Reflection;
 
 namespace ClientCenter.DB
 {
@@ -213,6 +214,79 @@ namespace ClientCenter.DB
             }
         }
 
+        public bool ExecuteTransaction(Dictionary<string, List<MySqlParameter>> tranactionDic)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlTransaction transaction = connection.BeginTransaction();
+                foreach (string strsql in tranactionDic.Keys)
+                {
+                    PrepareCommand(ref cmd, connection, transaction, CommandType.Text, strsql, tranactionDic[strsql]);
+                    int val = cmd.ExecuteNonQuery();
+                    if (val < 0)
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+                }
+                transaction.Commit();
+                return true;
+             }
+        }
+
+        public void GenerateInsertSql<T>(T data,ref Dictionary<string, List<MySqlParameter>> transactionDic)
+        {
+            Type type = typeof(T);
+            DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
+            StringBuilder sb = new StringBuilder();
+            sb.Append("INSERT INTO ");
+            sb.Append(dataAttr.TableName + "(");
+            PropertyInfo[] propertyInfos = type.GetProperties();
+            foreach (PropertyInfo info in propertyInfos)
+            {
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr == null)
+                    continue;
+                if (infoAttr.Bquery)
+                {
+                    sb.Append(info.Name + ",");
+                }
+            }
+            sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
+            sb.Append(")");
+            sb.Append("VALUES(");
+            foreach (PropertyInfo info in propertyInfos)
+            {
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr == null)
+                    continue;
+                if (infoAttr.Bquery)
+                {
+                    sb.Append("@" + info.Name + ",");
+                }
+            }
+            sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
+            sb.Append(")");
+
+            List<MySqlParameter> parameters = new List<MySqlParameter>();
+            for (int i = 0; i < propertyInfos.Length; ++i)
+            {
+                PropertyInfo info = propertyInfos[i];
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr == null)
+                    continue;
+                if (infoAttr.Bquery)
+                {
+                    string strPara = "@" + info.Name;
+                    MySqlParameter parameter = new MySqlParameter(strPara, ConvertDBType(info.PropertyType));
+                    parameter.Value = info.GetValue(data);
+                    parameters.Add(parameter);
+                }
+            }
+            Dictionary<string, List<MySqlParameter>> dic = new Dictionary<string, List<MySqlParameter>>();
+            transactionDic.Add(sb.ToString(), parameters);
+        }
         // 将参数集合添加到缓存
         public void CacheParameters(string cacheKey, params MySqlParameter[] commandParameters)
         {
@@ -231,6 +305,11 @@ namespace ClientCenter.DB
             return clonedParms;
         }
 
+        public MySqlConnection GetConnect()
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            return connection;
+        }
         public  MySqlDbType ConvertDBType(Type type)
         {
             MySqlDbType dbType = 0;
