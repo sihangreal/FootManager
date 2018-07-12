@@ -1,10 +1,5 @@
 ﻿using ClientCenter.Enity;
-using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClientCenter.DB
 {
@@ -12,29 +7,59 @@ namespace ClientCenter.DB
     {
         private static MySqlClient mySqlclient;
 
-        public static bool SendStartOrder(StaffWorkInfoVo staffworkVo, OrderInfoVo orderVo)
+        /// <summary>
+        /// 发送订单
+        /// </summary>
+        /// <param name="staffworkVo"></param>
+        /// <param name="orderVo"></param>
+        /// <returns></returns>
+        public static bool SendOrder(StaffWorkInfoVo staffworkVo, OrderInfoVo orderVo)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            List<TransactionParameter> parameterList = new List<TransactionParameter>();
-            TransactionParameter para1= mySqlclient.GenerateUpdateSql(staffworkVo);
-            TransactionParameter para2=mySqlclient.GenerateInsertSql(orderVo);
-            parameterList.Add(para1);
-            parameterList.Add(para2);
-            return mySqlclient.ExecuteTransaction(parameterList);
+            List<string> strList = new List<string>();
+            string para1= mySqlclient.GenerateUpdateSql(staffworkVo);
+            string para2=mySqlclient.GenerateInsertSql(orderVo);
+            return mySqlclient.ExecuteTransaction(strList);
         }
 
         public static bool SendTempOrder(List<TempOrderVo> tempOrderList)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            List<TransactionParameter> parameterList = new List<TransactionParameter>();
+            List<string> parameterList = new List<string>();
             foreach(TempOrderVo vo in tempOrderList)
             {
-                TransactionParameter para= mySqlclient.GenerateInsertSql(vo);
-                parameterList.Add(para);
+                string sql= mySqlclient.GenerateInsertSql(vo);
+                parameterList.Add(sql);
             }
             return mySqlclient.ExecuteTransaction(parameterList);
+        }
+
+        /// <summary>
+        /// 处理订单
+        /// </summary>
+        /// <param name="orderVo"></param>
+        /// <param name="staffworkVo"></param>
+        /// <param name="delOrderList"></param>
+        /// <returns></returns>
+        public static bool DealOrder(OrderInfoVo orderVo, StaffWorkInfoVo staffworkVo, List<DetailedOrderVo> delOrderList)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            List<string> sqlList = new List<string>();
+            string para1 = mySqlclient.GenerateUpdateSql(orderVo);
+            string para2 = mySqlclient.GenerateUpdateSql(staffworkVo);
+            string para3 = @"delete from TempOrder where RoomID= "+orderVo.RoomID;
+            string para4 = @"update Room set roomStatus='空闲' where RoomId=" + orderVo.RoomID;
+            sqlList.AddRange(new string[]{ para1, para2, para3, para4 });
+            
+            foreach (DetailedOrderVo vo in delOrderList)
+            {
+                string sql = mySqlclient.GenerateInsertSql(vo);
+                sqlList.Add(sql);
+            }
+            return mySqlclient.ExecuteTransaction(sqlList);
         }
     }
 }

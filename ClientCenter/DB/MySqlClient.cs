@@ -220,7 +220,7 @@ namespace ClientCenter.DB
             }
         }
 
-        public bool ExecuteTransaction(List<TransactionParameter> parameterList)
+        public bool ExecuteTransactionWithParam(List<TransactionParameter> parameterList)
         {
             MySqlCommand cmd = new MySqlCommand();
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -242,7 +242,28 @@ namespace ClientCenter.DB
              }
         }
 
-        public TransactionParameter GenerateInsertSql<T>(T data)
+        public bool ExecuteTransaction(List<string> sqlList)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                MySqlTransaction transaction = connection.BeginTransaction();
+                foreach (string sql in sqlList)
+                {
+                    PrepareCommand(ref cmd, connection, transaction, CommandType.Text, sql, null);
+                    int val = cmd.ExecuteNonQuery();
+                    if (val < 0)
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+                }
+                transaction.Commit();
+                return true;
+            }
+        }
+        public TransactionParameter GenerateInsertSqlWithParam<T>(T data)
         {
             Type type = typeof(T);
             DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
@@ -296,7 +317,53 @@ namespace ClientCenter.DB
             transPara.SqlParameters = parameters;
             return transPara;
         }
-        public TransactionParameter GenerateUpdateSql<T>(T data)
+        public string GenerateInsertSql(object data)
+        {
+            Type type = data.GetType();
+            StringBuilder strb = new StringBuilder();
+            DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
+            if (dataAttr == null)
+                return null;
+           strb.Append("insert into [" + dataAttr.TableName + "] (");
+            PropertyInfo[] pinfos = type.GetProperties();
+            foreach (PropertyInfo pinfo in pinfos)
+            {
+                DataAttr pdataAttr= (DataAttr)pinfo.GetCustomAttribute(typeof(DataAttr), false);
+                if (dataAttr == null)
+                    break;
+                if (pdataAttr.Bquery)
+                {
+                    strb.Append(pinfo.Name + ",");
+                }
+            }
+            strb.Remove(strb.Length - 1, 1);
+            strb.Append(") values (");
+
+            //值
+            foreach (PropertyInfo pinfo in pinfos)
+            {
+                DataAttr pdataAttr = (DataAttr)pinfo.GetCustomAttribute(typeof(DataAttr), false);
+                if (dataAttr == null)
+                    break;
+                if (pdataAttr.Bquery)
+                {
+                    object t = pinfo.GetValue(data);
+                    if (pinfo.PropertyType.Name.Equals("String") || pinfo.PropertyType.Name.Equals("DateTime"))
+                    {
+                        strb.Append("'" + t + "',");
+                    }
+                    else
+                    {
+                        strb.Append(t + ",");
+                    }
+                }
+            }
+            strb.Remove(strb.Length - 1, 1);
+            strb.Append(")");
+            return strb.ToString();
+        }
+
+        public TransactionParameter GenerateUpdateSqlWithParam<T>(T data)
         {
             Type type = data.GetType();
             DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
@@ -350,6 +417,53 @@ namespace ClientCenter.DB
             transPara.SqlString = sb.ToString();
             transPara.SqlParameters = parameters;
             return transPara;
+        }
+
+        public string GenerateUpdateSql(object data)
+        {
+            Type type = data.GetType();
+            DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
+            StringBuilder sb = new StringBuilder();
+            string key = "";
+            object keyValue = null;
+            Type keyType = null;
+            sb.Append("UPDATE  ");
+            sb.Append(dataAttr.TableName);
+            sb.Append(" Set ");
+            PropertyInfo[] propertyInfos = type.GetProperties();
+            foreach (PropertyInfo info in propertyInfos)
+            {
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr == null)
+                    continue;
+                if (infoAttr.Key)
+                {
+                    key = info.Name;
+                    keyValue = info.GetValue(data);
+                    keyType = info.PropertyType;
+                }
+                else
+                {
+                    if (info.PropertyType.Name.Equals("String") || info.PropertyType.Name.Equals("DateTime"))
+                    {
+                        sb.Append(info.Name + " ='" + keyValue + "', ");
+                    }
+                    else
+                    {
+                        sb.Append(info.Name + " =" + keyValue + ", ");
+                    }
+                }
+            }
+            sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
+            if (keyType.Name.Equals("String") || keyType.Name.Equals("DateTime"))
+            {
+                sb.Append("Where  " +key+"="+ keyValue + "'");
+            }
+            else
+            {
+                sb.Append("Where  " + key + "='" + keyValue);
+            }
+            return sb.ToString();
         }
         // 将参数集合添加到缓存
         public void CacheParameters(string cacheKey, params MySqlParameter[] commandParameters)

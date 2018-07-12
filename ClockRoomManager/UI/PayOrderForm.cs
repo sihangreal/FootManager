@@ -102,13 +102,15 @@ namespace ClockRoomManager.UI
             vo.Status = "完成";
             vo.PriceType = this.comboType.Text;
             vo.EndTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-            if(InsertDao.InsertData(vo, typeof(OrderInfoVo))>0)
+            StaffWorkInfoVo workInfoVo = UpdateWorkInfo();
+            List<DetailedOrderVo> delOrderList = RelationDetailedOrder();
+            if (TransactionDao.DealOrder(vo, workInfoVo, delOrderList))
             {
-                //改变员工的工作状态
-                UpdateWorkInfo();
-                //改变房间的状态
-                UpdataRoom();
                 XtraMessageBox.Show("买单成功!");
+            }
+            else
+            {
+                XtraMessageBox.Show("买单失败!");
             }
         }
         private double CalculationPrice(TempOrderVo vo)
@@ -125,7 +127,7 @@ namespace ClockRoomManager.UI
             totalPrice = serverPrice + gstPrice;
             return totalPrice;
         }
-        private void RelationDetailedOrder()
+        private List<DetailedOrderVo> RelationDetailedOrder()
         {
             List<DetailedOrderVo> detailedVoList = new List<DetailedOrderVo>();
             string priceType = this.comboType.Text;
@@ -135,39 +137,21 @@ namespace ClockRoomManager.UI
                 detVo.OrderID = orderId;
                 detVo.SkillId = vo.SkillId;
                 detVo.Price = CalculationPrice(vo);
-                vo.StartTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
-                //string strTime = SelectDao.GetSkillTime(vo.SkillId);
-                //vo.EndTime = TimeUtil.AddMinute(DateTime.Now, strTime).ToString("yyyy-MM-dd HH:mm");
-                int id = Convert.ToInt32(InsertDao.InsertDataRetrunID(vo));
-                if (id <= 0)
-                {
-                    XtraMessageBox.Show("下单失败！");
-                    return;
-                }
-                else
-                    vo.Id = id;
+                detailedVoList.Add(detVo);
             }
+            return detailedVoList;
         }
 
-        private void UpdataRoom()
-        {
-            this.roomVo.RoomStatus = "空闲";
-            UpdateDao.UpdateByID(this.roomVo);
-        }
-
-        private void UpdateWorkInfo()
+        private StaffWorkInfoVo UpdateWorkInfo()
         {
             StaffWorkInfoVo workVo = new StaffWorkInfoVo();
             workVo.StaffID = staffId;
             workVo.StaffName = staffName;
             workVo.StaffSex = SelectDao.GetStaffSexByID(staffId);
             workVo.StaffStatus = "工作中";
-            workVo.RoomId = roomVo.RoomId;
+            workVo.RoomId = null;
             workVo.RoomName = roomVo.RoomName;
-            if (UpdateDao.UpdateByID(workVo) > 0)
-            {
-                EventBus.PublishEvent("StaffWorkStatusChange");
-            }
+            return workVo;
         }
         #endregion
     }

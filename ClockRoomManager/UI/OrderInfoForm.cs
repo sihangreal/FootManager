@@ -274,7 +274,7 @@ namespace ClockRoomManager.UI
             orderVo.StartTime = DateTime.Now.ToString();
             orderVo.Status = "未完成";
 
-            if(!TransactionDao.SendStartOrder(workVo, orderVo))
+            if(!TransactionDao.SendOrder(workVo, orderVo))
             {
                 XtraMessageBox.Show("下单失败！");
                 return;
