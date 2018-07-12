@@ -18,8 +18,9 @@ namespace ClientCenter.DB
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             List<string> strList = new List<string>();
-            string para1= mySqlclient.GenerateUpdateSql(staffworkVo);
-            string para2=mySqlclient.GenerateInsertSql(orderVo);
+            string para1 = mySqlclient.GenerateUpdateSql(staffworkVo);
+            string para2 = mySqlclient.GenerateInsertSql(orderVo);
+            strList.AddRange(new string[] { para1 , para2});
             return mySqlclient.ExecuteTransaction(strList);
         }
 

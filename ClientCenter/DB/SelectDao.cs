@@ -17,7 +17,7 @@ namespace ClientCenter.DB
 
         private static object ConvertDBNull(Type type)
         {
-            object value=null;
+            object value = null;
             switch (type.Name)
             {
                 case "String":
@@ -87,11 +87,11 @@ namespace ClientCenter.DB
                     DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
                     if (infoAttr == null)
                         continue;
-                   if(dt.Rows[i][j]==null)
+                    if (dt.Rows[i][j] == null)
                     {
                         info.SetValue(t, "");
                     }
-                   else if(dt.Rows[i][j]==System.DBNull.Value)
+                    else if (dt.Rows[i][j] == System.DBNull.Value)
                     {
                         info.SetValue(t, null);
                     }
@@ -447,7 +447,7 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-        public static void GetSkillPriceByName<T>(string skillName,ref List<T> tList)
+        public static void GetSkillPriceByName<T>(string skillName, ref List<T> tList)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
@@ -484,15 +484,15 @@ namespace ClientCenter.DB
             }
         }
         //服务的具体价格
-        public static double GetSkillPriceDetail(string skillName,int type,string priceType)
+        public static double GetSkillPriceDetail(string skillName, int type, string priceType)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string priceT= "PriceA";
-            switch(type)
+            string priceT = "PriceA";
+            switch (type)
             {
                 case 0:
-                    priceT = "PriceA";break;
+                    priceT = "PriceA"; break;
                 case 1:
                     priceT = "PriceB"; break;
                 case 2:
@@ -501,7 +501,7 @@ namespace ClientCenter.DB
                     priceT = "PriceA"; break;
             }
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT "+ priceT+ " FROM SkillPrice WHERE SkillName= @SkillName And PriceType=@PriceType");
+            sb.Append("SELECT " + priceT + " FROM SkillPrice WHERE SkillName= @SkillName And PriceType=@PriceType");
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@SkillName", MySqlDbType.String),
                                      new MySqlParameter("@PriceType", MySqlDbType.String)
@@ -595,7 +595,7 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             DataTable dt = ds.Tables[0];
             double[] result = new double[3];
-            if(dt.Rows.Count>0)
+            if (dt.Rows.Count > 0)
             {
                 result[0] = Convert.ToDouble(dt.Rows[0][0]);
                 result[1] = Convert.ToDouble(dt.Rows[0][1]);
@@ -604,7 +604,7 @@ namespace ClientCenter.DB
             return result;
         }
 
-        public static void GetTempOrderByRoomID<T>(int roomID,ref List<T> tList)
+        public static void GetTempOrderByRoomID<T>(int roomID, ref List<T> tList)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
@@ -631,10 +631,15 @@ namespace ClientCenter.DB
                     DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
                     if (infoAttr == null)
                         continue;
-                    if (dt.Rows[i][j] != null)
-                        info.SetValue(t, dt.Rows[i][j]);
+                    if (info.PropertyType.Name.Equals("String"))
+                    {
+                        if (dt.Rows[i][j] == DBNull.Value)
+                        {
+                            info.SetValue(t, "");
+                        }
+                    }
                     else
-                        info.SetValue(t, "");
+                        info.SetValue(t, dt.Rows[i][j]);
                 }
                 t = (T)objPacked;
                 tList.Add(t);
@@ -652,7 +657,7 @@ namespace ClientCenter.DB
                                  };
             parameters[0].Value = staffId;
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            DataTable dt= ds.Tables[0];
+            DataTable dt = ds.Tables[0];
             if (dt.Rows.Count < 0)
                 return "";
             else
@@ -670,7 +675,7 @@ namespace ClientCenter.DB
                                  };
             parameters[0].Value = name;
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return  ds.Tables[0];
+            return ds.Tables[0];
         }
 
         public static List<T> SelectDataByID<T>(object id)
@@ -694,7 +699,7 @@ namespace ClientCenter.DB
                     break;
                 }
             }
-            sb.Append(" SELECT * FROM " + dataAttr.TableName +" WHERE "+ strkey +"@"+strkey);
+            sb.Append(" SELECT * FROM " + dataAttr.TableName + " WHERE " + strkey + "@" + strkey);
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
             MySqlParameter parameter = new MySqlParameter("@" + strkey, mySqlclient.ConvertDBType(keyType));
@@ -730,17 +735,44 @@ namespace ClientCenter.DB
             }
             return tList;
         }
-        public static object GetWorkStaffInfoByRoomId(int roomId)
+        public static T GetWorkStaffInfoByRoomId<T>(int roomId)
         {
+            Type type = typeof(T);
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string strsql = "SELECT * FROM StaffWorkInfo WHERE RoomId =@RoomId ";
+            string strsql = "SELECT * FROM StaffWork WHERE RoomId =@RoomId ";
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@RoomId", MySqlDbType.Int32)
                                  };
             parameters[0].Value = roomId;
-            object obj=mySqlclient.ExecuteScalar(strsql, parameters);
-            return obj;
+
+            DataSet ds = mySqlclient.GetDataSet(strsql, parameters, CommandType.Text);
+            DataTable dt = ds.Tables[0];
+            if (dt == null||dt.Rows.Count==0)
+                return default(T);
+            DataRow dr = dt.Rows[0];
+            PropertyInfo[] propertyInfos = type.GetProperties();
+            T t = (T)Activator.CreateInstance(type);
+            object objPacked = t;
+            for (int j = 0; j < ds.Tables[0].Columns.Count && j < propertyInfos.Length; ++j)
+            {
+                PropertyInfo info = propertyInfos[j];
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr == null)
+                    continue;
+                if (dr[j] == null)
+                {
+                    info.SetValue(t, "");
+                }
+                else if (dr[j] == System.DBNull.Value)
+                {
+                    info.SetValue(t, null);
+                }
+                else
+                    info.SetValue(t, dr[j]);
+            }
+            t = (T)objPacked;
+            return t;
         }
         public static string CreateOrderHandle()
         {

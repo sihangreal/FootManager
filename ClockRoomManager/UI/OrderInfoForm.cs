@@ -146,7 +146,7 @@ namespace ClockRoomManager.UI
                 this.gridControl1.DataSource = tempList;
                 this.gridControl1.RefreshDataSource();
 
-                StaffWorkInfoVo workVo=(StaffWorkInfoVo) SelectDao.GetWorkStaffInfoByRoomId(roomVo.RoomId);
+                StaffWorkInfoVo workVo=SelectDao.GetWorkStaffInfoByRoomId<StaffWorkInfoVo>(roomVo.RoomId);
 
 
                 this.gridView1.BestFitColumns();
@@ -255,6 +255,7 @@ namespace ClockRoomManager.UI
                 XtraMessageBox.Show("下单失败！");
                 return;
             }
+            //---错误要修改
             int index = comboStaff.Text.LastIndexOf('_');
             staffName = comboStaff.Text.Substring(index + 1);
             staffId = comboStaff.Text.Substring(0, index);
@@ -284,6 +285,7 @@ namespace ClockRoomManager.UI
             this.roomVo.RoomStatus = "占用";
             EventBus.PublishEvent("StaffWorkStatusChange");
             XtraMessageBox.Show("下单成功！");
+            this.DialogResult = DialogResult.OK;
         }
         private bool InsertOrder()
         {

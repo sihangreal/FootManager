@@ -252,8 +252,11 @@ namespace ClientCenter.DB
                 foreach (string sql in sqlList)
                 {
                     PrepareCommand(ref cmd, connection, transaction, CommandType.Text, sql, null);
-                    int val = cmd.ExecuteNonQuery();
-                    if (val < 0)
+                    try
+                    {
+                        int val = cmd.ExecuteNonQuery();
+                    }
+                    catch
                     {
                         transaction.Rollback();
                         return false;
@@ -324,7 +327,7 @@ namespace ClientCenter.DB
             DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
             if (dataAttr == null)
                 return null;
-           strb.Append("insert into [" + dataAttr.TableName + "] (");
+           strb.Append("insert into " + dataAttr.TableName + " (");
             PropertyInfo[] pinfos = type.GetProperties();
             foreach (PropertyInfo pinfo in pinfos)
             {
@@ -392,7 +395,7 @@ namespace ClientCenter.DB
                 }
             }
             sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
-            sb.Append("Where " + key + " =@" + key);
+            sb.Append(" Where " + key + " =@" + key);
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
             for (int i = 0; i < propertyInfos.Length; ++i)
@@ -444,24 +447,25 @@ namespace ClientCenter.DB
                 }
                 else
                 {
+                    object t = info.GetValue(data);
                     if (info.PropertyType.Name.Equals("String") || info.PropertyType.Name.Equals("DateTime"))
                     {
-                        sb.Append(info.Name + " ='" + keyValue + "', ");
+                        sb.Append(info.Name + " ='" + t + "',");
                     }
                     else
                     {
-                        sb.Append(info.Name + " =" + keyValue + ", ");
+                        sb.Append(info.Name + " =" + t + ",");
                     }
                 }
             }
             sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
             if (keyType.Name.Equals("String") || keyType.Name.Equals("DateTime"))
             {
-                sb.Append("Where  " +key+"="+ keyValue + "'");
+                sb.Append(" Where  " +key+"='"+ keyValue + "'");
             }
             else
             {
-                sb.Append("Where  " + key + "='" + keyValue);
+                sb.Append(" Where  " + key + "=" + keyValue);
             }
             return sb.ToString();
         }
