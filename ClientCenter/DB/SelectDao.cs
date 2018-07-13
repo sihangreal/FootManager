@@ -604,8 +604,9 @@ namespace ClientCenter.DB
             return result;
         }
 
-        public static void GetTempOrderByRoomID<T>(int roomID, ref List<T> tList)
+        public static List<T> GetTempOrderByRoomID<T>(int roomID)
         {
+            List<T> tList = new List<T>();
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             Type type = typeof(T);
@@ -631,12 +632,9 @@ namespace ClientCenter.DB
                     DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
                     if (infoAttr == null)
                         continue;
-                    if (info.PropertyType.Name.Equals("String"))
+                    if (info.PropertyType.Name.Equals("String")&& dt.Rows[i][j] == DBNull.Value)
                     {
-                        if (dt.Rows[i][j] == DBNull.Value)
-                        {
-                            info.SetValue(t, "");
-                        }
+                        info.SetValue(t, "");
                     }
                     else
                         info.SetValue(t, dt.Rows[i][j]);
@@ -644,6 +642,7 @@ namespace ClientCenter.DB
                 t = (T)objPacked;
                 tList.Add(t);
             }
+            return tList;
         }
 
         public static string GetStaffSexByID(string staffId)
@@ -774,22 +773,43 @@ namespace ClientCenter.DB
             t = (T)objPacked;
             return t;
         }
+
         public static string CreateOrderHandle()
+        {
+            string orderId = string.Empty;
+            Random ran = new Random();
+            orderId= "P" + DateTime.Now.ToString("yyyyMMdd") + ran.Next(1000, 9999).ToString();
+            string sql = "SELECT Count(OrderID) FROM OrderInfo Where OrderID='" + orderId + "'";
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            int count =Convert.ToInt32( mySqlclient.ExecuteScalar(sql,null) );
+            if (count > 1)
+                CreateOrderHandle();
+            return orderId;
+        }
+
+        public static string GetOrderByRoomId(int roomId)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string strsql = "SELECT MAX(OrderID) FROM OrderInfo WHERE StartTime>"+DateTime.Today.ToString("yyyy-MM-dd");
-            MySqlDataReader sr=mySqlclient.ExecuteReader(strsql,CommandType.Text);
-            string orderId = default(string);
-            while(sr.Read())
-            {
-                orderId = sr[0].ToString();
-            }
-            if(string.IsNullOrWhiteSpace(orderId))
-            {
-                orderId = DateTime.Now.ToString("yyyyMMddhhmmss") + SystemConst.companyId + "00000";
-            }
-            return orderId;
+            string sql = "select OrderId from staffwork where roomid=" + roomId;
+           return mySqlclient.ExecuteScalar(sql, null) as string;
+        }
+
+        public static string GetStaffIdByRoomId(int roomId)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string sql = "select staffId from staffwork where roomid=" + roomId;
+            return mySqlclient.ExecuteScalar(sql, null) as string;
+        }
+
+        public static string GetStaffNameByRoomId(int roomId)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string sql = "select staffName from staffwork where roomid=" + roomId;
+            return mySqlclient.ExecuteScalar(sql, null) as string;
         }
     }
 }

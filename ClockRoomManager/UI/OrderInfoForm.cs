@@ -141,8 +141,7 @@ namespace ClockRoomManager.UI
             if (roomVo.RoomStatus.Equals("占用"))
             {
                 this.btnOrder.Enabled = false;
-                List<TempOrderVo> tempList = new List<TempOrderVo>();
-                SelectDao.GetTempOrderByRoomID(roomVo.RoomId, ref tempList);
+                List<TempOrderVo> tempList = SelectDao.GetTempOrderByRoomID<TempOrderVo>(roomVo.RoomId);
                 this.gridControl1.DataSource = tempList;
                 this.gridControl1.RefreshDataSource();
 
@@ -185,6 +184,7 @@ namespace ClockRoomManager.UI
                 int index = comboStaff.Text.LastIndexOf('_');
                 string staffName = comboStaff.Text.Substring(index+1);
                 string staffId = comboStaff.Text.Substring(0,index);
+                //创建ID
                 orderId = SelectDao.CreateOrderHandle();
                 TempOrderVo tempVo = new TempOrderVo()
                 {
@@ -255,10 +255,12 @@ namespace ClockRoomManager.UI
                 XtraMessageBox.Show("下单失败！");
                 return;
             }
-            //---错误要修改
+          
             int index = comboStaff.Text.LastIndexOf('_');
             staffName = comboStaff.Text.Substring(index + 1);
             staffId = comboStaff.Text.Substring(0, index);
+
+
             StaffWorkInfoVo workVo = new StaffWorkInfoVo();
             workVo.StaffID = staffId;
             workVo.StaffName = staffName;
@@ -303,9 +305,7 @@ namespace ClockRoomManager.UI
         }
         private void BtnPay_Click(object sender, EventArgs e)
         {
-            PayOrderForm payForm = new PayOrderForm();
-            List<TempOrderVo> tempOrderList= (List<TempOrderVo>)this.gridControl1.DataSource;
-            payForm.SetData(tempOrderList, itype, orderId, staffName, staffId, roomVo);
+            PayOrderForm payForm = new PayOrderForm(roomVo.RoomId);
             payForm.ShowDialog();
         }
         private void GridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)

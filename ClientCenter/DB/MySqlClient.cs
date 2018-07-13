@@ -256,8 +256,9 @@ namespace ClientCenter.DB
                     {
                         int val = cmd.ExecuteNonQuery();
                     }
-                    catch
+                    catch(Exception ex)
                     {
+                        Console.WriteLine(ex.Message+":"+ sql);
                         transaction.Rollback();
                         return false;
                     }
@@ -448,13 +449,27 @@ namespace ClientCenter.DB
                 else
                 {
                     object t = info.GetValue(data);
-                    if (info.PropertyType.Name.Equals("String") || info.PropertyType.Name.Equals("DateTime"))
+                    if (t == DBNull.Value||t==null)
                     {
-                        sb.Append(info.Name + " ='" + t + "',");
+                        if (info.PropertyType.Name.Equals("String") || info.PropertyType.Name.Equals("DateTime"))
+                        {
+                            sb.Append(info.Name + " ='" + t + "',");
+                        }
+                        else
+                        {
+                            sb.Append(info.Name + " = null,");
+                        }
                     }
                     else
                     {
-                        sb.Append(info.Name + " =" + t + ",");
+                        if (info.PropertyType.Name.Equals("String") || info.PropertyType.Name.Equals("DateTime"))
+                        {
+                            sb.Append(info.Name + " ='" + t + "',");
+                        }
+                        else
+                        {
+                            sb.Append(info.Name + " =" + t + ",");
+                        }
                     }
                 }
             }

@@ -22,11 +22,13 @@ namespace ClockRoomManager.UI
         private string orderId;//订单编号
         private string staffName;
         private string staffId;
-        private RoomVo roomVo;
+        private int  roomId;
 
-        public PayOrderForm()
+        public PayOrderForm(int roomId)
         {
+            this.roomId = roomId;
             InitializeComponent();
+            InitData();
             InitEvents();
         }
 
@@ -37,14 +39,12 @@ namespace ClockRoomManager.UI
             this.btnReadCard.Click += BtnReadCard_Click;
             this.btnQuery.Click += BtnQuery_Click;
         }
-        public void SetData(List<TempOrderVo> tempOrderList, int iType,string orderId,string staffName,string staffId,RoomVo vo)
+        public void InitData()
         {
-            this.tempOrderList = tempOrderList;
-            this.iType = iType;
-            this.orderId = orderId;
-            this.staffName = staffName;
-            this.staffId = staffId;
-            this.roomVo = vo;
+            tempOrderList = SelectDao.GetTempOrderByRoomID<TempOrderVo>(roomId);
+            orderId = SelectDao.GetOrderByRoomId(roomId);
+            staffId = SelectDao.GetStaffIdByRoomId(roomId);
+            staffName = SelectDao.GetStaffNameByRoomId(roomId);
         }
 
         private void FillComType()
@@ -64,14 +64,19 @@ namespace ClockRoomManager.UI
         private void PayOrderForm_Load(object sender, EventArgs e)
         {
             FillComType();
+      
         }
+
+
         private void ComboType_SelectedValueChanged(object sender, EventArgs e)
         {
             double serverPrice=0;
             double gstPrice = 0;
             double totalPrice = 0;
             string priceType = this.comboType.Text;
-            foreach(TempOrderVo vo in tempOrderList)
+
+   
+            foreach (TempOrderVo vo in tempOrderList)
             {
                 serverPrice +=SelectDao.GetSkillPriceDetail(vo.SkillName,iType,priceType);
             }
@@ -148,9 +153,9 @@ namespace ClockRoomManager.UI
             workVo.StaffID = staffId;
             workVo.StaffName = staffName;
             workVo.StaffSex = SelectDao.GetStaffSexByID(staffId);
-            workVo.StaffStatus = "工作中";
-            workVo.RoomId = null;
-            workVo.RoomName = roomVo.RoomName;
+            workVo.StaffStatus = "空闲";
+            workVo.RoomId = roomId;
+            workVo.RoomName = "";
             return workVo;
         }
         #endregion

@@ -53,6 +53,7 @@ namespace ClientCenter.DB
             string para2 = mySqlclient.GenerateUpdateSql(staffworkVo);
             string para3 = @"delete from TempOrder where RoomID= "+orderVo.RoomID;
             string para4 = @"update Room set roomStatus='空闲' where RoomId=" + orderVo.RoomID;
+            
             sqlList.AddRange(new string[]{ para1, para2, para3, para4 });
             
             foreach (DetailedOrderVo vo in delOrderList)
