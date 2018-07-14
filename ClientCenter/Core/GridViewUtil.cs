@@ -23,11 +23,11 @@ namespace ClientCenter.Core
                     continue;
                 column.Caption = columnAttr.Caption;
                 column.Visible = columnAttr.Visble;
-                column.OptionsColumn.AllowEdit = false;
-                column.OptionsColumn.AllowFocus = false;
-                column.OptionsColumn.AllowSort = DefaultBoolean.False;
+                //column.OptionsColumn.AllowEdit = false;
+                //column.OptionsColumn.AllowFocus = false;
+                //column.OptionsColumn.AllowSort = DefaultBoolean.False;
                 column.DisplayFormat.FormatString="yyyy/MM/dd HH:mm";
-                column.BestFit();
+                //column.BestFit();
                 column.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
                 column.AppearanceHeader.TextOptions.HAlignment= HorzAlignment.Center;
             }

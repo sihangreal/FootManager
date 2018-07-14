@@ -35,7 +35,11 @@ namespace ClientCenter.DB
             }
             return value;
         }
-
+        /// <summary>
+        /// 根据Type获取DataTable
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static DataTable SelectData(Type type)
         {
             if (mySqlclient == null)
@@ -56,8 +60,14 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), CommandType.Text);
             return ds.Tables[0];
         }
-        public static void SelectData<T>(ref List<T> tList)
+        /// <summary>
+        /// 根据T获取List<T>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tList"></param>
+        public static List<T> SelectData<T>()
         {
+            List<T> tList = new List<T>();
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             Type type = typeof(T);
@@ -101,6 +111,7 @@ namespace ClientCenter.DB
                 t = (T)objPacked;
                 tList.Add(t);
             }
+            return tList;
         }
 
         //查会员名
@@ -166,12 +177,11 @@ namespace ClientCenter.DB
             return ds.Tables[0];
         }
 
-        public static void SelectData<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static DataTable GetCardLevel()
+        /// <summary>
+        /// 获取会员卡级别
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable GetCardName()
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
@@ -181,6 +191,11 @@ namespace ClientCenter.DB
             return ds.Tables[0];
         }
 
+        /// <summary>
+        /// 获取根据卡的类别获取会员
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public static DataTable GetMemberGroupByLevel(string level)
         {
             if (mySqlclient == null)

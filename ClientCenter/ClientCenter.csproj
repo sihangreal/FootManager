@@ -85,6 +85,7 @@
     <Compile Include="Core\D3Core.cs" />
     <Compile Include="Core\DataAttr.cs" />
     <Compile Include="Core\FilterUtil.cs" />
+    <Compile Include="Core\OrderUtil.cs" />
     <Compile Include="Core\SystemConst.cs" />
     <Compile Include="Core\TimeUtil.cs" />
     <Compile Include="Core\UserRight.cs" />
