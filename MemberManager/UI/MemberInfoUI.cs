@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using MemberManager.Enity;
 using ClientCenter.Core;
 using ClientCenter.Event;
 using ClientCenter.DB;
 using DevExpress.XtraTreeList.Nodes;
+using ClientCenter.Enity;
 
 namespace MemberManager.UI
 {
@@ -58,7 +51,7 @@ namespace MemberManager.UI
 
         private void FillCardLevel()
         {
-            DataTable dt = SelectDao.GetCardLevel();
+            DataTable dt = SelectDao.GetCardName();
             this.treeList1.BeginUnboundLoad();
             TreeListNode parentNode = this.treeList1.AppendNode(new object[] { "所有会员" }, -1);
             foreach (DataRow dr in dt.Rows)
@@ -72,8 +65,7 @@ namespace MemberManager.UI
         private void FillMember()
         {
             memberVoList.Clear();
-            memberVoList = new List<MemberInfoVo>();
-            SelectDao.SelectData(ref memberVoList);
+            memberVoList = SelectDao.SelectData<MemberInfoVo>();
             this.gridControl1.DataSource = memberVoList;
             this.gridControl1.RefreshDataSource();
 

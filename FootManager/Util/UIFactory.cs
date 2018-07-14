@@ -16,7 +16,7 @@ namespace FootManager
 
         private void InitControlDic()
         {
-            Mode mode = new Mode("StaffManager.dll", "StaffManager.StaffMainNewUI") { Id = 3, ModeName = "员工管理" };
+            Mode mode = new Mode("StaffManager.dll", "StaffManager.StaffMainUI") { Id = 3, ModeName = "员工管理" };
             controlDict.Add("员工管理", mode);
             mode = new Mode("MemberManager.dll", "MemberManager.MemberMainUI") { Id = 4, ModeName = "会员管理" };
             controlDict.Add("会员管理", mode);

@@ -11,7 +11,7 @@ namespace ClientCenter.Enity
     public class StaffClassVo
     {
         private int staffclassID;
-        [ColumnAttr("班次编号", true)]
+        [ColumnAttr("班次编号", false)]
         [DataAttr(false,true)]
         public int StaffClassID
         {

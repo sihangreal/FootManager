@@ -1,4 +1,5 @@
-﻿using ClientCenter.Enity;
+﻿using ClientCenter.Core;
+using ClientCenter.Enity;
 using System.Collections.Generic;
 
 namespace ClientCenter.DB
@@ -61,6 +62,8 @@ namespace ClientCenter.DB
                 string sql = mySqlclient.GenerateInsertSql(vo);
                 sqlList.Add(sql);
             }
+            //员工做工
+
             return mySqlclient.ExecuteTransaction(sqlList);
         }
     }

@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using ClientCenter.DB;
-using MemberManager.Enity;
 using ClientCenter.Event;
+using ClientCenter.Enity;
+using ClientCenter.Core;
 
 namespace MemberManager.UI
 {
@@ -31,7 +25,7 @@ namespace MemberManager.UI
 
         private bool CheckParam()
         {
-            return (!this.textMId.Text.Equals("") && !this.textMName.Text.Equals("") && !this.textBalance.Text.Equals(""));
+            return ( !this.textMName.Text.Equals("") && !this.textBalance.Text.Equals(""));
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -66,12 +60,12 @@ namespace MemberManager.UI
         {
             FillMemberLevel();
             FillMemberSataus();
+           this.textMId.Text = GenrateIDUtil.GenerateMemberID();
         }
 
         private void FillMemberLevel()
         {
-            List<CardVo> cardDaoList = new List<CardVo>();
-            SelectDao.SelectData(ref cardDaoList);
+            List<CardVo> cardDaoList = SelectDao.SelectData<CardVo>();
             foreach(CardVo vo in cardDaoList)
             {
                 this.comCardLevel.Properties.Items.Add(vo.CardName);

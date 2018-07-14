@@ -104,137 +104,53 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UI\AddDepartmentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\AddDepartmentForm.Designer.cs">
-      <DependentUpon>AddDepartmentForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\AddStaffClassForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\AddStaffClassForm.Designer.cs">
-      <DependentUpon>AddStaffClassForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\AddStaffForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\AddStaffForm.Designer.cs">
-      <DependentUpon>AddStaffForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\AddStaffLevel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\AddStaffLevel.Designer.cs">
-      <DependentUpon>AddStaffLevel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\DepartmentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DepartmentForm.Designer.cs">
-      <DependentUpon>DepartmentForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\LevelForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\LevelForm.Designer.cs">
-      <DependentUpon>LevelForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\QuickStaff.cs">
+    <Compile Include="UI\BaseInfoUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\QuickStaff.Designer.cs">
-      <DependentUpon>QuickStaff.cs</DependentUpon>
+    <Compile Include="UI\BaseInfoUI.Designer.cs">
+      <DependentUpon>BaseInfoUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ServerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ServerForm.Designer.cs">
-      <DependentUpon>ServerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ServerSkillForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ServerSkillForm.Designer.cs">
-      <DependentUpon>ServerSkillForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SkillForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\SkillForm.Designer.cs">
-      <DependentUpon>SkillForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Staff.cs">
+    <Compile Include="UI\ClassInfoUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Staff.Designer.cs">
-      <DependentUpon>Staff.cs</DependentUpon>
+    <Compile Include="UI\ClassInfoUI.Designer.cs">
+      <DependentUpon>ClassInfoUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="StaffMainNewUI.cs">
+    <Compile Include="UI\DepartmentUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StaffMainNewUI.Designer.cs">
-      <DependentUpon>StaffMainNewUI.cs</DependentUpon>
+    <Compile Include="UI\DepartmentUI.Designer.cs">
+      <DependentUpon>DepartmentUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\StaffManagerInfoUI.cs">
+    <Compile Include="UI\SaffInfoUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\StaffManagerInfoUI.Designer.cs">
-      <DependentUpon>StaffManagerInfoUI.cs</DependentUpon>
+    <Compile Include="UI\SaffInfoUI.Designer.cs">
+      <DependentUpon>SaffInfoUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\StaffSkillForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\StaffSkillForm.Designer.cs">
-      <DependentUpon>StaffSkillForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\StaffWorkInfoUI.cs">
+    <Compile Include="StaffMainUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\StaffWorkInfoUI.Designer.cs">
-      <DependentUpon>StaffWorkInfoUI.cs</DependentUpon>
+    <Compile Include="StaffMainUI.Designer.cs">
+      <DependentUpon>StaffMainUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\StaffManagerUI.cs">
+    <Compile Include="UI\StaffLevelUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\StaffManagerUI.Designer.cs">
-      <DependentUpon>StaffManagerUI.cs</DependentUpon>
+    <Compile Include="UI\StaffLevelUI.Designer.cs">
+      <DependentUpon>StaffLevelUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\StaffsUI.cs">
+    <Compile Include="UI\StaffQueueUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\StaffsUI.Designer.cs">
-      <DependentUpon>StaffsUI.cs</DependentUpon>
+    <Compile Include="UI\StaffQueueUI.Designer.cs">
+      <DependentUpon>StaffQueueUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\StaffWork.cs">
+    <Compile Include="UI\StaffWorkUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\StaffWork.Designer.cs">
-      <DependentUpon>StaffWork.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UpdateDepartmentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\UpdateDepartmentForm.Designer.cs">
-      <DependentUpon>UpdateDepartmentForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UpdateStaffClassForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\UpdateStaffClassForm.Designer.cs">
-      <DependentUpon>UpdateStaffClassForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UpdateStaffForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\UpdateStaffForm.Designer.cs">
-      <DependentUpon>UpdateStaffForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UpdateStaffLevel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\UpdateStaffLevel.Designer.cs">
-      <DependentUpon>UpdateStaffLevel.cs</DependentUpon>
+    <Compile Include="UI\StaffWorkUI.Designer.cs">
+      <DependentUpon>StaffWorkUI.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -243,47 +159,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\DepartmentForm.resx">
-      <DependentUpon>DepartmentForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\BaseInfoUI.resx">
+      <DependentUpon>BaseInfoUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\LevelForm.resx">
-      <DependentUpon>LevelForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\QuickStaff.resx">
-      <DependentUpon>QuickStaff.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ServerForm.resx">
-      <DependentUpon>ServerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ServerSkillForm.resx">
-      <DependentUpon>ServerSkillForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\SkillForm.resx">
-      <DependentUpon>SkillForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Staff.resx">
-      <DependentUpon>Staff.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StaffMainNewUI.resx">
-      <DependentUpon>StaffMainNewUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\StaffManagerInfoUI.resx">
-      <DependentUpon>StaffManagerInfoUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\StaffSkillForm.resx">
-      <DependentUpon>StaffSkillForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\StaffWorkInfoUI.resx">
-      <DependentUpon>StaffWorkInfoUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\StaffManagerUI.resx">
-      <DependentUpon>StaffManagerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\StaffsUI.resx">
-      <DependentUpon>StaffsUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\StaffWork.resx">
-      <DependentUpon>StaffWork.cs</DependentUpon>
+    <EmbeddedResource Include="StaffMainUI.resx">
+      <DependentUpon>StaffMainUI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -354,6 +234,63 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bule.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boresume_32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\borole_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bodepartment_32x322.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boperson_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bonote_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chart_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boscheduler_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\apply_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moveup_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movedown_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newemployee_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newcustomers_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moveup_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movedown_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moveup_16x162.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movedown_16x162.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -54,6 +54,7 @@
             // 
             this.textMId.Location = new System.Drawing.Point(71, 26);
             this.textMId.Name = "textMId";
+            this.textMId.Properties.ReadOnly = true;
             this.textMId.Size = new System.Drawing.Size(126, 20);
             this.textMId.TabIndex = 14;
             // 

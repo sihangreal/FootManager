@@ -55,15 +55,13 @@ namespace BusinessManger
         {
             this.comboTime.Properties.Items.AddRange(new string[] { "30分钟", "60分钟", "90分钟", "120分钟", "150分钟", "180分钟" });
             this.comboType.Properties.Items.AddRange(new string[] { "现金", "Visa卡" });
-            List<CardVo> cardList = new List<CardVo>();
-            SelectDao.SelectData<CardVo>(ref cardList);
+            List<CardVo> cardList=SelectDao.SelectData<CardVo>();
             foreach (CardVo vo in cardList)
             {
                 if (vo.DisCount > 0)
                     this.comboType.Properties.Items.Add(vo.CardName);
             }
-            List<StaffLevelVo> levelList = new List<StaffLevelVo>();
-            SelectDao.SelectData<StaffLevelVo>(ref levelList);
+            List<StaffLevelVo> levelList = SelectDao.SelectData<StaffLevelVo>();
             foreach (StaffLevelVo vo in levelList)
             {
                 this.comboLevel.Properties.Items.Add(vo.StaffLevel);
@@ -72,8 +70,7 @@ namespace BusinessManger
         //刷新服务
         private void RefreshSkill()
         {
-            List<SkillVo> voList = new List<SkillVo>();
-            SelectDao.SelectData(ref voList);
+            List<SkillVo> voList = SelectDao.SelectData<SkillVo>();
             this.gridControl1.DataSource = voList;
             this.gridControl1.RefreshDataSource();
         }

@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using ClientCenter.DB;
-using MemberManager.Enity;
 using ClientCenter.Core;
 using ClientCenter.Event;
 
@@ -51,7 +42,7 @@ namespace MemberManager.UI
                 return;
             }
             double amount = Convert.ToDouble(this.textEdit1.Text);
-            int companyId = 1;
+            int companyId = SystemConst.companyId;
             if(ProcedureDao.MemberRechargeByID(this.mId,this.mName, companyId, amount)>0)
             {
                 XtraMessageBox.Show("充值成功!","提示");

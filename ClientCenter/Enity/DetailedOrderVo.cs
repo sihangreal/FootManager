@@ -10,9 +10,9 @@ namespace ClientCenter.Enity
     [DataAttr("DetailedOrder")]
     public class DetailedOrderVo
     {
-        private int detailID;
-        [DataAttr(false, true)]
-        public int DetailID
+        private string detailID;
+        [DataAttr(true, true)]
+        public string DetailID
         {
             get { return detailID; }
             set { detailID = value; }

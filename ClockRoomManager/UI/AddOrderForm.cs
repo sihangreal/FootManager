@@ -81,7 +81,7 @@ namespace ClockRoomManager.UI
 
         private void AddOrderForm_Load(object sender, EventArgs e)
         {
-            SelectDao.SelectData<RoomVo>(ref roomList);
+            roomList = SelectDao.SelectData<RoomVo>();
             foreach(RoomVo vo in roomList)
             {
                 if(vo.RoomStatus.Equals("空闲"))

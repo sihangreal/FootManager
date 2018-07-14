@@ -20,7 +20,12 @@ namespace ClientCenter.Core
             get { return visble; }
             set { visble = value; }
         }
-
+        private bool isEdit;
+        public bool IsEdit
+        {
+            get { return isEdit; }
+            set { isEdit = value; }
+        }
         public ColumnAttr()
         {
 
@@ -31,10 +36,11 @@ namespace ClientCenter.Core
             this.caption = caption;
         }
 
-        public ColumnAttr(string caption, bool visble)
+        public ColumnAttr(string caption, bool visble,bool isEdit=true)
         {
             this.caption = caption;
             this.visble = visble;
+            this.isEdit = isEdit;
         }
     }
 }

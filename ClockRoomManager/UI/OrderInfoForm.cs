@@ -19,8 +19,8 @@ namespace ClockRoomManager.UI
         private double price;
         private int itype;//轮钟0，点钟1， 加钟2
         private string orderId;//订单编号
-        private string staffName;
-        private string staffId;
+        //private string staffName;
+        //private string staffId;
 
         public OrderInfoForm(RoomVo roomVo)
         {
@@ -98,8 +98,7 @@ namespace ClockRoomManager.UI
 
         private void RefreshSkill()
         {
-            List<SkillVo> voList = new List<SkillVo>();
-            SelectDao.SelectData(ref voList);
+            List<SkillVo> voList = SelectDao.SelectData<SkillVo>();
             this.gridControl2.DataSource = voList;
             this.gridView2.BestFitColumns();
             this.gridControl2.RefreshDataSource();
@@ -107,12 +106,11 @@ namespace ClockRoomManager.UI
 
         private void FillComboStaff()
         {
-            List<StaffWorkInfoVo> voList = new List<StaffWorkInfoVo>();
-            SelectDao.SelectData(ref voList);
+            List<StaffWorkInfoVo> voList = SelectDao.SelectData<StaffWorkInfoVo>();
             List<StaffWorkInfoVo> newVoList = voList.Where(v => v.StaffStatus.Equals("空闲")).ToList();
             foreach (StaffWorkInfoVo vo in newVoList)
             {
-                string temp = vo.StaffID + "_"+vo.StaffName;
+                string temp =vo.StaffName;
                 comboStaff.Properties.Items.Add(temp);
             }
         }
@@ -181,9 +179,8 @@ namespace ClockRoomManager.UI
             {
                 SkillVo vo = (SkillVo)this.gridView2.GetRow(this.gridView2.FocusedRowHandle);
                 double[] prices = SelectDao.GetSkillPrice(vo.SkillName,"现金");
-                int index = comboStaff.Text.LastIndexOf('_');
-                string staffName = comboStaff.Text.Substring(index+1);
-                string staffId = comboStaff.Text.Substring(0,index);
+                string staffId = comboStaff.Text;
+                string staffName = SelectDao.SelectStaffNameByID(staffId);
                 //创建ID
                 orderId = SelectDao.CreateOrderHandle();
                 TempOrderVo tempVo = new TempOrderVo()
@@ -208,7 +205,6 @@ namespace ClockRoomManager.UI
                 this.labelPrice.Text = price.ToString("f8");
             }
         }
-
         private void BtnRemark_Click(object sender, EventArgs e)
         {
             RemarkForm remarkForm = new RemarkForm();
@@ -256,10 +252,8 @@ namespace ClockRoomManager.UI
                 return;
             }
           
-            int index = comboStaff.Text.LastIndexOf('_');
-            staffName = comboStaff.Text.Substring(index + 1);
-            staffId = comboStaff.Text.Substring(0, index);
-
+            string staffName = comboStaff.Text;
+            string staffId = SelectDao.SelectSatffIDByName(staffName);
 
             StaffWorkInfoVo workVo = new StaffWorkInfoVo();
             workVo.StaffID = staffId;
@@ -288,20 +282,6 @@ namespace ClockRoomManager.UI
             EventBus.PublishEvent("StaffWorkStatusChange");
             XtraMessageBox.Show("下单成功！");
             this.DialogResult = DialogResult.OK;
-        }
-        private bool InsertOrder()
-        {
-            OrderInfoVo orderVo = new OrderInfoVo();
-            orderId = SelectDao.CreateOrderHandle();
-            orderVo.OrderID = orderId;
-            orderVo.RoomID = roomVo.RoomId;
-            orderVo.StaffName = staffName;
-            orderVo.StartTime = DateTime.Now.ToString();
-            orderVo.Status = "未完成";
-            if (InsertDao.InsertData(orderVo, typeof(OrderInfoVo)) > 0)
-                return true;
-            else
-                return false;
         }
         private void BtnPay_Click(object sender, EventArgs e)
         {

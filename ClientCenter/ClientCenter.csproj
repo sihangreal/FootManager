@@ -85,7 +85,11 @@
     <Compile Include="Core\D3Core.cs" />
     <Compile Include="Core\DataAttr.cs" />
     <Compile Include="Core\FilterUtil.cs" />
-    <Compile Include="Core\OrderUtil.cs" />
+    <Compile Include="Core\GenericUtil.cs" />
+    <Compile Include="Core\GenrateIDUtil.cs" />
+    <Compile Include="Enity\MemberInfoVo.cs" />
+    <Compile Include="Enity\MemberRechargeVo.cs" />
+    <Compile Include="Enity\StaffWorkRecordVo.cs" />
     <Compile Include="Core\SystemConst.cs" />
     <Compile Include="Core\TimeUtil.cs" />
     <Compile Include="Core\UserRight.cs" />
@@ -105,6 +109,7 @@
     <Compile Include="Enity\DepartmentVo.cs" />
     <Compile Include="Enity\DetailedOrderVo.cs" />
     <Compile Include="Enity\FreeRoomVo.cs" />
+    <Compile Include="Enity\MemberConsumeVo.cs" />
     <Compile Include="Enity\OrderInfoVo.cs" />
     <Compile Include="Enity\PermissionVo.cs" />
     <Compile Include="Enity\RoomVo.cs" />

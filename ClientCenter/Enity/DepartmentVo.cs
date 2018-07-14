@@ -11,7 +11,7 @@ namespace ClientCenter.Enity
     public class DepartmentVo
     {
         private int id;
-        [ColumnAttr("部门编号", true)]
+        [ColumnAttr("部门编号", false)]
         [DataAttr(false,true)]
         public int Id
         {

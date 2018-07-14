@@ -74,10 +74,10 @@ namespace ClientCenter.Enity
               get { return basicSalary; }
               set { basicSalary = value; }
           }
-          private string commssion;
+          private bool commssion;
           [ColumnAttr("是否参加提成", true)]
           [DataAttr(true)]
-          public string Commision
+          public bool Commision
           {
               get { return commssion; }
               set { commssion = value; }

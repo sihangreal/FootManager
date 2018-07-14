@@ -19,7 +19,7 @@ namespace FootManager
 
             DevExpress.Skins.SkinManager.EnableFormSkins();
             DevExpress.UserSkins.BonusSkins.Register();
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Metropolis");
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Back");
 
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
             try

@@ -74,8 +74,7 @@ namespace BusinessManger
 
         private void FillSKill()
         {
-            List<SkillVo> voList = new List<SkillVo>();
-            SelectDao.SelectData(ref voList);
+            List<SkillVo> voList = SelectDao.SelectData<SkillVo>();
             this.gridControl1.DataSource = voList;
             this.gridControl1.RefreshDataSource();
 

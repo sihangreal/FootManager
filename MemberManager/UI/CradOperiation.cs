@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
-using MemberManager.Enity;
 using ClientCenter.Core;
 using ClientCenter.DB;
 using ClientCenter.Event;
-using System.Runtime.InteropServices;
+using ClientCenter.Enity;
 
 namespace MemberManager.UI
 {
@@ -146,8 +140,7 @@ namespace MemberManager.UI
         }
         private void RefreshCard()
         {
-            List<CardVo> cardDaoList = new List<CardVo>();
-            SelectDao.SelectData(ref cardDaoList);
+            List<CardVo> cardDaoList = SelectDao.SelectData<CardVo>();
             this.gridControl1.DataSource = cardDaoList;
             this.gridControl1.RefreshDataSource();
         }

@@ -11,7 +11,7 @@ namespace ClientCenter.Enity
     public class StaffWorkInfoVo
     {
         private string staffID;
-        [ColumnAttr("员工工号", true)]
+        [ColumnAttr("员工工号", true, false)]
         [DataAttr(true,true)]
         public string StaffID
         {
@@ -19,7 +19,7 @@ namespace ClientCenter.Enity
             set { staffID = value; }
         }
         private string staffName;
-        [ColumnAttr("技师姓名", true)]
+        [ColumnAttr("技师姓名", true, false)]
         [DataAttr(true)]
         public string StaffName
         {
@@ -27,7 +27,7 @@ namespace ClientCenter.Enity
             set { staffName = value; }
         }
         private string staffSex;
-        [ColumnAttr("技师性别", true)]
+        [ColumnAttr("技师性别", true, false)]
         [DataAttr(true)]
         public string StaffSex
         {
@@ -35,7 +35,7 @@ namespace ClientCenter.Enity
             set { staffSex = value; }
         }
         private string staffStatus; //0 空闲，1上钟，2 请假
-        [ColumnAttr("技师状态", true)]
+        [ColumnAttr("技师状态", true, true)]
         [DataAttr(true)]
         public string StaffStatus
         {
@@ -43,7 +43,7 @@ namespace ClientCenter.Enity
             set { staffStatus = value; }
         }
         private int ?roomId;
-        [ColumnAttr("钟房编号", false)]
+        [ColumnAttr("钟房编号", false, false)]
         [DataAttr(true)]
         public int ?RoomId
         {
@@ -51,7 +51,7 @@ namespace ClientCenter.Enity
             set { roomId = value; }
         }
         private string roomName;
-        [ColumnAttr("房间名", true)]
+        [ColumnAttr("房间名", true, false)]
         [DataAttr(true)]
         public string RoomName
         {

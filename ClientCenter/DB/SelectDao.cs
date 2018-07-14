@@ -35,6 +35,40 @@ namespace ClientCenter.DB
             }
             return value;
         }
+
+        /// <summary>
+        /// 将DataRow 转成T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dr"></param>
+        /// <param name="colcount"></param>
+        /// <returns></returns>
+        private static T ConvertDataRowToT<T>(DataRow dr, int colcount)
+        {
+            Type type = typeof(T);
+            PropertyInfo[] propertyInfos = type.GetProperties();
+            T t = (T)Activator.CreateInstance(type);
+            object objPacked = t;
+            for (int j = 0; j < colcount && j < propertyInfos.Length; ++j)
+            {
+                PropertyInfo info = propertyInfos[j];
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr == null)
+                    continue;
+                if (dr[j] == null)
+                {
+                    info.SetValue(t, "");
+                }
+                else if (dr[j] == System.DBNull.Value)
+                {
+                    info.SetValue(t, null);
+                }
+                else
+                    info.SetValue(t, dr[j]);
+            }
+            t = (T)objPacked;
+            return t;
+        }
         /// <summary>
         /// 根据Type获取DataTable
         /// </summary>
@@ -392,7 +426,11 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
+        /// <summary>
+        /// 根据员工名字找该员工信息
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static DataTable SelectStaffByName(string name)
         {
             if (mySqlclient == null)
@@ -406,7 +444,11 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
+         /// <summary>
+         /// 根据性别找出员工
+         /// </summary>
+         /// <param name="sex"></param>
+         /// <returns></returns>
         public static DataTable SelectStaffByGender(string sex)
         {
             if (mySqlclient == null)
@@ -420,7 +462,37 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
+        /// <summary>
+        /// 根据ID找出员工名字
+        /// </summary>
+        /// <returns></returns>
+        public static string SelectStaffNameByID(string staffId)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+             string sql=@"SELECT StaffName FROM StaffInfo WHERE StaffId=@StaffId ";
+            List<MySqlParameter> parameters = new List<MySqlParameter>(){
+                                     new MySqlParameter("@StaffId", MySqlDbType.String)
+                                 };
+            parameters[0].Value = staffId;
+           return mySqlclient.ExecuteScalar(sql,parameters) as string;
+        }
+        /// <summary>
+        /// 根据名字找去员工ID
+        /// </summary>
+        /// <param name="staffName"></param>
+        /// <returns></returns>
+        public static string SelectSatffIDByName(string staffName)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string sql = @"SELECT StaffId FROM StaffInfo WHERE StaffName=@StaffName ";
+            List<MySqlParameter> parameters = new List<MySqlParameter>(){
+                                     new MySqlParameter("@StaffName", MySqlDbType.String)
+                                 };
+            parameters[0].Value = staffName;
+            return mySqlclient.ExecuteScalar(sql, parameters) as string;
+        }
         public static DataTable SelectStaffWorkByName(string name)
         {
             if (mySqlclient == null)
@@ -647,7 +719,7 @@ namespace ClientCenter.DB
                     DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
                     if (infoAttr == null)
                         continue;
-                    if (info.PropertyType.Name.Equals("String")&& dt.Rows[i][j] == DBNull.Value)
+                    if (info.PropertyType.Name.Equals("String") && dt.Rows[i][j] == DBNull.Value)
                     {
                         info.SetValue(t, "");
                     }
@@ -762,42 +834,21 @@ namespace ClientCenter.DB
 
             DataSet ds = mySqlclient.GetDataSet(strsql, parameters, CommandType.Text);
             DataTable dt = ds.Tables[0];
-            if (dt == null||dt.Rows.Count==0)
+            if (dt == null || dt.Rows.Count == 0)
                 return default(T);
-            DataRow dr = dt.Rows[0];
-            PropertyInfo[] propertyInfos = type.GetProperties();
-            T t = (T)Activator.CreateInstance(type);
-            object objPacked = t;
-            for (int j = 0; j < ds.Tables[0].Columns.Count && j < propertyInfos.Length; ++j)
-            {
-                PropertyInfo info = propertyInfos[j];
-                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
-                if (infoAttr == null)
-                    continue;
-                if (dr[j] == null)
-                {
-                    info.SetValue(t, "");
-                }
-                else if (dr[j] == System.DBNull.Value)
-                {
-                    info.SetValue(t, null);
-                }
-                else
-                    info.SetValue(t, dr[j]);
-            }
-            t = (T)objPacked;
-            return t;
+            return ConvertDataRowToT<T>(dt.Rows[0], dt.Columns.Count);
         }
+
 
         public static string CreateOrderHandle()
         {
             string orderId = string.Empty;
             Random ran = new Random();
-            orderId= "P" + DateTime.Now.ToString("yyyyMMdd") + ran.Next(1000, 9999).ToString();
+            orderId = "P" + DateTime.Now.ToString("yyyyMMdd") + ran.Next(1000, 9999).ToString();
             string sql = "SELECT Count(OrderID) FROM OrderInfo Where OrderID='" + orderId + "'";
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            int count =Convert.ToInt32( mySqlclient.ExecuteScalar(sql,null) );
+            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
             if (count > 1)
                 CreateOrderHandle();
             return orderId;
@@ -808,7 +859,19 @@ namespace ClientCenter.DB
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             string sql = "select OrderId from staffwork where roomid=" + roomId;
-           return mySqlclient.ExecuteScalar(sql, null) as string;
+            return mySqlclient.ExecuteScalar(sql, null) as string;
+        }
+
+        public static T GetOrderByRoomId<T>(int roomId)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string sql = "select * from OrderInfo where RoomID=" + roomId + "  limit 1";
+            DataSet ds = mySqlclient.GetDataSet(sql);
+            DataTable dt = ds.Tables[0];
+            if (dt == null || dt.Rows.Count == 0)
+                return default(T);
+            return ConvertDataRowToT<T>(dt.Rows[0],dt.Columns.Count);
         }
 
         public static string GetStaffIdByRoomId(int roomId)
@@ -825,6 +888,59 @@ namespace ClientCenter.DB
                 mySqlclient = MySqlClient.GetMySqlClient();
             string sql = "select staffName from staffwork where roomid=" + roomId;
             return mySqlclient.ExecuteScalar(sql, null) as string;
+        }
+
+        /// <summary>
+        /// 检查是否有重复的员工ID
+        /// </summary>
+        /// <param name="staffId"></param>
+        /// <returns></returns>
+        public static bool IsRepeatedStaffId(string staffId)
+        {
+            string sql = "SELECT Count(StaffId) FROM StaffInfo Where StaffId='" + staffId + "'";
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
+            if (count >0)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool IsRepeatedDepartmentId(int id)
+        {
+            string sql = "SELECT Count(id) FROM Department Where id='" + id + "'";
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
+            if (count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool IsRepeatedLevelId(int id)
+        {
+            string sql = "SELECT Count(id) FROM Level Where id='" + id + "'";
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
+            if (count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool IsRepeatedClassId(int id)
+        {
+            string sql = "SELECT Count(StaffClassID) FROM StaffClass Where StaffClassID='" + id + "'";
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
+            if (count > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

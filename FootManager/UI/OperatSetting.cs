@@ -70,8 +70,7 @@ namespace FootManager.UI
         }
         private void FillPermission()
         {
-            List<PermissionVo> voList = new List<PermissionVo>();
-            SelectDao.SelectData<PermissionVo>(ref voList);
+            List<PermissionVo> voList = SelectDao.SelectData<PermissionVo>();
             this.gridControl1.DataSource = voList;
             this.gridControl1.RefreshDataSource();
         }
@@ -112,8 +111,7 @@ namespace FootManager.UI
         }
         private void FillUser()
         {
-            List<UserRoleVo> voList = new List<UserRoleVo>();
-            SelectDao.SelectData<UserRoleVo>(ref voList);
+            List<UserRoleVo> voList = SelectDao.SelectData<UserRoleVo>();
             this.gridControl2.DataSource = voList;
             this.gridControl2.RefreshDataSource();
         }

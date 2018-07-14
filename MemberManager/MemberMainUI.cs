@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
 using MemberManager.UI;
-using MemberManager.Enity;
 using ClientCenter.DB;
 using ClientCenter.Event;
+using ClientCenter.Enity;
 
 namespace MemberManager
 {
@@ -80,15 +73,13 @@ namespace MemberManager
 
         private void FillRecharge()
         {
-            List<MemberRechargeVo> voList = new List<MemberRechargeVo>();
-            SelectDao.SelectData(ref voList);
+            List<MemberRechargeVo> voList = SelectDao.SelectData<MemberRechargeVo >();
             memberRecharge.SetData<MemberRechargeVo>(voList);
         }
 
         private void FillConsume()
         {
-            List<MemberConsumeVo> voList = new List<MemberConsumeVo>();
-            SelectDao.SelectData(ref voList);
+            List<MemberConsumeVo> voList = SelectDao.SelectData<MemberConsumeVo>();
             memberConsume.SetData<MemberConsumeVo>(voList);
         }
 

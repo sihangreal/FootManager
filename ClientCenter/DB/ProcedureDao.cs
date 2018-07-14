@@ -89,7 +89,7 @@ namespace ClientCenter.DB
                                      new MySqlParameter("@v_department",MySqlDbType.String),
                                      new MySqlParameter("@v_idNumber",MySqlDbType.String),
                                      new MySqlParameter("@v_basicSalary",MySqlDbType.String),
-                                     new MySqlParameter("@v_commision",MySqlDbType.String)
+                                     new MySqlParameter("@v_commision",MySqlDbType.Byte)
                                  };
             parameters[0].Value = infoArry[0];
             parameters[1].Value = infoArry[1];

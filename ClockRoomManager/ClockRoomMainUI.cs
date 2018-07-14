@@ -67,8 +67,7 @@ namespace ClockRoomManager
             staffQuery.Dock = DockStyle.Fill;
             this.panelStaff.Controls.Add(staffQuery);
 
-            List<RoomVo> voList = new List<RoomVo>();
-            SelectDao.SelectData<RoomVo>(ref voList);
+            List<RoomVo> voList = SelectDao.SelectData<RoomVo>();
             List<Room> roomVoList = new List<Room>();
             this.gridControl2.DataSource = voList;
             this.gridControl2.RefreshDataSource();
@@ -84,8 +83,7 @@ namespace ClockRoomManager
         }
        private void FillRoom()
         {
-            List<RoomVo> voList = new List<RoomVo>();
-            SelectDao.SelectData<RoomVo>(ref voList);
+            List<RoomVo> voList = SelectDao.SelectData<RoomVo>();
             this.gridControl2.DataSource = voList;
             this.gridControl2.RefreshDataSource();
         }

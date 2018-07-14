@@ -35,8 +35,7 @@ namespace SettlementCenter
 
         private void CheckCashierForm_Load(object sender, EventArgs e)
         {
-            List<TempOrderVo> tempList = new List<TempOrderVo>();
-            SelectDao.SelectData(ref tempList);
+            List<TempOrderVo> tempList = SelectDao.SelectData<TempOrderVo>();
             this.gridControl1.DataSource = tempList;
             this.gridView1.BestFitColumns();
             this.gridControl1.RefreshDataSource();
