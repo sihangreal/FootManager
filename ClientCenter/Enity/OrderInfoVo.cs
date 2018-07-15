@@ -66,6 +66,22 @@ namespace ClientCenter.Enity
             get { return price; }
             set { price = value; }
         }
+        private double tax;
+        [ColumnAttr("税", true)]
+        [DataAttr(true)]
+        public double Tax
+        {
+            get { return tax; }
+            set { tax = value; }
+        }
+        private double totalPrice;
+        [ColumnAttr("总价", true)]
+        [DataAttr(true)]
+        public double TotalPrice
+        {
+            get { return totalPrice; }
+            set { totalPrice = value; }
+        }
         private string status;
         [DataAttr(true)]
         public string Status

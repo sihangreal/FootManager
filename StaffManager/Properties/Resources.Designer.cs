@@ -243,6 +243,16 @@ namespace StaffManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap formatastable_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("formatastable_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap highlightcellsrules_16x16 {
             get {
                 object obj = ResourceManager.GetObject("highlightcellsrules_16x16", resourceCulture);
@@ -376,6 +386,16 @@ namespace StaffManager.Properties {
         internal static System.Drawing.Bitmap team_32x32 {
             get {
                 object obj = ResourceManager.GetObject("team_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap zoom_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("zoom_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

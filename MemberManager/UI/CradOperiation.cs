@@ -12,7 +12,7 @@ namespace MemberManager.UI
 {
     public partial class CradOperiation : DevExpress.XtraEditors.XtraUserControl
     {
-        AddCardForm cardForm;
+        CardInfoUI cardInfoUI;
         private int icdev = -1;
 
         public CradOperiation()
@@ -25,10 +25,6 @@ namespace MemberManager.UI
         private void InitEvents()
         {
             this.Load += MemberSetting_Load;
-            this.btnAdd.Click += BtnAdd_Click;
-            this.btnDel.Click += BtnDel_Click;
-            this.btnModify.Click += BtnModify_Click;
-
             this.btnWriteCard.Click += BtnWriteCard_Click;
         }
 
@@ -138,53 +134,12 @@ namespace MemberManager.UI
                 this.listBoxControl1.Items.Add("初始化失败！");
             }
         }
-        private void RefreshCard()
-        {
-            List<CardVo> cardDaoList = SelectDao.SelectData<CardVo>();
-            this.gridControl1.DataSource = cardDaoList;
-            this.gridControl1.RefreshDataSource();
-        }
         private void MemberSetting_Load(object sender, EventArgs e)
         {
-            this.gridView1.OptionsPrint.AutoWidth = false;
-            GridViewUtil.CreateColumnForData(this.gridView1, typeof(CardVo));
-            RefreshCard();
-
-            UserRight instance = UserRight.GetInstance();
-            foreach (Control ctr in this.Controls)
-            {
-                instance.CheckControl(ctr);
-            }
-        }
-        private void BtnModify_Click(object sender, EventArgs e)
-        {
-            CardVo vo = (CardVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
-            UpdateCardForm updateForm = new UpdateCardForm(vo.CardId, vo.CardName, vo.DisCount);
-            updateForm.ShowDialog();
-        }
-
-        private void BtnDel_Click(object sender, EventArgs e)
-        {
-            CardVo vo = (CardVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
-            if (DeleteDao.DelCardByID(vo.CardId) > 0)
-            {
-                XtraMessageBox.Show("删除成功");
-                RefreshCard();
-            }
-        }
-
-        private void BtnAdd_Click(object sender, EventArgs e)
-        {
-            if (cardForm == null)
-            {
-                cardForm = new AddCardForm();
-            }
-            cardForm.ShowDialog();
-        }
-        [EventAttr("AddCardSuccessed")]
-        public void AddCardSuccessed()
-        {
-            RefreshCard();
+            if (cardInfoUI == null)
+                cardInfoUI = new CardInfoUI();
+            cardInfoUI.Dock = DockStyle.Fill;
+            xtraTabPage1.Controls.Add(cardInfoUI);
         }
     }
 }

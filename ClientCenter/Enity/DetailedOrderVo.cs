@@ -38,5 +38,19 @@ namespace ClientCenter.Enity
             get { return price; }
             set { price = value; }
         }
+        private double tax;
+        [DataAttr(true)]
+        public double Tax
+        {
+            get { return tax; }
+            set { tax = value; }
+        }
+        private double totalPrice;
+        [DataAttr(true)]
+        public double TotalPrice
+        {
+            get { return totalPrice; }
+            set { totalPrice = value; }
+        }
     }
 }

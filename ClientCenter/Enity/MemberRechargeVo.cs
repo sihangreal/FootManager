@@ -19,7 +19,7 @@ namespace ClientCenter.Enity
             set { id = value; }
         }
         private string mId;
-        [ColumnAttr("会员编号", true)]
+        [ColumnAttr("会员编号", true,false)]
         [DataAttr(true)]
         public string MId
         {
@@ -27,7 +27,7 @@ namespace ClientCenter.Enity
             set { mId = value; }
         }
         private string mName;
-        [ColumnAttr("会员名字", true)]
+        [ColumnAttr("会员名字", true,false)]
         [DataAttr(true)]
         public string MName
         {
@@ -35,7 +35,7 @@ namespace ClientCenter.Enity
             set { mName = value; }
         }
         private double amount;
-        [ColumnAttr("金额", true)]
+        [ColumnAttr("金额", true,false)]
         [DataAttr(true)]
         public double Amount
         {
@@ -43,7 +43,7 @@ namespace ClientCenter.Enity
             set { amount = value; }
         }
         private DateTime updateTime;
-        [ColumnAttr("充值时间", true)]
+        [ColumnAttr("充值时间", true,false)]
         [DataAttr(true)]
         public System.DateTime UpdateTime
         {
@@ -51,7 +51,7 @@ namespace ClientCenter.Enity
             set { updateTime = value; }
         }
         private int companyId;
-        [ColumnAttr("公司ID", true)]
+        [ColumnAttr("公司ID", true,false)]
         [DataAttr(true)]
         public int CompanyId
         {

@@ -88,6 +88,24 @@
     <Compile Include="UI\AddCardForm.Designer.cs">
       <DependentUpon>AddCardForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\BaseInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\BaseInfoUI.Designer.cs">
+      <DependentUpon>BaseInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CardInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CardInfoUI.Designer.cs">
+      <DependentUpon>CardInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ConsumeInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ConsumeInfoUI.Designer.cs">
+      <DependentUpon>ConsumeInfoUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\CradOperiation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -106,23 +124,17 @@
     <Compile Include="UI\MemberInfoUI.Designer.cs">
       <DependentUpon>MemberInfoUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MemberMainUI.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\MemberMainUI.Designer.cs">
-      <DependentUpon>MemberMainUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\MemberGrid.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\MemberGrid.Designer.cs">
       <DependentUpon>MemberGrid.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MemberOperationForm.cs">
+    <Compile Include="UI\MemberOperationFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MemberOperationForm.Designer.cs">
-      <DependentUpon>MemberOperationForm.cs</DependentUpon>
+    <Compile Include="UI\MemberOperationFrm.Designer.cs">
+      <DependentUpon>MemberOperationFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MemberRecharge.cs">
       <SubType>UserControl</SubType>
@@ -135,6 +147,12 @@
     </Compile>
     <Compile Include="UI\RechargeForm.Designer.cs">
       <DependentUpon>RechargeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\RechargeInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\RechargeInfoUI.Designer.cs">
+      <DependentUpon>RechargeInfoUI.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UpdateCardForm.cs">
       <SubType>Form</SubType>
@@ -149,6 +167,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\BaseInfoUI.resx">
+      <DependentUpon>BaseInfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CardInfoUI.resx">
+      <DependentUpon>CardInfoUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CradOperiation.resx">
       <DependentUpon>CradOperiation.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,20 +182,17 @@
     <EmbeddedResource Include="UI\MemberInfoUI.resx">
       <DependentUpon>MemberInfoUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MemberMainUI.resx">
-      <DependentUpon>MemberMainUI.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\MemberGrid.resx">
       <DependentUpon>MemberGrid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MemberOperationForm.resx">
-      <DependentUpon>MemberOperationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MemberRecharge.resx">
       <DependentUpon>MemberRecharge.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\RechargeForm.resx">
       <DependentUpon>RechargeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\RechargeInfoUI.resx">
+      <DependentUpon>RechargeInfoUI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +211,10 @@
     <None Include="Resources\zoom100_32x32.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessManger\BusinessManger.csproj">
+      <Project>{9BB0935E-A9F2-4165-976D-E14B5B917478}</Project>
+      <Name>BusinessManger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClientCenter\ClientCenter.csproj">
       <Project>{cdd9dd3c-98ae-4457-b900-cf4b97b085e7}</Project>
       <Name>ClientCenter</Name>
@@ -257,6 +282,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\panel_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\suggestion_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_16x162.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\apply_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel_16x161.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

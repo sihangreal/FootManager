@@ -11,7 +11,7 @@ namespace ClientCenter.Enity
     public class MemberInfoVo
     {
         private string mId;
-        [ColumnAttr("会员编号", true)]
+        [ColumnAttr("会员编号", true,false)]
         [DataAttr(true)]
         public string MId
         {
@@ -59,7 +59,7 @@ namespace ClientCenter.Enity
             set { mPhone = value; }
         }
         private DateTime mCreateTime;
-        [ColumnAttr("开卡时间", true)]
+        [ColumnAttr("开卡时间", true,false)]
         [DataAttr(true)]
         public System.DateTime MCreateTime
         {
@@ -67,7 +67,7 @@ namespace ClientCenter.Enity
             set { mCreateTime = value; }
         }
         private int companyId;
-        [ColumnAttr("开卡店", true)]
+        [ColumnAttr("开卡店", true,false)]
         [DataAttr(true)]
         public int CompanyId
         {

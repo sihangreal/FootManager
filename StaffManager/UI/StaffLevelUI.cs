@@ -63,7 +63,7 @@ namespace StaffManager.UI
                     if (result <= 0)
                     {
                         XtraMessageBox.Show(vo.Id + "更新失败！");
-                        continue;
+                        break;
                     }
                 }
                 else
@@ -72,7 +72,7 @@ namespace StaffManager.UI
                     if (result <= 0)
                     {
                         XtraMessageBox.Show(vo.Id + "保存失败！");
-                        continue;
+                        break;
                     }
                 }
             }
@@ -81,11 +81,15 @@ namespace StaffManager.UI
         protected override void BtnDel_Click(object sender, EventArgs e)
         {
             StaffLevelVo vo = (StaffLevelVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
+            if (vo == null)
+                return;
+            staffLevelList.Remove(vo);
             if (DeleteDao.DeleteByID(vo.Id, typeof(StaffLevelVo)) > 0)
             {
                 XtraMessageBox.Show("删除成功");
                 RefreshLevel();
             }
+            this.gridControl1.RefreshDataSource();
         }
         protected override void BtnAdd_Click(object sender, EventArgs e)
         {

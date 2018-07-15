@@ -35,7 +35,6 @@ namespace ClientCenter.DB
             }
             return value;
         }
-
         /// <summary>
         /// 将DataRow 转成T
         /// </summary>
@@ -147,7 +146,6 @@ namespace ClientCenter.DB
             }
             return tList;
         }
-
         //查会员名
         public static string GetMemberNameByID(string id)
         {
@@ -164,7 +162,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0].Rows[0][0].ToString();
         }
-
         public static string GetMemberIDByName(string name)
         {
             if (mySqlclient == null)
@@ -180,7 +177,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0].Rows[0][0].ToString();
         }
-
         public static double GetMemberBalance(string mId)
         {
             if (mySqlclient == null)
@@ -196,7 +192,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return Convert.ToDouble(ds.Tables[0].Rows[0][0]);
         }
-
         public static DataTable GetMemberRechargeByName(string name)
         {
             if (mySqlclient == null)
@@ -210,7 +205,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
         /// <summary>
         /// 获取会员卡级别
         /// </summary>
@@ -224,7 +218,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), CommandType.Text);
             return ds.Tables[0];
         }
-
         /// <summary>
         /// 获取根据卡的类别获取会员
         /// </summary>
@@ -243,7 +236,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
         public static List<string> GetSkillByStaffID(string staffId)
         {
             if (mySqlclient == null)
@@ -264,7 +256,6 @@ namespace ClientCenter.DB
             }
             return skillNameList;
         }
-
         public static DataTable GetServerShipByID(int serverId)
         {
             if (mySqlclient == null)
@@ -292,7 +283,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
         public static object GetSkillIdByName(string skillName)
         {
             if (mySqlclient == null)
@@ -306,7 +296,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0].Rows[0][0];
         }
-
         public static DataTable GetPermission()
         {
             if (mySqlclient == null)
@@ -316,7 +305,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), CommandType.Text);
             return ds.Tables[0];
         }
-
         public static bool UserLogion(string userName, string psword)
         {
             if (mySqlclient == null)
@@ -332,7 +320,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
         }
-
         public static bool IsUserExist(string userName)
         {
             if (mySqlclient == null)
@@ -346,7 +333,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
         }
-
         public static bool IsMemberExist(string mId)
         {
             if (mySqlclient == null)
@@ -384,7 +370,6 @@ namespace ClientCenter.DB
             ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
         public static bool IsServerNameExist(string skillName)
         {
             if (mySqlclient == null)
@@ -398,7 +383,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
         }
-
         public static bool CheckRoomExist(int roomId)
         {
             if (mySqlclient == null)
@@ -412,7 +396,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
         }
-
         public static DataTable SelectCardByID(int cardId)
         {
             if (mySqlclient == null)
@@ -506,7 +489,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
         public static DataTable SelectStaffWorkByStatus(string status)
         {
             if (mySqlclient == null)
@@ -520,7 +502,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
         public static DataTable SelectStaffWorkByLevel(string level)
         {
             if (mySqlclient == null)
@@ -650,7 +631,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0].Rows[0][0].ToString();
         }
-
         public static bool IsExistSkillPrice(string skillName, string strType)
         {
             if (mySqlclient == null)
@@ -666,7 +646,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
         }
-
         public static double[] GetSkillPrice(string skillName, string strType)
         {
             if (mySqlclient == null)
@@ -690,7 +669,6 @@ namespace ClientCenter.DB
             }
             return result;
         }
-
         public static List<T> GetTempOrderByRoomID<T>(int roomID)
         {
             List<T> tList = new List<T>();
@@ -731,7 +709,6 @@ namespace ClientCenter.DB
             }
             return tList;
         }
-
         public static string GetStaffSexByID(string staffId)
         {
             if (mySqlclient == null)
@@ -749,7 +726,6 @@ namespace ClientCenter.DB
             else
                 return dt.Rows[0][0].ToString();
         }
-
         public static DataTable GetPermissionByName(string name)
         {
             if (mySqlclient == null)
@@ -763,7 +739,6 @@ namespace ClientCenter.DB
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0];
         }
-
         public static List<T> SelectDataByID<T>(object id)
         {
             List<T> tList = new List<T>();
@@ -785,7 +760,7 @@ namespace ClientCenter.DB
                     break;
                 }
             }
-            sb.Append(" SELECT * FROM " + dataAttr.TableName + " WHERE " + strkey + "@" + strkey);
+            sb.Append(" SELECT * FROM " + dataAttr.TableName + " WHERE " + strkey + "=@" + strkey);
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
             MySqlParameter parameter = new MySqlParameter("@" + strkey, mySqlclient.ConvertDBType(keyType));
@@ -838,30 +813,28 @@ namespace ClientCenter.DB
                 return default(T);
             return ConvertDataRowToT<T>(dt.Rows[0], dt.Columns.Count);
         }
-
-
-        public static string CreateOrderHandle()
-        {
-            string orderId = string.Empty;
-            Random ran = new Random();
-            orderId = "P" + DateTime.Now.ToString("yyyyMMdd") + ran.Next(1000, 9999).ToString();
-            string sql = "SELECT Count(OrderID) FROM OrderInfo Where OrderID='" + orderId + "'";
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
-            if (count > 1)
-                CreateOrderHandle();
-            return orderId;
-        }
-
-        public static string GetOrderByRoomId(int roomId)
+        /// <summary>
+        /// 根据房间号取房间
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        public static T GetRoomByRoomId<T>(int roomId)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = "select OrderId from staffwork where roomid=" + roomId;
-            return mySqlclient.ExecuteScalar(sql, null) as string;
+            string sql = "select * from room where roomid=" + roomId;
+            DataSet ds = mySqlclient.GetDataSet(sql);
+            DataTable dt = ds.Tables[0];
+            if (dt == null || dt.Rows.Count == 0)
+                return default(T);
+            return ConvertDataRowToT<T>(dt.Rows[0], dt.Columns.Count);
         }
-
+        /// <summary>
+        /// 根据房间号来到订单
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
         public static T GetOrderByRoomId<T>(int roomId)
         {
             if (mySqlclient == null)
@@ -873,7 +846,6 @@ namespace ClientCenter.DB
                 return default(T);
             return ConvertDataRowToT<T>(dt.Rows[0],dt.Columns.Count);
         }
-
         public static string GetStaffIdByRoomId(int roomId)
         {
             if (mySqlclient == null)
@@ -881,7 +853,6 @@ namespace ClientCenter.DB
             string sql = "select staffId from staffwork where roomid=" + roomId;
             return mySqlclient.ExecuteScalar(sql, null) as string;
         }
-
         public static string GetStaffNameByRoomId(int roomId)
         {
             if (mySqlclient == null)
@@ -889,7 +860,6 @@ namespace ClientCenter.DB
             string sql = "select staffName from staffwork where roomid=" + roomId;
             return mySqlclient.ExecuteScalar(sql, null) as string;
         }
-
         /// <summary>
         /// 检查是否有重复的员工ID
         /// </summary>
@@ -906,7 +876,6 @@ namespace ClientCenter.DB
             else
                 return false;
         }
-
         public static bool IsRepeatedDepartmentId(int id)
         {
             string sql = "SELECT Count(id) FROM Department Where id='" + id + "'";
@@ -918,7 +887,6 @@ namespace ClientCenter.DB
             else
                 return false;
         }
-
         public static bool IsRepeatedLevelId(int id)
         {
             string sql = "SELECT Count(id) FROM Level Where id='" + id + "'";
@@ -930,7 +898,6 @@ namespace ClientCenter.DB
             else
                 return false;
         }
-
         public static bool IsRepeatedClassId(int id)
         {
             string sql = "SELECT Count(StaffClassID) FROM StaffClass Where StaffClassID='" + id + "'";
@@ -941,6 +908,137 @@ namespace ClientCenter.DB
                 return true;
             else
                 return false;
+        }
+        public static bool IsRepeatedMemberId(string id)
+        {
+            string sql = "SELECT Count(MId) FROM member Where MId='" + id + "'";
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
+            if (count > 0)
+                return true;
+            else
+                return false;
+        }
+        /// <summary>
+        /// 是否有重复的会员卡ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool IsRepeatedCardId(int id)
+        {
+            string sql = "SELECT Count(CardId) FROM Card Where CardId='" + id + "'";
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
+            if (count > 0)
+                return true;
+            else
+                return false;
+        }
+        public static List<T> SelectStaffWorkRecordByName<T>(string name)
+        {
+            List<T> tList = new List<T>();
+            string sql = "SELECT * FROM StaffWorkRecord WHERE StaffName =" + name;
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            DataSet ds = mySqlclient.GetDataSet(sql);
+            if (ds.Tables[0] == null)
+                return null;
+            foreach(DataRow dr in ds.Tables[0].Rows)
+            {
+                T t= ConvertDataRowToT<T>(dr,ds.Tables[0].Columns.Count);
+                tList.Add(t);
+            }
+            return tList;
+        }
+        /// <summary>
+        /// 根据会员名称找会员消费记录
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mName"></param>
+        /// <returns></returns>
+        public static List<T> SelectMemberConsumeByName<T>(string mName)
+        {
+            List<T> tList = new List<T>();
+            string sql = "SELECT * FROM MemberConsume WHERE MName =" + mName;
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            DataSet ds = mySqlclient.GetDataSet(sql);
+            if (ds.Tables[0] == null)
+                return null;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                T t = ConvertDataRowToT<T>(dr, ds.Tables[0].Columns.Count);
+                tList.Add(t);
+            }
+            return tList;
+        }
+        /// <summary>
+        /// 根据会员ID找会员消费记录
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mId"></param>
+        /// <returns></returns>
+        public static List<T> SelectMemberConsumeByID<T>(string mId)
+        {
+            List<T> tList = new List<T>();
+            string sql = "SELECT * FROM MemberConsume WHERE MId =" + mId;
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            DataSet ds = mySqlclient.GetDataSet(sql);
+            if (ds.Tables[0] == null)
+                return null;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                T t = ConvertDataRowToT<T>(dr, ds.Tables[0].Columns.Count);
+                tList.Add(t);
+            }
+            return tList;
+        }
+        /// <summary>
+        /// 根据会员名称找会员充值记录
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mName"></param>
+        /// <returns></returns>
+        public static List<T> SelectMemberRechargeByName<T>(string mName)
+        {
+            List<T> tList = new List<T>();
+            string sql = "SELECT * FROM memberRecharge WHERE MName =" + mName;
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            DataSet ds = mySqlclient.GetDataSet(sql);
+            if (ds.Tables[0] == null)
+                return null;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                T t = ConvertDataRowToT<T>(dr, ds.Tables[0].Columns.Count);
+                tList.Add(t);
+            }
+            return tList;
+        }
+        /// <summary>
+        /// 根据会员ID找会员充值记录
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mId"></param>
+        /// <returns></returns>
+        public static List<T> SelectMemberRechargeByID<T>(string mId)
+        {
+            List<T> tList = new List<T>();
+            string sql = "SELECT * FROM memberRecharge WHERE MId =" + mId;
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            DataSet ds = mySqlclient.GetDataSet(sql);
+            if (ds.Tables[0] == null)
+                return null;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                T t = ConvertDataRowToT<T>(dr, ds.Tables[0].Columns.Count);
+                tList.Add(t);
+            }
+            return tList;
         }
     }
 }

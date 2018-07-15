@@ -11,7 +11,7 @@ namespace ClientCenter.Enity
     public class CardVo
     {
         private int cardId;
-        [ColumnAttr("会员卡编号", true)]
+        [ColumnAttr("会员卡编号", false)]
         [DataAttr(false)]
         public int CardId
         {

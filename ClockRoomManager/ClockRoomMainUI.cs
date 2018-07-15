@@ -7,6 +7,7 @@ using ClientCenter.DB;
 using ClientCenter.Event;
 using ClientCenter.Enity;
 using DevExpress.XtraEditors;
+using System.Linq;
 
 namespace ClockRoomManager
 {
@@ -14,6 +15,7 @@ namespace ClockRoomManager
     {
         ClockRoom clockRoom; //钟房
         StaffQueryUI staffQuery;
+        private List<RoomVo> roomVoList = new List<RoomVo>();
 
         public ClockRoomMainUI()
         {
@@ -67,15 +69,19 @@ namespace ClockRoomManager
             staffQuery.Dock = DockStyle.Fill;
             this.panelStaff.Controls.Add(staffQuery);
 
-            List<RoomVo> voList = SelectDao.SelectData<RoomVo>();
-            List<Room> roomVoList = new List<Room>();
-            this.gridControl2.DataSource = voList;
+            RefreshRoom();
+        }
+        private void RefreshRoom()
+        {
+            roomVoList = SelectDao.SelectData<RoomVo>();
+            List<Room> roomList = new List<Room>();
+            this.gridControl2.DataSource = roomVoList;
             this.gridControl2.RefreshDataSource();
-            foreach (RoomVo vo in voList)
+            foreach (RoomVo vo in roomVoList)
             {
-                roomVoList.Add(new Room(vo)); 
+                roomList.Add(new Room(vo));
             }
-            clockRoom.SetRoomList(roomVoList);
+            clockRoom.SetRoomList(roomList);
         }
         private void ShowRoom()
         {
@@ -96,9 +102,9 @@ namespace ClockRoomManager
             FillRoom();
         }
         [EventAttr("UpdateRoomSuccessed")]
-        public void UpdateRoomSuccessed(object sender,RoomVo roomVo)
+        public void UpdateRoomSuccessed(object sender, RoomVo updateVo)
         {
-            clockRoom.UpdateRoom(roomVo);
+            clockRoom.UpdateRoom(updateVo);
         }
         #endregion
     }

@@ -193,5 +193,17 @@ namespace ClientCenter.DB
             sb.Append("DELETE  FROM  StaffQueue");
             return mySqlclient.ExecuteNonQuery(sb.ToString(),CommandType.Text);
         }
+        /// <summary>
+        /// 结账的时候根据房间号删除临时订单
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        public static int DeleteTempOrderByRoomId(int roomId)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string sql = @"DELETE  FROM  temporder where RoomId=" + roomId;
+            return mySqlclient.ExecuteNonQuery(sql, CommandType.Text);
+        }
     }
 }

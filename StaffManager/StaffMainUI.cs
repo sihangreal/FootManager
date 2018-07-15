@@ -20,6 +20,7 @@ namespace StaffManager
         private DepartmentUI departmentUI = new DepartmentUI();
         private StaffLevelUI levelUI = new StaffLevelUI();
         private ClassInfoUI classUI = new ClassInfoUI();
+        private StaffWorkQueryUI staffRecordUI = new StaffWorkQueryUI();
         public StaffMainUI()
         {
             InitializeComponent();
@@ -46,6 +47,8 @@ namespace StaffManager
             staffLevelPage.Controls.Add(levelUI);
             classUI.Dock = DockStyle.Fill;
             classPage.Controls.Add(classUI);
+            staffRecordUI.Dock = DockStyle.Fill;
+            workRecordPage.Controls.Add(staffRecordUI);
         }
     }
 }

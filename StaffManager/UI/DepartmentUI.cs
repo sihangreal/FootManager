@@ -64,7 +64,7 @@ namespace StaffManager.UI
                     if (result <= 0)
                     {
                         XtraMessageBox.Show(vo.Id + "更新失败！");
-                        continue;
+                        break;
                     }
                 }
                 else
@@ -73,7 +73,7 @@ namespace StaffManager.UI
                     if (result <= 0)
                     {
                         XtraMessageBox.Show(vo.Id + "保存失败！");
-                        continue;
+                        break;
                     }
                 }
             }
@@ -82,11 +82,15 @@ namespace StaffManager.UI
         protected override void BtnDel_Click(object sender, EventArgs e)
         {
             DepartmentVo vo = (DepartmentVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
+            if (vo == null)
+                return;
+            departmentVoList.Remove(vo);
             if (DeleteDao.DeleteByID(vo.Id, typeof(DepartmentVo)) > 0)
             {
                 XtraMessageBox.Show("删除成功");
                 RefreshDepartment();
             }
+            this.gridControl1.RefreshDataSource();
         }
         protected override void BtnAdd_Click(object sender, EventArgs e)
         {

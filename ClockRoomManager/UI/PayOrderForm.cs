@@ -31,7 +31,6 @@ namespace ClockRoomManager.UI
             InitData();
             InitEvents();
         }
-
         private void InitEvents()
         {
             this.Load += PayOrderForm_Load;
@@ -46,7 +45,6 @@ namespace ClockRoomManager.UI
             staffId = SelectDao.GetStaffIdByRoomId(roomId);
             staffName = SelectDao.GetStaffNameByRoomId(roomId);
         }
-
         private void FillComType()
         {
             this.comboType.Properties.Items.AddRange(new string[] { "现金", "Visa卡" });
@@ -58,14 +56,11 @@ namespace ClockRoomManager.UI
             }
             this.comboType.SelectedIndex = 0;
         }
-       
         #region events
         private void PayOrderForm_Load(object sender, EventArgs e)
         {
             FillComType();
         }
-
-
         private void ComboType_SelectedValueChanged(object sender, EventArgs e)
         {
             double serverPrice=0;
@@ -73,7 +68,6 @@ namespace ClockRoomManager.UI
             double totalPrice = 0;
             string priceType = this.comboType.Text;
 
-   
             foreach (TempOrderVo vo in tempOrderList)
             {
                 serverPrice +=SelectDao.GetSkillPriceDetail(vo.SkillName,iType,priceType);
@@ -101,6 +95,8 @@ namespace ClockRoomManager.UI
         {
             OrderInfoVo vo = SelectDao.GetOrderByRoomId<OrderInfoVo>(roomId);
             vo.Price = Convert.ToDouble(this.textPrice.Text);
+            vo.Tax = Convert.ToDouble(this.textTotal.Text);
+            vo.TotalPrice = Convert.ToDouble(this.textTotal.Text);
             vo.Status = "完成";
             vo.PriceType = this.comboType.Text;
             vo.EndTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
@@ -108,16 +104,21 @@ namespace ClockRoomManager.UI
             List<DetailedOrderVo> delOrderList = RelationDetailedOrder(vo.OrderID);
             if (TransactionDao.DealOrder(vo, workInfoVo, delOrderList))
             {
+                //删除临时订单
+                DeleteDao.DeleteTempOrderByRoomId(roomId);
                 //会员消费记录
-                MemberConsumeVo consumeVo = new MemberConsumeVo();
-                string consumeId = GenrateIDUtil.GenerateConsumeID();
-                consumeVo.Id = consumeId;
-                consumeVo.MId = this.textMemberId.Text;
-                consumeVo.MName= SelectDao.GetMemberNameByID(this.textMemberId.Text);
-                consumeVo.Amount = double.Parse(this.textTotal.Text);
-                consumeVo.ConsumeTime = DateTime.Now;
-                consumeVo.CompanyId = SystemConst.companyId;
-                InsertDao.InsertData(consumeVo);
+                if(!string.IsNullOrWhiteSpace(this.textMemberId.Text))
+                {
+                    MemberConsumeVo consumeVo = new MemberConsumeVo();
+                    string consumeId = GenrateIDUtil.GenerateConsumeID();
+                    consumeVo.Id = consumeId;
+                    consumeVo.MId = this.textMemberId.Text;
+                    consumeVo.MName = SelectDao.GetMemberNameByID(this.textMemberId.Text);
+                    consumeVo.Amount = double.Parse(this.textTotal.Text);
+                    consumeVo.ConsumeTime = DateTime.Now;
+                    consumeVo.CompanyId = SystemConst.companyId;
+                    InsertDao.InsertData(consumeVo);
+                }
                 //员工做工记录
                 StaffWorkRecordVo recordVo = new StaffWorkRecordVo();
                 recordVo.ID = GenrateIDUtil.GenerateWorkRecordID();
@@ -129,6 +130,9 @@ namespace ClockRoomManager.UI
                 InsertDao.InsertData(recordVo);
 
                 XtraMessageBox.Show("买单成功!");
+                RoomVo updateVo = SelectDao.GetRoomByRoomId<RoomVo>(roomId);
+                EventBus.PublishEvent("UpdateRoomSuccessed", this, updateVo);
+                this.DialogResult = DialogResult.OK;
             }
             else
             {
@@ -159,12 +163,14 @@ namespace ClockRoomManager.UI
                 detVo.DetailID = GenrateIDUtil.GenerateDetailOrderID();
                 detVo.OrderID = orderId;
                 detVo.SkillId = vo.SkillId;
-                detVo.Price = CalculationPrice(vo);
+                detVo.Price = SelectDao.GetSkillPriceDetail(vo.SkillName, iType, priceType);
+                double gstPrice = (detVo.Price * 6) / 106;
+                detVo.Tax = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
+                detVo.TotalPrice = detVo.Price + detVo.Tax;
                 detailedVoList.Add(detVo);
             }
             return detailedVoList;
         }
-
         private StaffWorkInfoVo UpdateWorkInfo()
         {
             StaffWorkInfoVo workVo = new StaffWorkInfoVo();

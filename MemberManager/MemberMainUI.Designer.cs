@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.navigationPane1 = new DevExpress.XtraBars.Navigation.NavigationPane();
+            this.navigationPage4 = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.navigationPage1 = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.navigationPage2 = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.navigationPage3 = new DevExpress.XtraBars.Navigation.NavigationPage();
-            this.navigationPage4 = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.navigationPage5 = new DevExpress.XtraBars.Navigation.NavigationPage();
             this.navigationPane1.SuspendLayout();
             this.SuspendLayout();
@@ -59,20 +59,24 @@
             this.navigationPage5});
             this.navigationPane1.RegularSize = new System.Drawing.Size(752, 556);
             this.navigationPane1.SelectedPage = this.navigationPage2;
-            this.navigationPane1.SelectedPageIndex = 4;
+            this.navigationPane1.SelectedPageIndex = 0;
             this.navigationPane1.Size = new System.Drawing.Size(752, 556);
             this.navigationPane1.TabIndex = 0;
             this.navigationPane1.Text = "会员基本资料维护";
+            // 
+            // navigationPage4
+            // 
+            this.navigationPage4.Caption = "会员查询与充值";
+            this.navigationPage4.Image = global::MemberManager.Properties.Resources.boorder_32x32;
+            this.navigationPage4.Name = "navigationPage4";
+            this.navigationPage4.Size = new System.Drawing.Size(588, 509);
+            this.navigationPage4.Tag = "会员查询与充值";
             // 
             // navigationPage1
             // 
             this.navigationPage1.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.navigationPage1.Appearance.Options.UseFont = true;
             this.navigationPage1.Caption = "会员基本资料维护";
-            this.navigationPage1.CustomHeaderButtons.AddRange(new DevExpress.XtraBars.Docking2010.IButton[] {
-            new DevExpress.XtraBars.Docking.CustomHeaderButton("修改", DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton),
-            new DevExpress.XtraBars.Docking.CustomHeaderButton("删除", DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton),
-            new DevExpress.XtraBars.Docking.CustomHeaderButton("添加", DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton)});
             this.navigationPage1.Image = global::MemberManager.Properties.Resources.customer_32x32;
             this.navigationPage1.Name = "navigationPage1";
             this.navigationPage1.Size = new System.Drawing.Size(588, 509);
@@ -93,14 +97,6 @@
             this.navigationPage3.Name = "navigationPage3";
             this.navigationPage3.Size = new System.Drawing.Size(588, 509);
             this.navigationPage3.Tag = "会员充值记录查询";
-            // 
-            // navigationPage4
-            // 
-            this.navigationPage4.Caption = "会员查询与充值";
-            this.navigationPage4.Image = global::MemberManager.Properties.Resources.boorder_32x32;
-            this.navigationPage4.Name = "navigationPage4";
-            this.navigationPage4.Size = new System.Drawing.Size(588, 509);
-            this.navigationPage4.Tag = "会员查询与充值";
             // 
             // navigationPage5
             // 

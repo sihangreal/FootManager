@@ -1,6 +1,6 @@
 ﻿namespace MemberManager.UI
 {
-    partial class MemberOperationForm
+    partial class MemberOperationFrm
     {
         /// <summary>
         /// Required designer variable.

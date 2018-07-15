@@ -73,6 +73,16 @@ namespace MemberManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap apply_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("apply_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap boorder_32x32 {
             get {
                 object obj = ResourceManager.GetObject("boorder_32x32", resourceCulture);
@@ -196,6 +206,16 @@ namespace MemberManager.Properties {
         internal static System.Drawing.Bitmap publicfix_32x32 {
             get {
                 object obj = ResourceManager.GetObject("publicfix_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap suggestion_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("suggestion_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

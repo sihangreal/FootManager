@@ -11,7 +11,7 @@ namespace ClientCenter.Enity
     public class MemberConsumeVo
     {
         private string id;
-        [ColumnAttr("ID", false)]
+        [ColumnAttr("ID", false, false)]
         [DataAttr(true)]
         public string Id
         {
@@ -19,7 +19,7 @@ namespace ClientCenter.Enity
             set { id = value; }
         }
         private string memberId;
-        [ColumnAttr("会员编号", true)]
+        [ColumnAttr("会员编号", true, false)]
         [DataAttr(true)]
         public string MId
         {
@@ -27,7 +27,7 @@ namespace ClientCenter.Enity
             set { memberId = value; }
         }
         private string memberName;
-        [ColumnAttr("会员名字", true)]
+        [ColumnAttr("会员名字", true, false)]
         [DataAttr(true)]
         public string MName
         {
@@ -35,7 +35,7 @@ namespace ClientCenter.Enity
             set { memberName = value; }
         }
         private double amount;
-        [ColumnAttr("金额", true)]
+        [ColumnAttr("金额", true, false)]
         [DataAttr(true)]
         public double Amount
         {
@@ -43,7 +43,7 @@ namespace ClientCenter.Enity
             set { amount = value; }
         }
         private DateTime consumeTime;
-        [ColumnAttr("消费时间", true)]
+        [ColumnAttr("消费时间", true, false)]
         [DataAttr(true)]
         public DateTime ConsumeTime
         {
@@ -51,7 +51,7 @@ namespace ClientCenter.Enity
             set { consumeTime = value; }
         }
         private int companyId;
-        [ColumnAttr("公司ID", true)]
+        [ColumnAttr("公司ID", true, false)]
         [DataAttr(true)]
         public int CompanyId
         {

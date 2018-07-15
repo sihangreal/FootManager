@@ -146,6 +146,12 @@
     <Compile Include="UI\StaffQueueUI.Designer.cs">
       <DependentUpon>StaffQueueUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\StaffWorkQueryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\StaffWorkQueryUI.Designer.cs">
+      <DependentUpon>StaffWorkQueryUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\StaffWorkUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -164,6 +170,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StaffMainUI.resx">
       <DependentUpon>StaffMainUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SaffInfoUI.resx">
+      <DependentUpon>SaffInfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\StaffWorkQueryUI.resx">
+      <DependentUpon>StaffWorkQueryUI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +303,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\movedown_16x162.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\formatastable_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -107,7 +107,7 @@ namespace StaffManager.UI
                     if (result <= 0)
                     {
                         XtraMessageBox.Show(vo.StaffName + "更新失败！");
-                        continue;
+                        break;
                     }
                 }
                 else
@@ -119,12 +119,11 @@ namespace StaffManager.UI
                     if (result <= 0)
                     {
                         XtraMessageBox.Show(vo.StaffName + "保存失败！");
-                        continue;
+                        break;
                     }
                 }
             }
             EventBus.PublishEvent("StaffWorkStatusChange");
-            //RefreshWorkInfo();
             XtraMessageBox.Show("保存成功！");
         }
 
@@ -133,11 +132,12 @@ namespace StaffManager.UI
             StaffInfoVo vo = (StaffInfoVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
             if (vo == null)
                 return;
+            staffInfoList.Remove(vo);
             if (DeleteDao.DelStaffInfoByID(vo.StaffId) > 0)
             {
                 XtraMessageBox.Show("删除成功");
-                RefreshStaff();
             }
+            this.gridControl1.RefreshDataSource();
         }
 
         protected override void BtnAdd_Click(object sender, EventArgs e)

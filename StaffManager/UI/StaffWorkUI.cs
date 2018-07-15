@@ -13,6 +13,7 @@ using ClientCenter.DB;
 using ClientCenter.Core;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.Controls;
+using ClientCenter.Event;
 
 namespace StaffManager.UI
 {
@@ -21,6 +22,7 @@ namespace StaffManager.UI
         List<StaffWorkInfoVo> staffWorkList = new List<StaffWorkInfoVo>();
         public StaffWorkUI()
         {
+            EventBus.RegisterEvent(this);
             InitializeComponent();
             SetStaffWorkGrid();
         }
@@ -72,7 +74,13 @@ namespace StaffManager.UI
                     XtraMessageBox.Show(vo.StaffName + "更新成功！");
                 }
             }
+            EventBus.PublishEvent("StaffWorkStatusChange");
         }
 
+        [EventAttr("StaffWorkStatusChange")]
+        public void StaffWorkStatusChange()
+        {
+            RefreshStaffWork();
+        }
     }
 }

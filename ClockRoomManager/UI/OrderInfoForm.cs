@@ -182,7 +182,7 @@ namespace ClockRoomManager.UI
                 string staffId = comboStaff.Text;
                 string staffName = SelectDao.SelectStaffNameByID(staffId);
                 //创建ID
-                orderId = SelectDao.CreateOrderHandle();
+                orderId = GenrateIDUtil.GenerateOrderID();
                 TempOrderVo tempVo = new TempOrderVo()
                 {
                     Id=0,
@@ -287,6 +287,7 @@ namespace ClockRoomManager.UI
         {
             PayOrderForm payForm = new PayOrderForm(roomVo.RoomId);
             payForm.ShowDialog();
+            this.DialogResult = DialogResult.OK;
         }
         private void GridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
