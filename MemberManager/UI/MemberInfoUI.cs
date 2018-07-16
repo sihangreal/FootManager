@@ -10,6 +10,7 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace MemberManager.UI
 {
@@ -29,30 +30,30 @@ namespace MemberManager.UI
         private void SetMemberInfoGrid()
         {
             GridViewUtil.CreateColumnForData(this.gridView1, typeof(MemberInfoVo));
-            RepositoryItemComboBox repositoryItemComboStatus = new RepositoryItemComboBox();
-            RepositoryItemComboBox repositoryItemComboLevel = new RepositoryItemComboBox();
-            repositoryItemComboStatus.BeginInit();
-            repositoryItemComboLevel.BeginInit();
-            repositoryItemComboStatus.TextEditStyle = TextEditStyles.DisableTextEditor;
-            repositoryItemComboLevel.TextEditStyle = TextEditStyles.DisableTextEditor;
-            gridControl1.RepositoryItems.AddRange(new RepositoryItem[] { repositoryItemComboStatus, repositoryItemComboLevel });
+            //RepositoryItemComboBox repositoryItemComboStatus = new RepositoryItemComboBox();
+            //RepositoryItemComboBox repositoryItemComboLevel = new RepositoryItemComboBox();
+            //repositoryItemComboStatus.BeginInit();
+            //repositoryItemComboLevel.BeginInit();
+            //repositoryItemComboStatus.TextEditStyle = TextEditStyles.DisableTextEditor;
+            //repositoryItemComboLevel.TextEditStyle = TextEditStyles.DisableTextEditor;
+            //gridControl1.RepositoryItems.AddRange(new RepositoryItem[] { repositoryItemComboStatus, repositoryItemComboLevel });
 
-            repositoryItemComboStatus.Buttons.AddRange(new EditorButton[] { new EditorButton(ButtonPredefines.Combo) });
-            repositoryItemComboLevel.Buttons.AddRange(new EditorButton[] { new EditorButton(ButtonPredefines.Combo) });
-            //填充状态
-            repositoryItemComboStatus.Items.AddRange(new string[] { "正常", "停止", "挂失" });
-            //填充会员级别
-            List<CardVo> cardDaoList = SelectDao.SelectData<CardVo>();
-            foreach (CardVo vo in cardDaoList)
-            {
-                repositoryItemComboLevel.Items.Add(vo.CardName);
-            }
+            //repositoryItemComboStatus.Buttons.AddRange(new EditorButton[] { new EditorButton(ButtonPredefines.Combo) });
+            //repositoryItemComboLevel.Buttons.AddRange(new EditorButton[] { new EditorButton(ButtonPredefines.Combo) });
+            ////填充状态
+            //repositoryItemComboStatus.Items.AddRange(new string[] { "正常", "停止", "挂失" });
+            ////填充会员级别
+            //List<CardVo> cardDaoList = SelectDao.SelectData<CardVo>();
+            //foreach (CardVo vo in cardDaoList)
+            //{
+            //    repositoryItemComboLevel.Items.Add(vo.CardName);
+            //}
 
-            this.gridView1.Columns["MStatus"].ColumnEdit = repositoryItemComboStatus;
-            this.gridView1.Columns["CardName"].ColumnEdit = repositoryItemComboLevel;
+            //this.gridView1.Columns["MStatus"].ColumnEdit = repositoryItemComboStatus;
+            //this.gridView1.Columns["CardName"].ColumnEdit = repositoryItemComboLevel;
            
-            repositoryItemComboLevel.EndInit();
-            repositoryItemComboStatus.EndInit();
+            //repositoryItemComboLevel.EndInit();
+            //repositoryItemComboStatus.EndInit();
 
             RefreshMember();
         }
@@ -86,36 +87,42 @@ namespace MemberManager.UI
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            List<MemberInfoVo> staffOldInfoList = SelectDao.SelectData<MemberInfoVo>();
-            List<MemberInfoVo> changeList = GenericUtil.GetChanges(memberVoList, staffOldInfoList);
-            int result = 0;
-            if (!CheckParam(changeList))
-                return;
-            foreach (MemberInfoVo vo in changeList)
+            //List<MemberInfoVo> staffOldInfoList = SelectDao.SelectData<MemberInfoVo>();
+            //List<MemberInfoVo> changeList = GenericUtil.GetChanges(memberVoList, staffOldInfoList);
+            //int result = 0;
+            //if (!CheckParam(changeList))
+            //    return;
+            //foreach (MemberInfoVo vo in changeList)
+            //{
+            //    if (SelectDao.IsRepeatedMemberId(vo.MId))
+            //    {
+            //        //更新
+            //        result = UpdateDao.UpdateByID(vo);
+            //        if (result <= 0)
+            //        {
+            //            XtraMessageBox.Show(vo.MName + "更新失败！");
+            //            break;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        List<object> infoList = new List<object>() { vo.MId, vo.MName, vo.CardName, vo.MPhone, vo.MStatus, vo.MBalance, vo.CompanyId };
+            //        result = ProcedureDao.MemberRegister(infoList);
+            //        if (result <= 0)
+            //        {
+            //            XtraMessageBox.Show(vo.MName + "保存失败！");
+            //            break;
+            //        }
+            //        EventBus.PublishEvent("MemberRechargeSuccess");
+            //    }
+            //}
+            //XtraMessageBox.Show("保存成功！");
+            MemberInfoVo updateVo = (MemberInfoVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
+            MemberOperationFrm operationFrm = new MemberOperationFrm(updateVo);
+            if (operationFrm.DialogResult == DialogResult.OK)
             {
-                if (SelectDao.IsRepeatedMemberId(vo.MId))
-                {
-                    //更新
-                    result = UpdateDao.UpdateByID(vo);
-                    if (result <= 0)
-                    {
-                        XtraMessageBox.Show(vo.MName + "更新失败！");
-                        break;
-                    }
-                }
-                else
-                {
-                    List<object> infoList = new List<object>() { vo.MId, vo.MName, vo.CardName, vo.MPhone, vo.MStatus, vo.MBalance, vo.CompanyId };
-                    result = ProcedureDao.MemberRegister(infoList);
-                    if (result <= 0)
-                    {
-                        XtraMessageBox.Show(vo.MName + "保存失败！");
-                        break;
-                    }
-                    EventBus.PublishEvent("MemberRechargeSuccess");
-                }
+                RefreshMember();
             }
-            XtraMessageBox.Show("保存成功！");
         }
 
         private void BtnDel_Click(object sender, EventArgs e)
@@ -133,14 +140,19 @@ namespace MemberManager.UI
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            MemberInfoVo addVo = new MemberInfoVo();
-            addVo.MId = GenrateIDUtil.GenerateMemberID();
-            addVo.MStatus = "正常";
-            addVo.MCreateTime = DateTime.Now;
-            addVo.CompanyId = SystemConst.companyId;
-            addVo.CardName = cardNameList[0];
-            memberVoList.Add(addVo);
-            this.gridControl1.RefreshDataSource();
+            //MemberInfoVo addVo = new MemberInfoVo();
+            //addVo.MId = GenrateIDUtil.GenerateMemberID();
+            //addVo.MStatus = "正常";
+            //addVo.MCreateTime = DateTime.Now;
+            //addVo.CompanyId = SystemConst.companyId;
+            //addVo.CardName = cardNameList[0];
+            //memberVoList.Add(addVo);
+            //this.gridControl1.RefreshDataSource();
+            MemberOperationFrm operationFrm = new MemberOperationFrm();
+            if(operationFrm.DialogResult==DialogResult.OK)
+            {
+                RefreshMember();
+            }
         }
 
         private void TreeList1_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)

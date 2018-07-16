@@ -19,7 +19,7 @@ namespace ClientCenter.Enity
             set { mId = value; }
         }
         private string mName;
-        [ColumnAttr("会员名字", true)]
+        [ColumnAttr("会员名字", true,false)]
         [DataAttr(true)]
         public string MName
         {
@@ -27,7 +27,7 @@ namespace ClientCenter.Enity
             set { mName = value; }
         }
         private string cardName;
-        [ColumnAttr("会员卡名称", true)]
+        [ColumnAttr("会员卡名称", true, false)]
         [DataAttr(true)]
         public string CardName
         {
@@ -35,7 +35,7 @@ namespace ClientCenter.Enity
             set { cardName = value; }
         }
         private string mStatus;
-        [ColumnAttr("会员状态", true)]
+        [ColumnAttr("会员状态", true, false)]
         [DataAttr(true)]
         public string MStatus
         {
@@ -43,7 +43,7 @@ namespace ClientCenter.Enity
             set { mStatus = value; }
         }
         private double mBalance;
-        [ColumnAttr("会员余额", true)]
+        [ColumnAttr("会员余额", true, false)]
         [DataAttr(true)]
         public double MBalance
         {
@@ -51,7 +51,7 @@ namespace ClientCenter.Enity
             set { mBalance = value; }
         }
         private string mPhone;
-        [ColumnAttr("会员电话", true)]
+        [ColumnAttr("会员电话", true, false)]
         [DataAttr(true)]
         public string MPhone
         {

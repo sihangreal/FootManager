@@ -39,7 +39,7 @@ namespace MemberManager.UI
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
@@ -79,6 +79,7 @@ namespace MemberManager.UI
                      XtraMessageBox.Show("更新会员失败!", "提示");
                  }
              }
+            this.DialogResult = DialogResult.OK;
         }
 
         private void MemberOperationForm_Load(object sender, EventArgs e)
