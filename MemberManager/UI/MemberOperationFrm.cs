@@ -84,10 +84,10 @@ namespace MemberManager.UI
 
         private void MemberOperationForm_Load(object sender, EventArgs e)
         {
+            FillMemberLevel();
+            FillMemberSataus();
             if (memberVo == null)
             {
-                FillMemberLevel();
-                FillMemberSataus();
                 this.textMId.Text = GenrateIDUtil.GenerateMemberID();
             }
             else

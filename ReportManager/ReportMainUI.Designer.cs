@@ -29,25 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraPrinting.Preview.PreviewBar previewBar3;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportMainUI));
+            this.barStaticItem2 = new DevExpress.XtraBars.BarStaticItem();
+            this.barEditItem1 = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.barStaticItem3 = new DevExpress.XtraBars.BarStaticItem();
+            this.dateEditStart = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemDateEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
+            this.barStaticItem4 = new DevExpress.XtraBars.BarStaticItem();
+            this.endEditStart = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemDateEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.documentViewer1 = new DevExpress.XtraPrinting.Preview.DocumentViewer();
             this.documentViewerBarManager1 = new DevExpress.XtraPrinting.Preview.DocumentViewerBarManager(this.components);
-            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
-            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
-            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
-            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.previewBar1 = new DevExpress.XtraPrinting.Preview.PreviewBar();
-            this.previewBar2 = new DevExpress.XtraPrinting.Preview.PreviewBar();
-            this.previewBar3 = new DevExpress.XtraPrinting.Preview.PreviewBar();
-            this.printPreviewStaticItem1 = new DevExpress.XtraPrinting.Preview.PrintPreviewStaticItem();
-            this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
-            this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
-            this.progressBarEditItem1 = new DevExpress.XtraPrinting.Preview.ProgressBarEditItem();
-            this.printPreviewBarItem1 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
-            this.printPreviewStaticItem2 = new DevExpress.XtraPrinting.Preview.PrintPreviewStaticItem();
-            this.repositoryItemZoomTrackBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar();
-            this.zoomTrackBarEditItem1 = new DevExpress.XtraPrinting.Preview.ZoomTrackBarEditItem();
             this.printPreviewBarItem2 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
             this.printPreviewBarItem3 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
             this.printPreviewBarItem4 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
@@ -64,7 +59,7 @@
             this.printPreviewBarItem15 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
             this.printPreviewBarItem16 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
             this.zoomBarEditItem1 = new DevExpress.XtraPrinting.Preview.ZoomBarEditItem();
-            this.printPreviewRepositoryItemComboBox1 = new DevExpress.XtraPrinting.Preview.PrintPreviewRepositoryItemComboBox();
+            this.reportComboBox = new DevExpress.XtraPrinting.Preview.PrintPreviewRepositoryItemComboBox();
             this.printPreviewBarItem17 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
             this.printPreviewBarItem18 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
             this.printPreviewBarItem19 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
@@ -75,6 +70,20 @@
             this.printPreviewBarItem24 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
             this.printPreviewBarItem25 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
             this.printPreviewBarItem26 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
+            this.previewBar2 = new DevExpress.XtraPrinting.Preview.PreviewBar();
+            this.printPreviewStaticItem1 = new DevExpress.XtraPrinting.Preview.PrintPreviewStaticItem();
+            this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
+            this.progressBarEditItem1 = new DevExpress.XtraPrinting.Preview.ProgressBarEditItem();
+            this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
+            this.printPreviewBarItem1 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.printPreviewStaticItem2 = new DevExpress.XtraPrinting.Preview.PrintPreviewStaticItem();
+            this.zoomTrackBarEditItem1 = new DevExpress.XtraPrinting.Preview.ZoomTrackBarEditItem();
+            this.repositoryItemZoomTrackBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar();
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.printPreviewSubItem4 = new DevExpress.XtraPrinting.Preview.PrintPreviewSubItem();
             this.printPreviewBarItem28 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
             this.printPreviewBarItem29 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarItem();
@@ -96,22 +105,119 @@
             this.printPreviewBarCheckItem15 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarCheckItem();
             this.printPreviewBarCheckItem16 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarCheckItem();
             this.printPreviewBarCheckItem17 = new DevExpress.XtraPrinting.Preview.PrintPreviewBarCheckItem();
-            this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
+            this.btnQuery = new DevExpress.XtraBars.BarButtonItem();
+            previewBar3 = new DevExpress.XtraPrinting.Preview.PreviewBar();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentViewerBarManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reportComboBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemZoomTrackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.printPreviewRepositoryItemComboBox1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // previewBar3
+            // 
+            previewBar3.BarName = "Main Menu";
+            previewBar3.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Top;
+            previewBar3.DockCol = 0;
+            previewBar3.DockRow = 0;
+            previewBar3.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            previewBar3.HideWhenMerging = DevExpress.Utils.DefaultBoolean.True;
+            previewBar3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem2),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barEditItem1, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem3),
+            new DevExpress.XtraBars.LinkPersistInfo(this.dateEditStart, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem4),
+            new DevExpress.XtraBars.LinkPersistInfo(this.endEditStart, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnQuery, true)});
+            previewBar3.OptionsBar.AllowQuickCustomization = false;
+            previewBar3.OptionsBar.DrawBorder = false;
+            previewBar3.OptionsBar.DrawDragBorder = false;
+            previewBar3.OptionsBar.MultiLine = true;
+            previewBar3.OptionsBar.UseWholeRow = true;
+            previewBar3.Text = "Main Menu";
+            // 
+            // barStaticItem2
+            // 
+            this.barStaticItem2.Caption = "选择报表";
+            this.barStaticItem2.Id = 65;
+            this.barStaticItem2.Name = "barStaticItem2";
+            this.barStaticItem2.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
+            // barEditItem1
+            // 
+            this.barEditItem1.Edit = this.repositoryItemComboBox1;
+            this.barEditItem1.EditWidth = 146;
+            this.barEditItem1.Id = 71;
+            this.barEditItem1.Name = "barEditItem1";
+            // 
+            // repositoryItemComboBox1
+            // 
+            this.repositoryItemComboBox1.AutoHeight = false;
+            this.repositoryItemComboBox1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemComboBox1.Name = "repositoryItemComboBox1";
+            this.repositoryItemComboBox1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            // 
+            // barStaticItem3
+            // 
+            this.barStaticItem3.Caption = "开始时间";
+            this.barStaticItem3.Id = 67;
+            this.barStaticItem3.Name = "barStaticItem3";
+            this.barStaticItem3.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
+            // dateEditStart
+            // 
+            this.dateEditStart.Edit = this.repositoryItemDateEdit1;
+            this.dateEditStart.EditWidth = 126;
+            this.dateEditStart.Id = 66;
+            this.dateEditStart.Name = "dateEditStart";
+            // 
+            // repositoryItemDateEdit1
+            // 
+            this.repositoryItemDateEdit1.AutoHeight = false;
+            this.repositoryItemDateEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit1.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit1.Name = "repositoryItemDateEdit1";
+            // 
+            // barStaticItem4
+            // 
+            this.barStaticItem4.Caption = "结束时间";
+            this.barStaticItem4.Id = 68;
+            this.barStaticItem4.Name = "barStaticItem4";
+            this.barStaticItem4.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
+            // endEditStart
+            // 
+            this.endEditStart.Edit = this.repositoryItemDateEdit2;
+            this.endEditStart.EditWidth = 137;
+            this.endEditStart.Id = 70;
+            this.endEditStart.Name = "endEditStart";
+            // 
+            // repositoryItemDateEdit2
+            // 
+            this.repositoryItemDateEdit2.AutoHeight = false;
+            this.repositoryItemDateEdit2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit2.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit2.Name = "repositoryItemDateEdit2";
             // 
             // documentViewer1
             // 
             this.documentViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.documentViewer1.IsMetric = true;
-            this.documentViewer1.Location = new System.Drawing.Point(0, 55);
+            this.documentViewer1.Location = new System.Drawing.Point(0, 52);
             this.documentViewer1.Name = "documentViewer1";
-            this.documentViewer1.Size = new System.Drawing.Size(920, 465);
+            this.documentViewer1.Size = new System.Drawing.Size(920, 468);
             this.documentViewer1.TabIndex = 0;
             // 
             // documentViewerBarManager1
@@ -119,7 +225,7 @@
             this.documentViewerBarManager1.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
             this.previewBar1,
             this.previewBar2,
-            this.previewBar3});
+            previewBar3});
             this.documentViewerBarManager1.DockControls.Add(this.barDockControlTop);
             this.documentViewerBarManager1.DockControls.Add(this.barDockControlBottom);
             this.documentViewerBarManager1.DockControls.Add(this.barDockControlLeft);
@@ -182,50 +288,32 @@
             this.printPreviewBarCheckItem15,
             this.printPreviewBarCheckItem16,
             this.printPreviewBarCheckItem17,
-            this.barSubItem1,
             this.barButtonItem2,
-            this.barButtonItem3});
-            this.documentViewerBarManager1.MainMenu = this.previewBar3;
-            this.documentViewerBarManager1.MaxItemId = 63;
+            this.barButtonItem3,
+            this.barStaticItem2,
+            this.dateEditStart,
+            this.barStaticItem3,
+            this.barStaticItem4,
+            this.endEditStart,
+            this.barEditItem1,
+            this.btnQuery});
+            this.documentViewerBarManager1.MainMenu = previewBar3;
+            this.documentViewerBarManager1.MaxItemId = 73;
             this.documentViewerBarManager1.PreviewBar = this.previewBar1;
             this.documentViewerBarManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemProgressBar1,
             this.repositoryItemZoomTrackBar1,
-            this.printPreviewRepositoryItemComboBox1});
+            this.reportComboBox,
+            this.repositoryItemComboBox1,
+            this.repositoryItemDateEdit1,
+            this.repositoryItemDateEdit2});
             this.documentViewerBarManager1.StatusBar = this.previewBar2;
             this.documentViewerBarManager1.TransparentEditors = true;
-            // 
-            // barDockControlTop
-            // 
-            this.barDockControlTop.CausesValidation = false;
-            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Size = new System.Drawing.Size(920, 55);
-            // 
-            // barDockControlBottom
-            // 
-            this.barDockControlBottom.CausesValidation = false;
-            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 520);
-            this.barDockControlBottom.Size = new System.Drawing.Size(920, 27);
-            // 
-            // barDockControlLeft
-            // 
-            this.barDockControlLeft.CausesValidation = false;
-            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.barDockControlLeft.Location = new System.Drawing.Point(0, 55);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 465);
-            // 
-            // barDockControlRight
-            // 
-            this.barDockControlRight.CausesValidation = false;
-            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(920, 55);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 465);
             // 
             // previewBar1
             // 
             this.previewBar1.BarName = "Toolbar";
+            this.previewBar1.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Top;
             this.previewBar1.DockCol = 0;
             this.previewBar1.DockRow = 1;
             this.previewBar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
@@ -256,122 +344,10 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.printPreviewBarItem24),
             new DevExpress.XtraBars.LinkPersistInfo(this.printPreviewBarItem25, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.printPreviewBarItem26)});
+            this.previewBar1.OptionsBar.AllowQuickCustomization = false;
+            this.previewBar1.OptionsBar.DrawBorder = false;
+            this.previewBar1.OptionsBar.DrawDragBorder = false;
             this.previewBar1.Text = "Toolbar";
-            // 
-            // previewBar2
-            // 
-            this.previewBar2.BarName = "Status Bar";
-            this.previewBar2.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Bottom;
-            this.previewBar2.DockCol = 0;
-            this.previewBar2.DockRow = 0;
-            this.previewBar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Bottom;
-            this.previewBar2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.printPreviewStaticItem1),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem1, true),
-            new DevExpress.XtraBars.LinkPersistInfo(this.progressBarEditItem1),
-            new DevExpress.XtraBars.LinkPersistInfo(this.printPreviewBarItem1),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem1),
-            new DevExpress.XtraBars.LinkPersistInfo(this.printPreviewStaticItem2, true),
-            new DevExpress.XtraBars.LinkPersistInfo(this.zoomTrackBarEditItem1)});
-            this.previewBar2.OptionsBar.AllowQuickCustomization = false;
-            this.previewBar2.OptionsBar.DrawDragBorder = false;
-            this.previewBar2.OptionsBar.UseWholeRow = true;
-            this.previewBar2.Text = "Status Bar";
-            // 
-            // previewBar3
-            // 
-            this.previewBar3.BarName = "Main Menu";
-            this.previewBar3.DockCol = 0;
-            this.previewBar3.DockRow = 0;
-            this.previewBar3.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
-            this.previewBar3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barSubItem1)});
-            this.previewBar3.OptionsBar.MultiLine = true;
-            this.previewBar3.OptionsBar.UseWholeRow = true;
-            this.previewBar3.Text = "Main Menu";
-            // 
-            // printPreviewStaticItem1
-            // 
-            this.printPreviewStaticItem1.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.printPreviewStaticItem1.Caption = "Nothing";
-            this.printPreviewStaticItem1.Id = 0;
-            this.printPreviewStaticItem1.LeftIndent = 1;
-            this.printPreviewStaticItem1.Name = "printPreviewStaticItem1";
-            this.printPreviewStaticItem1.RightIndent = 1;
-            this.printPreviewStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
-            this.printPreviewStaticItem1.Type = "PageOfPages";
-            // 
-            // barStaticItem1
-            // 
-            this.barStaticItem1.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.barStaticItem1.Id = 1;
-            this.barStaticItem1.Name = "barStaticItem1";
-            this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
-            this.barStaticItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.OnlyInRuntime;
-            // 
-            // repositoryItemProgressBar1
-            // 
-            this.repositoryItemProgressBar1.Name = "repositoryItemProgressBar1";
-            // 
-            // progressBarEditItem1
-            // 
-            this.progressBarEditItem1.Edit = this.repositoryItemProgressBar1;
-            this.progressBarEditItem1.EditHeight = 12;
-            this.progressBarEditItem1.EditWidth = 150;
-            this.progressBarEditItem1.Id = 2;
-            this.progressBarEditItem1.Name = "progressBarEditItem1";
-            this.progressBarEditItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            // 
-            // printPreviewBarItem1
-            // 
-            this.printPreviewBarItem1.Caption = "Stop";
-            this.printPreviewBarItem1.Command = DevExpress.XtraPrinting.PrintingSystemCommand.StopPageBuilding;
-            this.printPreviewBarItem1.Enabled = false;
-            this.printPreviewBarItem1.Hint = "Stop";
-            this.printPreviewBarItem1.Id = 3;
-            this.printPreviewBarItem1.Name = "printPreviewBarItem1";
-            this.printPreviewBarItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            // 
-            // barButtonItem1
-            // 
-            this.barButtonItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Left;
-            this.barButtonItem1.Enabled = false;
-            this.barButtonItem1.Id = 4;
-            this.barButtonItem1.Name = "barButtonItem1";
-            this.barButtonItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.OnlyInRuntime;
-            // 
-            // printPreviewStaticItem2
-            // 
-            this.printPreviewStaticItem2.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            this.printPreviewStaticItem2.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.printPreviewStaticItem2.Caption = "100%";
-            this.printPreviewStaticItem2.Id = 5;
-            this.printPreviewStaticItem2.Name = "printPreviewStaticItem2";
-            this.printPreviewStaticItem2.TextAlignment = System.Drawing.StringAlignment.Far;
-            this.printPreviewStaticItem2.Type = "ZoomFactor";
-            // 
-            // repositoryItemZoomTrackBar1
-            // 
-            this.repositoryItemZoomTrackBar1.Alignment = DevExpress.Utils.VertAlignment.Center;
-            this.repositoryItemZoomTrackBar1.AllowFocused = false;
-            this.repositoryItemZoomTrackBar1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.repositoryItemZoomTrackBar1.Maximum = 180;
-            this.repositoryItemZoomTrackBar1.Middle = 5;
-            this.repositoryItemZoomTrackBar1.Name = "repositoryItemZoomTrackBar1";
-            this.repositoryItemZoomTrackBar1.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
-            // 
-            // zoomTrackBarEditItem1
-            // 
-            this.zoomTrackBarEditItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            this.zoomTrackBarEditItem1.Edit = this.repositoryItemZoomTrackBar1;
-            this.zoomTrackBarEditItem1.EditValue = 90;
-            this.zoomTrackBarEditItem1.EditWidth = 140;
-            this.zoomTrackBarEditItem1.Enabled = false;
-            this.zoomTrackBarEditItem1.Id = 6;
-            this.zoomTrackBarEditItem1.Name = "zoomTrackBarEditItem1";
-            this.zoomTrackBarEditItem1.Range = new int[] {
-        10,
-        500};
             // 
             // printPreviewBarItem2
             // 
@@ -534,7 +510,7 @@
             // zoomBarEditItem1
             // 
             this.zoomBarEditItem1.Caption = "Zoom";
-            this.zoomBarEditItem1.Edit = this.printPreviewRepositoryItemComboBox1;
+            this.zoomBarEditItem1.Edit = this.reportComboBox;
             this.zoomBarEditItem1.EditValue = "100%";
             this.zoomBarEditItem1.EditWidth = 70;
             this.zoomBarEditItem1.Enabled = false;
@@ -542,13 +518,13 @@
             this.zoomBarEditItem1.Id = 22;
             this.zoomBarEditItem1.Name = "zoomBarEditItem1";
             // 
-            // printPreviewRepositoryItemComboBox1
+            // reportComboBox
             // 
-            this.printPreviewRepositoryItemComboBox1.AutoComplete = false;
-            this.printPreviewRepositoryItemComboBox1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.reportComboBox.AutoComplete = false;
+            this.reportComboBox.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.printPreviewRepositoryItemComboBox1.DropDownRows = 11;
-            this.printPreviewRepositoryItemComboBox1.Name = "printPreviewRepositoryItemComboBox1";
+            this.reportComboBox.DropDownRows = 11;
+            this.reportComboBox.Name = "reportComboBox";
             // 
             // printPreviewBarItem17
             // 
@@ -653,6 +629,137 @@
             this.printPreviewBarItem26.Id = 32;
             this.printPreviewBarItem26.ImageIndex = 17;
             this.printPreviewBarItem26.Name = "printPreviewBarItem26";
+            // 
+            // previewBar2
+            // 
+            this.previewBar2.BarName = "Status Bar";
+            this.previewBar2.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Bottom;
+            this.previewBar2.DockCol = 0;
+            this.previewBar2.DockRow = 0;
+            this.previewBar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Bottom;
+            this.previewBar2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.printPreviewStaticItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem1, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.progressBarEditItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.printPreviewBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.printPreviewStaticItem2, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.zoomTrackBarEditItem1)});
+            this.previewBar2.OptionsBar.AllowQuickCustomization = false;
+            this.previewBar2.OptionsBar.DrawDragBorder = false;
+            this.previewBar2.OptionsBar.UseWholeRow = true;
+            this.previewBar2.Text = "Status Bar";
+            // 
+            // printPreviewStaticItem1
+            // 
+            this.printPreviewStaticItem1.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.printPreviewStaticItem1.Caption = "Nothing";
+            this.printPreviewStaticItem1.Id = 0;
+            this.printPreviewStaticItem1.LeftIndent = 1;
+            this.printPreviewStaticItem1.Name = "printPreviewStaticItem1";
+            this.printPreviewStaticItem1.RightIndent = 1;
+            this.printPreviewStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.printPreviewStaticItem1.Type = "PageOfPages";
+            // 
+            // barStaticItem1
+            // 
+            this.barStaticItem1.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.barStaticItem1.Id = 1;
+            this.barStaticItem1.Name = "barStaticItem1";
+            this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.barStaticItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.OnlyInRuntime;
+            // 
+            // progressBarEditItem1
+            // 
+            this.progressBarEditItem1.Edit = this.repositoryItemProgressBar1;
+            this.progressBarEditItem1.EditHeight = 12;
+            this.progressBarEditItem1.EditWidth = 150;
+            this.progressBarEditItem1.Id = 2;
+            this.progressBarEditItem1.Name = "progressBarEditItem1";
+            this.progressBarEditItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // repositoryItemProgressBar1
+            // 
+            this.repositoryItemProgressBar1.Name = "repositoryItemProgressBar1";
+            // 
+            // printPreviewBarItem1
+            // 
+            this.printPreviewBarItem1.Caption = "Stop";
+            this.printPreviewBarItem1.Command = DevExpress.XtraPrinting.PrintingSystemCommand.StopPageBuilding;
+            this.printPreviewBarItem1.Enabled = false;
+            this.printPreviewBarItem1.Hint = "Stop";
+            this.printPreviewBarItem1.Id = 3;
+            this.printPreviewBarItem1.Name = "printPreviewBarItem1";
+            this.printPreviewBarItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Left;
+            this.barButtonItem1.Enabled = false;
+            this.barButtonItem1.Id = 4;
+            this.barButtonItem1.Name = "barButtonItem1";
+            this.barButtonItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.OnlyInRuntime;
+            // 
+            // printPreviewStaticItem2
+            // 
+            this.printPreviewStaticItem2.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.printPreviewStaticItem2.Border = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.printPreviewStaticItem2.Caption = "100%";
+            this.printPreviewStaticItem2.Id = 5;
+            this.printPreviewStaticItem2.Name = "printPreviewStaticItem2";
+            this.printPreviewStaticItem2.TextAlignment = System.Drawing.StringAlignment.Far;
+            this.printPreviewStaticItem2.Type = "ZoomFactor";
+            // 
+            // zoomTrackBarEditItem1
+            // 
+            this.zoomTrackBarEditItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.zoomTrackBarEditItem1.Edit = this.repositoryItemZoomTrackBar1;
+            this.zoomTrackBarEditItem1.EditValue = 90;
+            this.zoomTrackBarEditItem1.EditWidth = 140;
+            this.zoomTrackBarEditItem1.Enabled = false;
+            this.zoomTrackBarEditItem1.Id = 6;
+            this.zoomTrackBarEditItem1.Name = "zoomTrackBarEditItem1";
+            this.zoomTrackBarEditItem1.Range = new int[] {
+        10,
+        500};
+            // 
+            // repositoryItemZoomTrackBar1
+            // 
+            this.repositoryItemZoomTrackBar1.Alignment = DevExpress.Utils.VertAlignment.Center;
+            this.repositoryItemZoomTrackBar1.AllowFocused = false;
+            this.repositoryItemZoomTrackBar1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.repositoryItemZoomTrackBar1.Maximum = 180;
+            this.repositoryItemZoomTrackBar1.Middle = 5;
+            this.repositoryItemZoomTrackBar1.Name = "repositoryItemZoomTrackBar1";
+            this.repositoryItemZoomTrackBar1.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(920, 52);
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 520);
+            this.barDockControlBottom.Size = new System.Drawing.Size(920, 27);
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 52);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 468);
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControlRight.Location = new System.Drawing.Point(920, 52);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 468);
             // 
             // printPreviewSubItem4
             // 
@@ -864,15 +971,6 @@
             this.printPreviewBarCheckItem17.Id = 57;
             this.printPreviewBarCheckItem17.Name = "printPreviewBarCheckItem17";
             // 
-            // barSubItem1
-            // 
-            this.barSubItem1.Caption = "选择报表";
-            this.barSubItem1.Id = 58;
-            this.barSubItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem2),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem3)});
-            this.barSubItem1.Name = "barSubItem1";
-            // 
             // barButtonItem2
             // 
             this.barButtonItem2.Caption = "每日流水报表";
@@ -885,6 +983,12 @@
             this.barButtonItem3.Id = 60;
             this.barButtonItem3.Name = "barButtonItem3";
             // 
+            // btnQuery
+            // 
+            this.btnQuery.Caption = "查询";
+            this.btnQuery.Id = 72;
+            this.btnQuery.Name = "btnQuery";
+            // 
             // ReportMainUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -896,10 +1000,15 @@
             this.Controls.Add(this.barDockControlTop);
             this.Name = "ReportMainUI";
             this.Size = new System.Drawing.Size(920, 547);
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentViewerBarManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reportComboBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemZoomTrackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.printPreviewRepositoryItemComboBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -926,7 +1035,7 @@
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarItem printPreviewBarItem15;
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarItem printPreviewBarItem16;
         private DevExpress.XtraPrinting.Preview.ZoomBarEditItem zoomBarEditItem1;
-        private DevExpress.XtraPrinting.Preview.PrintPreviewRepositoryItemComboBox printPreviewRepositoryItemComboBox1;
+        private DevExpress.XtraPrinting.Preview.PrintPreviewRepositoryItemComboBox reportComboBox;
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarItem printPreviewBarItem17;
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarItem printPreviewBarItem18;
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarItem printPreviewBarItem19;
@@ -947,7 +1056,6 @@
         private DevExpress.XtraPrinting.Preview.PrintPreviewStaticItem printPreviewStaticItem2;
         private DevExpress.XtraPrinting.Preview.ZoomTrackBarEditItem zoomTrackBarEditItem1;
         private DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar repositoryItemZoomTrackBar1;
-        private DevExpress.XtraPrinting.Preview.PreviewBar previewBar3;
         private DevExpress.XtraPrinting.Preview.PrintPreviewSubItem printPreviewSubItem4;
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarItem printPreviewBarItem28;
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarItem printPreviewBarItem29;
@@ -973,8 +1081,17 @@
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarCheckItem printPreviewBarCheckItem15;
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarCheckItem printPreviewBarCheckItem16;
         private DevExpress.XtraPrinting.Preview.PrintPreviewBarCheckItem printPreviewBarCheckItem17;
-        private DevExpress.XtraBars.BarSubItem barSubItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
+        private DevExpress.XtraBars.BarStaticItem barStaticItem2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox1;
+        private DevExpress.XtraBars.BarStaticItem barStaticItem3;
+        private DevExpress.XtraBars.BarEditItem dateEditStart;
+        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit1;
+        private DevExpress.XtraBars.BarStaticItem barStaticItem4;
+        private DevExpress.XtraBars.BarEditItem endEditStart;
+        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit2;
+        private DevExpress.XtraBars.BarEditItem barEditItem1;
+        private DevExpress.XtraBars.BarButtonItem btnQuery;
     }
 }

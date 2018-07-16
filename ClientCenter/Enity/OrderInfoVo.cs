@@ -83,6 +83,7 @@ namespace ClientCenter.Enity
             set { totalPrice = value; }
         }
         private string status;
+        [ColumnAttr("状态", true)]
         [DataAttr(true)]
         public string Status
         {

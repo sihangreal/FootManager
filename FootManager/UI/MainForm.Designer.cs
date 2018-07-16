@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Bar bar2;
             this.btnOpenOrder = new DevExpress.XtraBars.BarButtonItem();
             this.btnSetting = new DevExpress.XtraBars.BarButtonItem();
             this.btnCheck = new DevExpress.XtraBars.BarButtonItem();
             this.btnSkin = new DevExpress.XtraBars.BarButtonItem();
-            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu();
+            this.barManager1 = new DevExpress.XtraBars.BarManager();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -60,33 +58,11 @@
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.barButtonItem9 = new DevExpress.XtraBars.BarButtonItem();
             this.mainPanel = new DevExpress.XtraEditors.PanelControl();
-            bar2 = new DevExpress.XtraBars.Bar();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
             this.SuspendLayout();
-            // 
-            // bar2
-            // 
-            bar2.BarName = "Main menu";
-            bar2.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Top;
-            bar2.DockCol = 0;
-            bar2.DockRow = 0;
-            bar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
-            bar2.HideWhenMerging = DevExpress.Utils.DefaultBoolean.False;
-            bar2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnOpenOrder),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnSetting),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnCheck),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnSkin)});
-            bar2.OptionsBar.AllowQuickCustomization = false;
-            bar2.OptionsBar.DrawBorder = false;
-            bar2.OptionsBar.DrawDragBorder = false;
-            bar2.OptionsBar.MultiLine = true;
-            bar2.OptionsBar.RotateWhenVertical = false;
-            bar2.OptionsBar.UseWholeRow = true;
-            bar2.Text = "Main menu";
             // 
             // btnOpenOrder
             // 
@@ -122,8 +98,6 @@
             // 
             // barManager1
             // 
-            this.barManager1.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
-            bar2});
             this.barManager1.DockControls.Add(this.barDockControlTop);
             this.barManager1.DockControls.Add(this.barDockControlBottom);
             this.barManager1.DockControls.Add(this.barDockControlLeft);
@@ -135,40 +109,35 @@
             this.btnSetting,
             this.btnCheck,
             this.barButtonItem1});
-            this.barManager1.MainMenu = bar2;
-            this.barManager1.MaxItemId = 27;
+            this.barManager1.MaxItemId = 28;
             // 
             // barDockControlTop
             // 
             this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.barDockControlTop.Size = new System.Drawing.Size(1459, 27);
+            this.barDockControlTop.Size = new System.Drawing.Size(1277, 0);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 1044);
-            this.barDockControlBottom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.barDockControlBottom.Size = new System.Drawing.Size(1459, 0);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 812);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1277, 0);
             // 
             // barDockControlLeft
             // 
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.barDockControlLeft.Location = new System.Drawing.Point(0, 27);
-            this.barDockControlLeft.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 1017);
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 812);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(1459, 27);
-            this.barDockControlRight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 1017);
+            this.barDockControlRight.Location = new System.Drawing.Point(1277, 0);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 812);
             // 
             // barButtonItem1
             // 
@@ -197,8 +166,7 @@
             this.btnExit,
             this.btnUserSet,
             this.btnSettlement});
-            this.ribbonControl1.Location = new System.Drawing.Point(0, 27);
-            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.MaxItemId = 23;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -210,7 +178,7 @@
             this.ribbonControl1.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
             this.ribbonControl1.ShowQatLocationSelector = false;
             this.ribbonControl1.ShowToolbarCustomizeItem = false;
-            this.ribbonControl1.Size = new System.Drawing.Size(1459, 98);
+            this.ribbonControl1.Size = new System.Drawing.Size(1277, 79);
             this.ribbonControl1.Toolbar.ItemLinks.Add(this.barButtonItem2);
             this.ribbonControl1.Toolbar.ShowCustomizeItem = false;
             this.ribbonControl1.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
@@ -351,24 +319,22 @@
             // 
             this.mainPanel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(0, 125);
-            this.mainPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.mainPanel.Location = new System.Drawing.Point(0, 79);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1459, 919);
+            this.mainPanel.Size = new System.Drawing.Size(1277, 733);
             this.mainPanel.TabIndex = 5;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1459, 1044);
+            this.ClientSize = new System.Drawing.Size(1277, 812);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.ribbonControl1);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "足浴管理系统";

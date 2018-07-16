@@ -87,39 +87,9 @@ namespace MemberManager.UI
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            //List<MemberInfoVo> staffOldInfoList = SelectDao.SelectData<MemberInfoVo>();
-            //List<MemberInfoVo> changeList = GenericUtil.GetChanges(memberVoList, staffOldInfoList);
-            //int result = 0;
-            //if (!CheckParam(changeList))
-            //    return;
-            //foreach (MemberInfoVo vo in changeList)
-            //{
-            //    if (SelectDao.IsRepeatedMemberId(vo.MId))
-            //    {
-            //        //更新
-            //        result = UpdateDao.UpdateByID(vo);
-            //        if (result <= 0)
-            //        {
-            //            XtraMessageBox.Show(vo.MName + "更新失败！");
-            //            break;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        List<object> infoList = new List<object>() { vo.MId, vo.MName, vo.CardName, vo.MPhone, vo.MStatus, vo.MBalance, vo.CompanyId };
-            //        result = ProcedureDao.MemberRegister(infoList);
-            //        if (result <= 0)
-            //        {
-            //            XtraMessageBox.Show(vo.MName + "保存失败！");
-            //            break;
-            //        }
-            //        EventBus.PublishEvent("MemberRechargeSuccess");
-            //    }
-            //}
-            //XtraMessageBox.Show("保存成功！");
             MemberInfoVo updateVo = (MemberInfoVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
             MemberOperationFrm operationFrm = new MemberOperationFrm(updateVo);
-            if (operationFrm.DialogResult == DialogResult.OK)
+            if (operationFrm.ShowDialog() == DialogResult.OK)
             {
                 RefreshMember();
             }
@@ -140,16 +110,8 @@ namespace MemberManager.UI
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            //MemberInfoVo addVo = new MemberInfoVo();
-            //addVo.MId = GenrateIDUtil.GenerateMemberID();
-            //addVo.MStatus = "正常";
-            //addVo.MCreateTime = DateTime.Now;
-            //addVo.CompanyId = SystemConst.companyId;
-            //addVo.CardName = cardNameList[0];
-            //memberVoList.Add(addVo);
-            //this.gridControl1.RefreshDataSource();
             MemberOperationFrm operationFrm = new MemberOperationFrm();
-            if(operationFrm.DialogResult==DialogResult.OK)
+            if(operationFrm.ShowDialog()==DialogResult.OK)
             {
                 RefreshMember();
             }
