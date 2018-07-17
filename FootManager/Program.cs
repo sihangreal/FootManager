@@ -21,7 +21,12 @@ namespace FootManager
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2007 Black");
 
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
+            //跨线程调用窗体控件，禁止监控线程问题
+            DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;
+            //汉化
+            new ChineseLanguage();
+           Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
+
             try
             {
                 //设置应用程序处理异常方式：ThreadException处理

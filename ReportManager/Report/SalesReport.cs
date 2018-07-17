@@ -10,7 +10,7 @@ using ClientCenter.DB;
 using System.Reflection;
 using ClientCenter.Core;
 
-namespace ReportManager
+namespace ReportManager.Report
 {
     public partial class SalesReport : DevExpress.XtraReports.UI.XtraReport
     {

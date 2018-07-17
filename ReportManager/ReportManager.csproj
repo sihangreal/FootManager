@@ -100,10 +100,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enity\SalesVo.cs" />
-    <Compile Include="SalesReport.cs">
+    <Compile Include="Report\ReportControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\ReportControl.Designer.cs">
+      <DependentUpon>ReportControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\SalesReport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SalesReport.Designer.cs">
+    <Compile Include="Report\SalesReport.Designer.cs">
       <DependentUpon>SalesReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,9 +129,18 @@
     <Compile Include="ReportMainUI.Designer.cs">
       <DependentUpon>ReportMainUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Report\XtraReport1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\XtraReport1.Designer.cs">
+      <DependentUpon>XtraReport1.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SalesReport.resx">
+    <EmbeddedResource Include="Report\ReportControl.resx">
+      <DependentUpon>ReportControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\SalesReport.resx">
       <DependentUpon>SalesReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
@@ -150,6 +165,7 @@
       <Name>ClientCenter</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
