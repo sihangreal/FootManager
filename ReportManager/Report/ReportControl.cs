@@ -13,9 +13,28 @@ namespace ReportManager.Report
 {
     public partial class ReportControl : DevExpress.XtraEditors.XtraUserControl
     {
+   
+
         public ReportControl()
         {
             InitializeComponent();
+            this.Load += ReportControl_Load;
+        }
+
+        private void ReportControl_Load(object sender, EventArgs e)
+        {
+            //this.documentViewer1.DocumentSource = report;
+            //report.CreateDocument(false);
+        }
+
+        public void SetData<T>(List<T> tList)
+        {
+            XtraReport1 report = (XtraReport1)this.documentViewer1.DocumentSource;
+            //XtraReport1 report = new XtraReport1();
+            //this.documentViewer1.DocumentSource = report;
+            report.CreateDocument(false);
+
+            report.SetTableSource(tList);
         }
     }
 }

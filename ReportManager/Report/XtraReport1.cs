@@ -18,6 +18,7 @@ namespace ReportManager.Report
             InitializeComponent();
         }
 
+
         public void SetTableSource<T>(List<T> tList)
         {
             InitDetailsBasedonXRTable(tList);//用XRTable显示报表

@@ -11,13 +11,17 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraReports.UI;
 using System.Globalization;
 using ReportManager.Report;
+using DevExpress.XtraBars.Navigation;
+using ReportManager.Enity;
+using ClientCenter.DB;
+using ClientCenter.Enity;
 
 namespace ReportManager
 {
     public partial class ReportMainUI : DevExpress.XtraEditors.XtraUserControl
     {
         private ReportControl reportControl = new ReportControl();
-        private Dictionary<string, XtraReport> reportDic = new Dictionary<string, XtraReport>();
+        private Dictionary<string, Type> reportDic = new Dictionary<string, Type>();
 
         public ReportMainUI()
         {
@@ -40,22 +44,41 @@ namespace ReportManager
         private void InitEvents()
         {
             this.Load += ReportMainUI_Load;
+            this.accordionControlElement4.Click += AccordionControlElement_Click;
+            this.accordionControlElement5.Click += AccordionControlElement_Click;
+            this.accordionControlElement6.Click += AccordionControlElement_Click;
+            this.accordionControlElement7.Click += AccordionControlElement_Click;
+            this.accordionControlElement8.Click += AccordionControlElement_Click;
+            this.accordionControlElement9.Click += AccordionControlElement_Click;
+            this.accordionControlElement10.Click += AccordionControlElement_Click;
+            this.accordionControlElement11.Click += AccordionControlElement_Click;
+            this.accordionControlElement12.Click += AccordionControlElement_Click;
+
             this.dateTimePicker1.ValueChanged += DateTimePicker1_ValueChanged;
+        }
+
+        private void AccordionControlElement_Click(object sender, EventArgs e)
+        {
+            string key = (sender as AccordionControlElement).Text;
+            Type type = reportDic[key];
+            List<OrderInfoVo> orderVoList = SelectDao.SelectData<OrderInfoVo>();
+            reportControl.SetData(orderVoList);
+
         }
 
         private void InitReportDic()
         {
-            reportDic.Add("日营业报表", new SalesReport());
-            reportDic.Add("周营业报表", new SalesReport());
-            reportDic.Add("月营业报表", new SalesReport());
-            reportDic.Add("年营业报表", new SalesReport());
+            reportDic.Add("日营业报表",typeof(SalesVo));
+            reportDic.Add("周营业报表", typeof(SalesVo));
+            reportDic.Add("月营业报表", typeof(SalesVo));
+            reportDic.Add("年营业报表", typeof(SalesVo));
 
-            reportDic.Add("日营业报表", new SalesReport());
-            reportDic.Add("周营业报表", new SalesReport());
-            reportDic.Add("月营业报表", new SalesReport());
-            reportDic.Add("年营业报表", new SalesReport());
+            reportDic.Add("日员工做工报表", typeof(SalesVo));
+            reportDic.Add("周员工做工报表", typeof(SalesVo));
+            reportDic.Add("月员工做工报表", typeof(SalesVo));
+            reportDic.Add("年员工做工报表", typeof(SalesVo));
 
-            reportDic.Add("会员充值报表", new SalesReport());
+            reportDic.Add("会员充值报表", typeof(SalesVo));
         }
         #endregion
 

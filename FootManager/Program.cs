@@ -22,7 +22,7 @@ namespace FootManager
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2007 Black");
 
             //跨线程调用窗体控件，禁止监控线程问题
-            DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;
+            //DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;
             //汉化
             new ChineseLanguage();
            Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
@@ -30,7 +30,7 @@ namespace FootManager
             try
             {
                 //设置应用程序处理异常方式：ThreadException处理
-                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+                //Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                 //处理UI线程异常
                 Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
                 //处理非UI线程异常
