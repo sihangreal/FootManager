@@ -352,13 +352,20 @@ namespace ClientCenter.DB
                 if (pdataAttr.Bquery)
                 {
                     object t = pinfo.GetValue(data);
-                    if (pinfo.PropertyType.Name.Equals("String") || pinfo.PropertyType.Name.Equals("DateTime"))
+                    if (t == null)
                     {
-                        strb.Append("'" + t + "',");
+                        strb.Append("null,");
                     }
                     else
                     {
-                        strb.Append(t + ",");
+                        if (pinfo.PropertyType.Name.Equals("String")||pinfo.PropertyType.FullName.Contains("DateTime"))
+                        {
+                            strb.Append("'" + t + "',");
+                        }
+                        else
+                        {
+                            strb.Append(t + ",");
+                        }
                     }
                 }
             }
@@ -451,7 +458,7 @@ namespace ClientCenter.DB
                     object t = info.GetValue(data);
                     if (t == DBNull.Value||t==null)
                     {
-                        if (info.PropertyType.Name.Equals("String") || info.PropertyType.Name.Equals("DateTime"))
+                        if (info.PropertyType.Name.Equals("String"))
                         {
                             sb.Append(info.Name + " ='" + t + "',");
                         }
@@ -462,7 +469,7 @@ namespace ClientCenter.DB
                     }
                     else
                     {
-                        if (info.PropertyType.Name.Equals("String") || info.PropertyType.Name.Equals("DateTime"))
+                        if (info.PropertyType.Name.Equals("String") || info.PropertyType.FullName.Contains("DateTime"))
                         {
                             sb.Append(info.Name + " ='" + t + "',");
                         }

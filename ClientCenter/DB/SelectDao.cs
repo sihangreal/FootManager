@@ -690,21 +690,28 @@ namespace ClientCenter.DB
             for (int i = 0; i < dt.Rows.Count; ++i)
             {
                 T t = (T)Activator.CreateInstance(type);
-                object objPacked = t;
+                //object objPacked = t;
                 for (int j = 0; j < ds.Tables[0].Columns.Count && j < propertyInfos.Length; ++j)
                 {
                     PropertyInfo info = propertyInfos[j];
                     DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                    object value = dt.Rows[i][j];
                     if (infoAttr == null)
                         continue;
-                    if (info.PropertyType.Name.Equals("String") && dt.Rows[i][j] == DBNull.Value)
+                    if (info.PropertyType.Name.Equals("String") && value == DBNull.Value)
                     {
                         info.SetValue(t, "");
                     }
                     else
-                        info.SetValue(t, dt.Rows[i][j]);
+                    {
+                        if(value==DBNull.Value)
+                            info.SetValue(t, null);
+                        else
+                            info.SetValue(t, value);
+                    }
+                      
                 }
-                t = (T)objPacked;
+                //t = (T)objPacked;
                 tList.Add(t);
             }
             return tList;

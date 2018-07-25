@@ -37,21 +37,14 @@ namespace ClockRoomManager.UI
 
         private void Room_Click(object sender, EventArgs e)
         {
-            //if(roomVo.RoomStatus.Equals("空闲"))
-            //{
-
-            //    AddOrderForm addOrderForm = new AddOrderForm();
-            //    addOrderForm.ShowDialog();
-            //}
-            //else
-            //{
-            //    OrderInfoForm infoForm = new OrderInfoForm();
-            //    infoForm.ShowDialog();
-            //}
             OrderInfoForm infoForm = new OrderInfoForm(roomVo);
             if(infoForm.ShowDialog()== DialogResult.OK)
             {
                 this.BackgroundImage = orangeImg;
+            }
+            else
+            {
+                this.BackgroundImage = greenImg;
             }
         }
 

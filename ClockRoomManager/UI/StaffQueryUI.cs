@@ -44,7 +44,7 @@ namespace ClockRoomManager.UI
             }
         }
 
-        private void RefeshStaffInfo()
+        public void RefeshStaffInfo()
         {
            DataTable dt = SelectDao.SelectData(typeof(StaffWorkInfoVo)); 
             this.gridControl1.DataSource = dt;

@@ -99,7 +99,7 @@ namespace ClockRoomManager.UI
             vo.TotalPrice = Convert.ToDouble(this.textTotal.Text);
             vo.Status = "完成";
             vo.PriceType = this.comboType.Text;
-            vo.EndTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            vo.EndTime = DateTime.Now;
             StaffWorkInfoVo workInfoVo = UpdateWorkInfo();
             List<DetailedOrderVo> delOrderList = RelationDetailedOrder(vo.OrderID);
             if (TransactionDao.DealOrder(vo, workInfoVo, delOrderList))
@@ -131,7 +131,7 @@ namespace ClockRoomManager.UI
 
                 XtraMessageBox.Show("买单成功!");
                 RoomVo updateVo = SelectDao.GetRoomByRoomId<RoomVo>(roomId);
-                EventBus.PublishEvent("UpdateRoomSuccessed", this, updateVo);
+                EventBus.PublishEvent("StaffWorkStatusChange");
                 this.DialogResult = DialogResult.OK;
             }
             else

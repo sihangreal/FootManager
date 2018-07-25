@@ -106,13 +106,16 @@ namespace ClockRoomManager.UI
 
         private void FillComboStaff()
         {
-            List<StaffWorkInfoVo> voList = SelectDao.SelectData<StaffWorkInfoVo>();
-            List<StaffWorkInfoVo> newVoList = voList.Where(v => v.StaffStatus.Equals("空闲")).ToList();
-            foreach (StaffWorkInfoVo vo in newVoList)
+            List<StaffQueueVo> voList = SelectDao.SelectData<StaffQueueVo>();
+            if (voList.Count == 0)
+                return;
+            foreach (StaffQueueVo vo in voList)
             {
                 string temp =vo.StaffName;
                 comboStaff.Properties.Items.Add(temp);
             }
+            
+            comboStaff.SelectedIndex = 0;
         }
         private double GetPriceByType(double[] prices)
         {
@@ -179,19 +182,21 @@ namespace ClockRoomManager.UI
             {
                 SkillVo vo = (SkillVo)this.gridView2.GetRow(this.gridView2.FocusedRowHandle);
                 double[] prices = SelectDao.GetSkillPrice(vo.SkillName,"现金");
-                string staffId = comboStaff.Text;
-                string staffName = SelectDao.SelectStaffNameByID(staffId);
+          
+                string staffName = comboStaff.Text;
+                string staffId = SelectDao.SelectSatffIDByName(staffName);
                 //创建ID
                 orderId = GenrateIDUtil.GenerateOrderID();
                 TempOrderVo tempVo = new TempOrderVo()
                 {
-                    Id=0,
+                    Id = 0,
                     RoomID = roomVo.RoomId,
-                    OrderID=orderId,
+                    OrderID = orderId,
                     SkillId = vo.SkillId,
                     SkillName = vo.SkillName,
                     StaffID = staffId,
                     StaffName = staffName,
+                    StartTime = DateTime.Now,
                     PriceA = prices[0],
                     PriceB=prices[1],
                     PriceC=prices[2]
@@ -243,8 +248,7 @@ namespace ClockRoomManager.UI
                 return;
             }
 
-            this.btnCancelOrder1.Enabled = true;
-            this.btnOrder.Enabled = false;
+
             this.roomVo.RoomStatus = "占用";
             if (UpdateDao.UpdateByID(this.roomVo) < 0)
             {
@@ -268,7 +272,7 @@ namespace ClockRoomManager.UI
             orderVo.OrderID = orderId;
             orderVo.RoomID = roomVo.RoomId;
             orderVo.StaffName = staffName;
-            orderVo.StartTime = DateTime.Now.ToString();
+            orderVo.StartTime = DateTime.Now;
             orderVo.Status = "未完成";
 
             if(!TransactionDao.SendOrder(workVo, orderVo))
@@ -279,22 +283,27 @@ namespace ClockRoomManager.UI
             this.btnCancelOrder1.Enabled = true;
             this.btnOrder.Enabled = false;
             this.roomVo.RoomStatus = "占用";
+
             EventBus.PublishEvent("StaffWorkStatusChange");
             XtraMessageBox.Show("下单成功！");
+
             this.DialogResult = DialogResult.OK;
         }
         private void BtnPay_Click(object sender, EventArgs e)
         {
             PayOrderForm payForm = new PayOrderForm(roomVo.RoomId);
-            payForm.ShowDialog();
-            this.DialogResult = DialogResult.OK;
+            if(payForm.ShowDialog()==DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.Ignore;
+            }
+   
         }
         private void GridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
             if (string.Equals(e.Column.FieldName, "EndTime"))
             {
                 TempOrderVo vo = (TempOrderVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
-                if (string.IsNullOrWhiteSpace(vo.EndTime))
+                if (vo.EndTime==default(DateTime))
                 {
                     e.DisplayText = "------";
                 }
@@ -302,7 +311,7 @@ namespace ClockRoomManager.UI
             if(string.Equals(e.Column.FieldName,"StartTime"))
             {
                 TempOrderVo vo = (TempOrderVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
-                if (string.IsNullOrWhiteSpace(vo.StartTime))
+                if (vo.StartTime== default(DateTime))
                 {
                     e.DisplayText = "------";
                 }

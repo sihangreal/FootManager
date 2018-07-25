@@ -104,6 +104,7 @@ namespace ClockRoomManager
         [EventAttr("UpdateRoomSuccessed")]
         public void UpdateRoomSuccessed(object sender, RoomVo updateVo)
         {
+            staffQuery.RefeshStaffInfo();
             clockRoom.UpdateRoom(updateVo);
         }
         #endregion

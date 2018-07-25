@@ -13,7 +13,7 @@ namespace ClientCenter.Core
         private static MySqlClient mySqlclient;
         private static Mutex mutex = new Mutex();
         private static object _lock = new object();
-        public static int _count = 1;
+        public static Int64  _count = 0;
 
 
         public static string GenerateOrderID()
@@ -50,23 +50,26 @@ namespace ClientCenter.Core
 
         public static string GenerateDetailOrderID()
         {
-            lock (_lock)
+            mutex.WaitOne();
+            string detailId = default(string);
+            _count++;
+            string sql = "SELECT Max(DetailID) FROM DetailedOrder";
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            detailId = mySqlclient.ExecuteScalar(sql,null) as string;
+            string temp = detailId.Substring(2, 8);
+            string comp = DateTime.Today.Date.ToString("yyyyMMdd");
+            if(temp.Equals(comp))
             {
-                if(_count>=100000)
-                {
-                    _count = 1;
-                }
-                _count++;
-                string detailId = default(string);
-                detailId = "DP" + DateTime.Now.ToString("yyyyMMdd") + _count.ToString("00000");
-                string sql = "SELECT Count(DetailID) FROM DetailedOrder Where DetailID='" + detailId + "'";
-                if (mySqlclient == null)
-                    mySqlclient = MySqlClient.GetMySqlClient();
-                int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
-                if (count > 0)
-                    GenerateDetailOrderID();
-                return detailId;
+                string tmp= detailId.Substring(2);
+                detailId = "DP"+(Convert.ToInt64(tmp) + _count);
             }
+           else
+            {
+                detailId = "DP" + DateTime.Now.ToString("yyyyMMdd") + _count.ToString("00000");
+            }
+            mutex.ReleaseMutex();
+            return detailId;
         }
 
         public static string GenerateStaffID()

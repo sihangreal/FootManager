@@ -53,7 +53,7 @@ namespace ClockRoomManager.UI
             {
                 OrderInfoVo orderVo = new OrderInfoVo();
                 orderVo.RoomID = vo.RoomId;
-                orderVo.StartTime = DateTime.Now.ToString();
+                orderVo.StartTime = DateTime.Now;
             }
         }
         private void BtnDel_Click(object sender, EventArgs e)

@@ -130,12 +130,6 @@
     <Compile Include="UI\Room.Designer.cs">
       <DependentUpon>Room.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\RoomInfoGrid.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\RoomInfoGrid.Designer.cs">
-      <DependentUpon>RoomInfoGrid.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\StaffQueryUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -181,9 +175,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Room.resx">
       <DependentUpon>Room.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\RoomInfoGrid.resx">
-      <DependentUpon>RoomInfoGrid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\StaffQueryUI.resx">
       <DependentUpon>StaffQueryUI.cs</DependentUpon>

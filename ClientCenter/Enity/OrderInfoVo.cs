@@ -34,18 +34,18 @@ namespace ClientCenter.Enity
             get { return staffName; }
             set { staffName = value; }
         }
-        private string startTime;
+        private DateTime? startTime;
         [ColumnAttr("开始时间", true)]
         [DataAttr(true)]
-        public string StartTime
+        public DateTime? StartTime
         {
             get { return startTime; }
             set { startTime = value; }
         }
-        private string endTime;
+        private DateTime? endTime;
         [ColumnAttr("结束时间", true)]
         [DataAttr(true)]
-        public string EndTime
+        public DateTime? EndTime
         {
             get { return endTime; }
             set { endTime = value; }
