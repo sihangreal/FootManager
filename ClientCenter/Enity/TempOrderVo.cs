@@ -18,13 +18,13 @@ namespace ClientCenter.Enity
             get { return id; }
             set { id = value; }
         }
-        private string orderID;
-        [DataAttr(true)]
-        public string OrderID
-        {
-            get { return orderID; }
-            set { orderID = value; }
-        }
+        //private string orderID;
+        //[DataAttr(true)]
+        //public string OrderID
+        //{
+        //    get { return orderID; }
+        //    set { orderID = value; }
+        //}
         private int roomID;
         [ColumnAttr("房间编号", true)]
         [DataAttr(true)]
@@ -65,18 +65,21 @@ namespace ClientCenter.Enity
             get { return staffName; }
             set { staffName = value; }
         }
-        private DateTime? startTime;
+        [ColumnAttr("做工类型", false)]
+        [DataAttr(true)]
+        public string WorkType { get; set; }
+        private DateTime startTime;
         [ColumnAttr("开始时间", true)]
         [DataAttr(true)]
-        public DateTime ?StartTime
+        public DateTime StartTime
         {
             get { return startTime; }
             set { startTime = value; }
         }
-        private DateTime? endTime;
+        private DateTime endTime;
         [ColumnAttr("结束时间", true)]
         [DataAttr(true)]
-        public DateTime ? EndTime 
+        public DateTime  EndTime 
         {
             get { return endTime; }
             set { endTime = value; }

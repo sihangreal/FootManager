@@ -26,6 +26,8 @@ namespace BusinessManger
             //GridViewUtil.CreateColumnForData(this.gridView2, typeof(ServerVo));
             GridViewUtil.CreateColumnForData(this.gridView3, typeof(SkillPriceVo));
             GridViewUtil.CreateColumnForData(this.gridView4, typeof(SkillCommisionVo));
+            GridViewUtil.CreateColumnForData(this.gridView2,typeof(WorkTypeVo));
+      
         }
 
         private void InitEvents()
@@ -49,18 +51,31 @@ namespace BusinessManger
             this.btnUpdateT.Click += BtnUpdateT_Click;
             this.btnDelT.Click += BtnDelT_Click;
             this.gridView4.RowClick += GridView4_RowClick;
+            //价格分类
+            this.btnPriceTypeAdd.Click += BtnPriceTypeAdd_Click;
+            this.btnPriceTypeSave.Click += BtnPriceTypeSave_Click;
+            this.btnPriceTypeDel.Click += BtnPriceTypeDel_Click;
         }
 
         private void FillComTimeAndType()
         {
             this.comboTime.Properties.Items.AddRange(new string[] { "30分钟", "60分钟", "90分钟", "120分钟", "150分钟", "180分钟" });
-            this.comboType.Properties.Items.AddRange(new string[] { "现金", "Visa卡" });
-            List<CardVo> cardList=SelectDao.SelectData<CardVo>();
+            //List<PriceTypeVo> voList = SelectDao.SelectData<PriceTypeVo>();
+            //foreach(PriceTypeVo vo in voList)
+            //{
+            //    this.comboType.Properties.Items.Add(vo.TypeName);
+            //}
+            //if(voList.Count>0)
+            //    this.comboType.SelectedIndex = 0;
+
+            List<CardVo> cardList = SelectDao.SelectData<CardVo>();
             foreach (CardVo vo in cardList)
             {
-                if (vo.DisCount > 0)
-                    this.comboType.Properties.Items.Add(vo.CardName);
+                //if (vo.DisCount > 0)
+                this.comboType.Properties.Items.Add(vo.CardName);
             }
+            if (cardList.Count > 0)
+                this.comboType.SelectedIndex = 0;
             List<StaffLevelVo> levelList = SelectDao.SelectData<StaffLevelVo>();
             foreach (StaffLevelVo vo in levelList)
             {
@@ -95,6 +110,33 @@ namespace BusinessManger
             this.gridControl4.DataSource = voList;
             this.gridControl4.RefreshDataSource();
         }
+
+        private void RefeeshPriceType()
+        {
+            List<WorkTypeVo>  priceTypeVoList = SelectDao.SelectData<WorkTypeVo>();
+            this.gridControl2.DataSource = priceTypeVoList;
+            this.gridControl2.RefreshDataSource();
+        }
+
+        private bool CheckParam(List<WorkTypeVo> voList)
+        {
+            foreach (WorkTypeVo vo in voList)
+            {
+                if (string.IsNullOrWhiteSpace(vo.TypeName))
+                {
+                    XtraMessageBox.Show("名称不能为空！");
+                    return false;
+                }
+            }
+            var list = voList.GroupBy(v => v.TypeName).Where(v => v.Count() > 1).ToList();
+            if (list.Count > 0)
+            {
+                XtraMessageBox.Show("名称不能相同！");
+                return false;
+            }
+            return true;
+        }
+
         private void GridView4_RowClick(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
         {
             SkillCommisionVo vo = (SkillCommisionVo)this.gridView4.GetRow(this.gridView4.FocusedRowHandle);
@@ -362,14 +404,66 @@ namespace BusinessManger
         }
         private void SkillSettingNew_Load(object sender, EventArgs e)
         {
+            RefeeshPriceType();
             RefreshSkill();
             //RefreshSever();
             FillComTimeAndType();
         }
-        //[EventAttr("AddServerSuccessed")]
-        //public void AddServerSuccessed()
-        //{
-        //    RefreshSever();
-        //}
+        private void BtnPriceTypeDel_Click(object sender, EventArgs e)
+        {
+            WorkTypeVo delVo =(WorkTypeVo)this.gridView2.GetRow(this.gridView2.FocusedRowHandle);
+            if (delVo == null)
+                return;
+            List<WorkTypeVo> workTypeVoList = (List<WorkTypeVo>)this.gridControl2.DataSource;
+            workTypeVoList.Remove(delVo);
+            this.gridView1.RefreshRow(this.gridView2.FocusedRowHandle);
+            if (DeleteDao.DeleteByID(delVo.TypeId,typeof(WorkTypeVo)) > 0)
+            {
+                XtraMessageBox.Show("删除成功");
+            }
+            this.gridControl2.RefreshDataSource();
+        }
+
+        private void BtnPriceTypeSave_Click(object sender, EventArgs e)
+        {
+            List<WorkTypeVo> priceTypeOldVoList = SelectDao.SelectData<WorkTypeVo>();
+            List<WorkTypeVo> workTypeVoList = (List<WorkTypeVo>)this.gridControl2.DataSource;
+            List<WorkTypeVo> changeList = GenericUtil.GetChanges(workTypeVoList, priceTypeOldVoList);
+            int result = 0;
+            if (!CheckParam(changeList))
+                return;
+            foreach (WorkTypeVo vo in changeList)
+            {
+                if (SelectDao.IsRepeatedPirceTypeId(vo.TypeId)&&vo.TypeId!=0)
+                {
+                    //更新
+                    result = UpdateDao.UpdateByID(vo);
+                    if (result <= 0)
+                    {
+                        XtraMessageBox.Show(vo.TypeName + "更新失败！");
+                        break;
+                    }
+                }
+                else
+                {
+                    result = InsertDao.InsertData(vo,typeof(WorkTypeVo));
+                    if (result <= 0)
+                    {
+                        XtraMessageBox.Show(vo.TypeName + "保存失败！");
+                        break;
+                    }
+                }
+            }
+            XtraMessageBox.Show("保存成功！");
+        }
+
+        private void BtnPriceTypeAdd_Click(object sender, EventArgs e)
+        {
+            WorkTypeVo addVo = new WorkTypeVo();
+            //addVo.TypeName = "xxx";
+            List<WorkTypeVo> workTypeVoList = (List<WorkTypeVo>)this.gridControl2.DataSource;
+            workTypeVoList.Add(addVo);
+            this.gridControl2.RefreshDataSource();
+        }
     }
 }

@@ -1047,5 +1047,29 @@ namespace ClientCenter.DB
             }
             return tList;
         }
+
+        public static bool IsRepeatedPirceTypeId(int id)
+        {
+            string sql = "SELECT Count(TypeId) FROM PriceType Where TypeId=" + id ;
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
+            if (count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public static DateTime GetTempOrderEndTime(int skillId,DateTime startTime)
+        {
+            DateTime endTime = new DateTime();
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string sql = "select ServerTime from skill where SkillId="+skillId;
+            string strTime = mySqlclient.ExecuteScalar(sql, null) as string;
+            //"30分钟", "60分钟", "90分钟", "120分钟", "150分钟", "180分钟"
+            endTime=TimeUtil.AddMinute(startTime,strTime);
+            return endTime;
+        }
     }
 }

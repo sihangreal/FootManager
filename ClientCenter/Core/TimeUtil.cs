@@ -28,5 +28,12 @@ namespace ClientCenter.Core
             }
             return newTime;
         }
+
+        public static TimeSpan GetTimeSpan(DateTime time)
+        {
+            DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1, 0, 0, 0, 0));
+            long ltime= (long)(time - startTime).TotalSeconds;
+            return new TimeSpan(ltime);
+        }
     }
 }

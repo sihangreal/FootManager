@@ -44,6 +44,7 @@ namespace ClockRoomManager.UI
             }
             else
             {
+                this.roomVo.RoomStatus = "空闲";
                 this.BackgroundImage = greenImg;
             }
         }

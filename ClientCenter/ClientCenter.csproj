@@ -89,6 +89,7 @@
     <Compile Include="Core\GenrateIDUtil.cs" />
     <Compile Include="Enity\MemberInfoVo.cs" />
     <Compile Include="Enity\MemberRechargeVo.cs" />
+    <Compile Include="Enity\WorkTypeVo.cs" />
     <Compile Include="Enity\StaffWorkRecordVo.cs" />
     <Compile Include="Core\SystemConst.cs" />
     <Compile Include="Core\TimeUtil.cs" />

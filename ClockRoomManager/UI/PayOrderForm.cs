@@ -93,13 +93,15 @@ namespace ClockRoomManager.UI
         }
         private void BtnQuery_Click(object sender, EventArgs e)
         {
-            OrderInfoVo vo = SelectDao.GetOrderByRoomId<OrderInfoVo>(roomId);
+            //OrderInfoVo vo = SelectDao.GetOrderByRoomId<OrderInfoVo>(roomId);
+            OrderInfoVo vo = new OrderInfoVo();
+            vo.OrderID = GenrateIDUtil.GenerateOrderID();
             vo.Price = Convert.ToDouble(this.textPrice.Text);
             vo.Tax = Convert.ToDouble(this.textTotal.Text);
             vo.TotalPrice = Convert.ToDouble(this.textTotal.Text);
-            vo.Status = "完成";
             vo.PriceType = this.comboType.Text;
             vo.EndTime = DateTime.Now;
+
             StaffWorkInfoVo workInfoVo = UpdateWorkInfo();
             List<DetailedOrderVo> delOrderList = RelationDetailedOrder(vo.OrderID);
             if (TransactionDao.DealOrder(vo, workInfoVo, delOrderList))
@@ -171,6 +173,7 @@ namespace ClockRoomManager.UI
             }
             return detailedVoList;
         }
+
         private StaffWorkInfoVo UpdateWorkInfo()
         {
             StaffWorkInfoVo workVo = new StaffWorkInfoVo();

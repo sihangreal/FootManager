@@ -13,18 +13,18 @@ namespace ClockRoomManager.UI
 {
     public partial class OrderInfoForm : DevExpress.XtraEditors.XtraForm
     {
-        private RoomVo roomVo;
-        private List<TempOrderVo> orderList = new List<TempOrderVo>();
+        private RoomVo _rommVo;
+        private List<TempOrderVo> _tempOrderList = new List<TempOrderVo>();
         //private string remark;
-        private double price;
-        private int itype;//轮钟0，点钟1， 加钟2
-        private string orderId;//订单编号
+        private double _price;
+        private string _itype;//轮钟0，点钟1， 加钟2
+        //private string orderId;//订单编号
         //private string staffName;
         //private string staffId;
 
         public OrderInfoForm(RoomVo roomVo)
         {
-            this.roomVo = roomVo;
+            this._rommVo = roomVo;
             InitializeComponent();
             InitEvents();
         }
@@ -74,7 +74,6 @@ namespace ClockRoomManager.UI
                         this.comboStaff.Enabled = false;
                         checkEdit2.Checked = false;
                         checkEdit3.Checked = false;
-                        itype = 0;
                     }
                     break;
                 case "点钟":
@@ -82,7 +81,6 @@ namespace ClockRoomManager.UI
                         this.comboStaff.Enabled = true;
                         checkEdit1.Checked = false;
                         checkEdit3.Checked = false;
-                        itype = 1;
                     }
                     break;
                 case "加钟":
@@ -90,7 +88,6 @@ namespace ClockRoomManager.UI
                         this.comboStaff.Enabled = false;
                         checkEdit1.Checked = false;
                         checkEdit2.Checked = false;
-                        itype = 2;
                     }
                     break;
             }
@@ -119,16 +116,16 @@ namespace ClockRoomManager.UI
         }
         private double GetPriceByType(double[] prices)
         {
-            switch(itype)
+            switch(_itype)
             {
-                case 0:
-                    price += prices[0]; break;
-                case 1:
-                    price += prices[1]; break;
-                case 2:
-                    price += prices[2]; break;
+                case "轮钟":
+                    _price += prices[0]; break;
+                case "点钟":
+                    _price += prices[1]; break;
+                case "加钟":
+                    _price += prices[2]; break;
             }
-            return price;
+            return _price;
         }
         #region events
         private void OrderInfoForm_Load(object sender, EventArgs e)
@@ -139,14 +136,14 @@ namespace ClockRoomManager.UI
             RefreshSkill();
             FillComboStaff();
 
-            if (roomVo.RoomStatus.Equals("占用"))
+            if (_rommVo.RoomStatus.Equals("占用"))
             {
                 this.btnOrder.Enabled = false;
-                List<TempOrderVo> tempList = SelectDao.GetTempOrderByRoomID<TempOrderVo>(roomVo.RoomId);
+                List<TempOrderVo> tempList = SelectDao.GetTempOrderByRoomID<TempOrderVo>(_rommVo.RoomId);
                 this.gridControl1.DataSource = tempList;
                 this.gridControl1.RefreshDataSource();
 
-                StaffWorkInfoVo workVo=SelectDao.GetWorkStaffInfoByRoomId<StaffWorkInfoVo>(roomVo.RoomId);
+                StaffWorkInfoVo workVo=SelectDao.GetWorkStaffInfoByRoomId<StaffWorkInfoVo>(_rommVo.RoomId);
 
 
                 this.gridView1.BestFitColumns();
@@ -186,28 +183,36 @@ namespace ClockRoomManager.UI
                 string staffName = comboStaff.Text;
                 string staffId = SelectDao.SelectSatffIDByName(staffName);
                 //创建ID
-                orderId = GenrateIDUtil.GenerateOrderID();
+                //orderId = GenrateIDUtil.GenerateOrderID();
+
+                DateTime tempTime = new DateTime();
+                if (_tempOrderList.Count > 0)
+                    tempTime = _tempOrderList[_tempOrderList.Count - 1].EndTime;
+                else
+                    tempTime = DateTime.Now;
                 TempOrderVo tempVo = new TempOrderVo()
                 {
                     Id = 0,
-                    RoomID = roomVo.RoomId,
-                    OrderID = orderId,
+                    RoomID = _rommVo.RoomId,
+                    //OrderID = orderId,
                     SkillId = vo.SkillId,
                     SkillName = vo.SkillName,
                     StaffID = staffId,
                     StaffName = staffName,
-                    StartTime = DateTime.Now,
+                    WorkType = _itype,
+                    StartTime = tempTime,
+                    EndTime =SelectDao.GetTempOrderEndTime(vo.SkillId, tempTime),
                     PriceA = prices[0],
                     PriceB=prices[1],
                     PriceC=prices[2]
                 };
-                orderList.Add(tempVo);
-                this.gridControl1.DataSource = orderList;
+                _tempOrderList.Add(tempVo);
+                this.gridControl1.DataSource = _tempOrderList;
                 this.gridControl1.RefreshDataSource();
                 this.gridView1.BestFitColumns();
 
                 GetPriceByType(prices);
-                this.labelPrice.Text = price.ToString("f8");
+                this.labelPrice.Text = _price.ToString("f8");
             }
         }
         private void BtnRemark_Click(object sender, EventArgs e)
@@ -249,40 +254,40 @@ namespace ClockRoomManager.UI
             }
 
 
-            this.roomVo.RoomStatus = "占用";
-            if (UpdateDao.UpdateByID(this.roomVo) < 0)
-            {
-                XtraMessageBox.Show("下单失败！");
-                return;
-            }
+            //this.roomVo.RoomStatus = "占用";
+            //if (UpdateDao.UpdateByID(this.roomVo) < 0)
+            //{
+            //    XtraMessageBox.Show("下单失败！");
+            //    return;
+            //}
           
-            string staffName = comboStaff.Text;
-            string staffId = SelectDao.SelectSatffIDByName(staffName);
+            //string staffName = comboStaff.Text;
+            //string staffId = SelectDao.SelectSatffIDByName(staffName);
 
-            StaffWorkInfoVo workVo = new StaffWorkInfoVo();
-            workVo.StaffID = staffId;
-            workVo.StaffName = staffName;
-            workVo.StaffSex = SelectDao.GetStaffSexByID(staffId);
-            workVo.StaffStatus = "工作中";
-            workVo.RoomId = roomVo.RoomId;
-            workVo.RoomName = roomVo.RoomName;
-            workVo.OrderID = orderId;
-            //报单
-            OrderInfoVo orderVo = new OrderInfoVo();
-            orderVo.OrderID = orderId;
-            orderVo.RoomID = roomVo.RoomId;
-            orderVo.StaffName = staffName;
-            orderVo.StartTime = DateTime.Now;
-            orderVo.Status = "未完成";
+            //StaffWorkInfoVo workVo = new StaffWorkInfoVo();
+            //workVo.StaffID = staffId;
+            //workVo.StaffName = staffName;
+            //workVo.StaffSex = SelectDao.GetStaffSexByID(staffId);
+            //workVo.StaffStatus = "工作中";
+            //workVo.RoomId = roomVo.RoomId;
+            //workVo.RoomName = roomVo.RoomName;
+            //workVo.OrderID = orderId;
+            ////报单
+            //OrderInfoVo orderVo = new OrderInfoVo();
+            //orderVo.OrderID = orderId;
+            //orderVo.RoomID = roomVo.RoomId;
+            //orderVo.StaffName = staffName;
+            //orderVo.StartTime = DateTime.Now;
+            //orderVo.Status = "未完成";
 
-            if(!TransactionDao.SendOrder(workVo, orderVo))
-            {
-                XtraMessageBox.Show("下单失败！");
-                return;
-            }
+            //if(!TransactionDao.SendOrder(workVo, orderVo))
+            //{
+            //    XtraMessageBox.Show("下单失败！");
+            //    return;
+            //}
             this.btnCancelOrder1.Enabled = true;
             this.btnOrder.Enabled = false;
-            this.roomVo.RoomStatus = "占用";
+            this._rommVo.RoomStatus = "占用";
 
             EventBus.PublishEvent("StaffWorkStatusChange");
             XtraMessageBox.Show("下单成功！");
@@ -291,7 +296,7 @@ namespace ClockRoomManager.UI
         }
         private void BtnPay_Click(object sender, EventArgs e)
         {
-            PayOrderForm payForm = new PayOrderForm(roomVo.RoomId);
+            PayOrderForm payForm = new PayOrderForm(_rommVo.RoomId);
             if(payForm.ShowDialog()==DialogResult.OK)
             {
                 this.DialogResult = DialogResult.Ignore;

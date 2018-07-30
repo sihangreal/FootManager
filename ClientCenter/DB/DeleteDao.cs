@@ -205,5 +205,6 @@ namespace ClientCenter.DB
             string sql = @"DELETE  FROM  temporder where RoomId=" + roomId;
             return mySqlclient.ExecuteNonQuery(sql, CommandType.Text);
         }
+
     }
 }
