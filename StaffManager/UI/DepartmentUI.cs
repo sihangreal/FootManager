@@ -12,6 +12,7 @@ using ClientCenter.Enity;
 using ClientCenter.Core;
 using ClientCenter.DB;
 using ClientCenter.GridViews;
+using ClientCenter.Event;
 
 namespace StaffManager.UI
 {
@@ -78,6 +79,7 @@ namespace StaffManager.UI
                     }
                 }
             }
+            EventBus.PublishEvent("UpdateDepartment");
             XtraMessageBox.Show("保存成功！");
         }
         protected override void BtnDel_Click(object sender, EventArgs e)

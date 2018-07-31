@@ -12,6 +12,7 @@ using ClientCenter.Enity;
 using ClientCenter.DB;
 using ClientCenter.Core;
 using ClientCenter.GridViews;
+using ClientCenter.Event;
 
 namespace StaffManager.UI
 {
@@ -77,6 +78,7 @@ namespace StaffManager.UI
                     }
                 }
             }
+            EventBus.PublishEvent("UpdateLevel");
             XtraMessageBox.Show("保存成功！");
         }
         protected override void BtnDel_Click(object sender, EventArgs e)

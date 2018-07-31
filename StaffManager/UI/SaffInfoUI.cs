@@ -24,6 +24,7 @@ namespace StaffManager.UI
 
         public SaffInfoUI()
         {
+            EventBus.RegisterEvent(this);
             InitializeComponent();
             SetStaffInfoGrid();
         }
@@ -68,6 +69,27 @@ namespace StaffManager.UI
 
             RefreshStaff();
         }
+
+        private void RefreshDepartment()
+        {
+            RepositoryItemComboBox repositoryItemComboLevel = (RepositoryItemComboBox)this.gridView1.Columns["StaffLevel"].ColumnEdit;
+            repositoryItemComboLevel.Items.Clear();
+            foreach (StaffLevelVo vo in SelectDao.SelectData<StaffLevelVo>())
+            {
+                repositoryItemComboLevel.Items.Add(vo.StaffLevel);
+            }
+        }
+
+        private void RefreshLevel()
+        {
+            RepositoryItemComboBox repositoryItemComboDepartment = (RepositoryItemComboBox)this.gridView1.Columns["Department"].ColumnEdit;
+            repositoryItemComboDepartment.Items.Clear();
+            foreach (DepartmentVo vo in SelectDao.SelectData<DepartmentVo>())
+            {
+                repositoryItemComboDepartment.Items.Add(vo.DepName);
+            }
+        }
+
         private void RefreshStaff()
         {
             staffInfoList = SelectDao.SelectData<StaffInfoVo>();
@@ -125,7 +147,7 @@ namespace StaffManager.UI
                 }
             }
             EventBus.PublishEvent("StaffWorkStatusChange");
-            XtraMessageBox.Show("保存成功！");
+            //XtraMessageBox.Show("保存成功！");
         }
 
         protected override void BtnDel_Click(object sender, EventArgs e)
@@ -150,5 +172,17 @@ namespace StaffManager.UI
             this.gridControl1.RefreshDataSource();
         }
 
+        #region eventbus
+        [EventAttr("UpdateDepartment")]
+        public void UpdateDepartment()
+        {
+            RefreshDepartment();
+        }
+        [EventAttr("UpdateLevel")]
+        public void UpdateLevel()
+        {
+            RefreshDepartment();
+        }
+        #endregion
     }
 }

@@ -22,7 +22,7 @@ namespace ClientCenter.GridViews
             gridView.OptionsBehavior.AllowDeleteRows = DefaultBoolean.False;
             gridView.Appearance.EvenRow.BackColor = Color.LightYellow;
             gridView.OptionsView.EnableAppearanceEvenRow = true;
-            gridView.OptionsView.ColumnAutoWidth = false;
+            gridView.OptionsView.ColumnAutoWidth = true;
             gridView.HorzScrollVisibility = ScrollVisibility.Auto;
             CreateColumnForData(gridView, type);
         }

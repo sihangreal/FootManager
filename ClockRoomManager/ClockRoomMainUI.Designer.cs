@@ -85,44 +85,50 @@
             this.layoutControl1.Controls.Add(this.panelStatus);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1163, 597);
+            this.layoutControl1.Size = new System.Drawing.Size(1329, 769);
             this.layoutControl1.TabIndex = 4;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // panelStaff
             // 
             this.panelStaff.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelStaff.Location = new System.Drawing.Point(800, 2);
+            this.panelStaff.Location = new System.Drawing.Point(915, 3);
+            this.panelStaff.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelStaff.Name = "panelStaff";
-            this.panelStaff.Size = new System.Drawing.Size(361, 593);
+            this.panelStaff.Size = new System.Drawing.Size(411, 763);
             this.panelStaff.TabIndex = 0;
             // 
             // panelRoom
             // 
             this.panelRoom.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelRoom.Location = new System.Drawing.Point(2, 2);
+            this.panelRoom.Location = new System.Drawing.Point(3, 3);
+            this.panelRoom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelRoom.Name = "panelRoom";
-            this.panelRoom.Size = new System.Drawing.Size(794, 381);
+            this.panelRoom.Size = new System.Drawing.Size(906, 490);
             this.panelRoom.TabIndex = 4;
             // 
             // panelStatus
             // 
             this.panelStatus.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelStatus.Controls.Add(this.gridControl1);
-            this.panelStatus.Location = new System.Drawing.Point(2, 387);
+            this.panelStatus.Location = new System.Drawing.Point(3, 499);
+            this.panelStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelStatus.Name = "panelStatus";
-            this.panelStatus.Size = new System.Drawing.Size(794, 208);
+            this.panelStatus.Size = new System.Drawing.Size(906, 267);
             this.panelStatus.TabIndex = 0;
             // 
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(794, 208);
+            this.gridControl1.Size = new System.Drawing.Size(906, 267);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -151,15 +157,15 @@
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1163, 597);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1329, 769);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.panelStatus;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 385);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 496);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(798, 212);
+            this.layoutControlItem2.Size = new System.Drawing.Size(912, 273);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
@@ -168,16 +174,16 @@
             this.layoutControlItem1.Control = this.panelRoom;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(798, 385);
+            this.layoutControlItem1.Size = new System.Drawing.Size(912, 496);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.panelStaff;
-            this.layoutControlItem3.Location = new System.Drawing.Point(798, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(912, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(365, 597);
+            this.layoutControlItem3.Size = new System.Drawing.Size(417, 769);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
@@ -185,9 +191,10 @@
             // 
             this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xtraTabControl1.Location = new System.Drawing.Point(0, 0);
+            this.xtraTabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1169, 626);
+            this.xtraTabControl1.Size = new System.Drawing.Size(1336, 805);
             this.xtraTabControl1.TabIndex = 0;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
@@ -196,15 +203,17 @@
             // xtraTabPage1
             // 
             this.xtraTabPage1.Controls.Add(this.layoutControl1);
+            this.xtraTabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1163, 597);
+            this.xtraTabPage1.Size = new System.Drawing.Size(1329, 769);
             this.xtraTabPage1.Text = "钟房状态";
             // 
             // xtraTabPage2
             // 
             this.xtraTabPage2.Controls.Add(this.layoutControl2);
+            this.xtraTabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(1163, 597);
+            this.xtraTabPage2.Size = new System.Drawing.Size(1329, 769);
             this.xtraTabPage2.Text = "钟房管理";
             // 
             // layoutControl2
@@ -213,18 +222,21 @@
             this.layoutControl2.Controls.Add(this.panelControl1);
             this.layoutControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(1163, 597);
+            this.layoutControl2.Size = new System.Drawing.Size(1329, 769);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
             // gridControl2
             // 
-            this.gridControl2.Location = new System.Drawing.Point(2, 51);
+            this.gridControl2.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gridControl2.Location = new System.Drawing.Point(3, 74);
             this.gridControl2.MainView = this.gridView2;
+            this.gridControl2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(1159, 544);
+            this.gridControl2.Size = new System.Drawing.Size(1323, 692);
             this.gridControl2.TabIndex = 0;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -247,32 +259,36 @@
             this.panelControl1.Controls.Add(this.btnDel);
             this.panelControl1.Controls.Add(this.btnUpdate);
             this.panelControl1.Controls.Add(this.btnAdd);
-            this.panelControl1.Location = new System.Drawing.Point(2, 2);
+            this.panelControl1.Location = new System.Drawing.Point(3, 3);
+            this.panelControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1159, 45);
+            this.panelControl1.Size = new System.Drawing.Size(1323, 65);
             this.panelControl1.TabIndex = 4;
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(255, 9);
+            this.btnDel.Location = new System.Drawing.Point(291, 12);
+            this.btnDel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(75, 23);
+            this.btnDel.Size = new System.Drawing.Size(86, 30);
             this.btnDel.TabIndex = 2;
             this.btnDel.Text = "删除";
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(143, 9);
+            this.btnUpdate.Location = new System.Drawing.Point(163, 12);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.Size = new System.Drawing.Size(86, 30);
             this.btnUpdate.TabIndex = 1;
             this.btnUpdate.Text = "修改";
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(32, 9);
+            this.btnAdd.Location = new System.Drawing.Point(37, 12);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(86, 30);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "增加";
             // 
@@ -286,7 +302,7 @@
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1163, 597);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1329, 769);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // layoutControlItem4
@@ -294,26 +310,27 @@
             this.layoutControlItem4.Control = this.panelControl1;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(1163, 49);
+            this.layoutControlItem4.Size = new System.Drawing.Size(1329, 71);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.gridControl2;
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 49);
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 71);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(1163, 548);
+            this.layoutControlItem5.Size = new System.Drawing.Size(1329, 698);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
             // ClockRoomMainUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.xtraTabControl1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ClockRoomMainUI";
-            this.Size = new System.Drawing.Size(1169, 626);
+            this.Size = new System.Drawing.Size(1336, 805);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelStaff)).EndInit();

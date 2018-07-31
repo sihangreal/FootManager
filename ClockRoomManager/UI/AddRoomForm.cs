@@ -42,6 +42,7 @@ namespace ClockRoomManager.UI
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
@@ -62,6 +63,7 @@ namespace ClockRoomManager.UI
                 XtraMessageBox.Show("添加房间成功!");
                 EventBus.PublishEvent("AddRoomSuccessed",this,vo);
             }
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

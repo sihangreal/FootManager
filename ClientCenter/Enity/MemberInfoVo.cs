@@ -13,7 +13,7 @@ namespace ClientCenter.Enity
     {
         private string mId;
         [ColumnAttr("会员编号", true,false)]
-        [DataAttr(true)]
+        [DataAttr(true,true)]
         public string MId
         {
             get { return mId; }

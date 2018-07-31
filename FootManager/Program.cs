@@ -19,7 +19,7 @@ namespace FootManager
 
             DevExpress.Skins.SkinManager.EnableFormSkins();
             DevExpress.UserSkins.BonusSkins.Register();
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2007 Black");
+            //DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2007 Black");
 
             //跨线程调用窗体控件，禁止监控线程问题
             //DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;

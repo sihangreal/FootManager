@@ -12,6 +12,7 @@ using ClientCenter.Core;
 using ClientCenter.Enity;
 using ClientCenter.Event;
 using ClientCenter.DB;
+using ClientCenter.GridViews;
 
 namespace BusinessManger
 {
@@ -22,12 +23,11 @@ namespace BusinessManger
             EventBus.RegisterEvent(this);
             InitializeComponent();
             InitEvents();
-            GridViewUtil.CreateColumnForData(this.gridView1, typeof(SkillVo));
+            GridViewUtil.InitGridView(this.gridView1, typeof(SkillVo));
             //GridViewUtil.CreateColumnForData(this.gridView2, typeof(ServerVo));
-            GridViewUtil.CreateColumnForData(this.gridView3, typeof(SkillPriceVo));
-            GridViewUtil.CreateColumnForData(this.gridView4, typeof(SkillCommisionVo));
-            GridViewUtil.CreateColumnForData(this.gridView2,typeof(WorkTypeVo));
-      
+            GridViewUtil.InitGridView(this.gridView3, typeof(SkillPriceVo));
+            GridViewUtil.InitGridView(this.gridView4, typeof(SkillCommisionVo));
+            //GridViewUtil.InitGridView(this.gridView2,typeof(WorkTypeVo));
         }
 
         private void InitEvents()
@@ -113,29 +113,29 @@ namespace BusinessManger
 
         private void RefeeshPriceType()
         {
-            List<WorkTypeVo>  priceTypeVoList = SelectDao.SelectData<WorkTypeVo>();
-            this.gridControl2.DataSource = priceTypeVoList;
-            this.gridControl2.RefreshDataSource();
+            //List<WorkTypeVo>  priceTypeVoList = SelectDao.SelectData<WorkTypeVo>();
+            //this.gridControl2.DataSource = priceTypeVoList;
+            //this.gridControl2.RefreshDataSource();
         }
 
-        private bool CheckParam(List<WorkTypeVo> voList)
-        {
-            foreach (WorkTypeVo vo in voList)
-            {
-                if (string.IsNullOrWhiteSpace(vo.TypeName))
-                {
-                    XtraMessageBox.Show("名称不能为空！");
-                    return false;
-                }
-            }
-            var list = voList.GroupBy(v => v.TypeName).Where(v => v.Count() > 1).ToList();
-            if (list.Count > 0)
-            {
-                XtraMessageBox.Show("名称不能相同！");
-                return false;
-            }
-            return true;
-        }
+        //private bool CheckParam(List<WorkTypeVo> voList)
+        //{
+        //    foreach (WorkTypeVo vo in voList)
+        //    {
+        //        if (string.IsNullOrWhiteSpace(vo.TypeName))
+        //        {
+        //            XtraMessageBox.Show("名称不能为空！");
+        //            return false;
+        //        }
+        //    }
+        //    var list = voList.GroupBy(v => v.TypeName).Where(v => v.Count() > 1).ToList();
+        //    if (list.Count > 0)
+        //    {
+        //        XtraMessageBox.Show("名称不能相同！");
+        //        return false;
+        //    }
+        //    return true;
+        //}
 
         private void GridView4_RowClick(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
         {
@@ -411,59 +411,59 @@ namespace BusinessManger
         }
         private void BtnPriceTypeDel_Click(object sender, EventArgs e)
         {
-            WorkTypeVo delVo =(WorkTypeVo)this.gridView2.GetRow(this.gridView2.FocusedRowHandle);
-            if (delVo == null)
-                return;
-            List<WorkTypeVo> workTypeVoList = (List<WorkTypeVo>)this.gridControl2.DataSource;
-            workTypeVoList.Remove(delVo);
-            this.gridView1.RefreshRow(this.gridView2.FocusedRowHandle);
-            if (DeleteDao.DeleteByID(delVo.TypeId,typeof(WorkTypeVo)) > 0)
-            {
-                XtraMessageBox.Show("删除成功");
-            }
-            this.gridControl2.RefreshDataSource();
+            //WorkTypeVo delVo =(WorkTypeVo)this.gridView2.GetRow(this.gridView2.FocusedRowHandle);
+            //if (delVo == null)
+            //    return;
+            //List<WorkTypeVo> workTypeVoList = (List<WorkTypeVo>)this.gridControl2.DataSource;
+            //workTypeVoList.Remove(delVo);
+            //this.gridView1.RefreshRow(this.gridView2.FocusedRowHandle);
+            //if (DeleteDao.DeleteByID(delVo.TypeId,typeof(WorkTypeVo)) > 0)
+            //{
+            //    XtraMessageBox.Show("删除成功");
+            //}
+            //this.gridControl2.RefreshDataSource();
         }
 
         private void BtnPriceTypeSave_Click(object sender, EventArgs e)
         {
-            List<WorkTypeVo> priceTypeOldVoList = SelectDao.SelectData<WorkTypeVo>();
-            List<WorkTypeVo> workTypeVoList = (List<WorkTypeVo>)this.gridControl2.DataSource;
-            List<WorkTypeVo> changeList = GenericUtil.GetChanges(workTypeVoList, priceTypeOldVoList);
-            int result = 0;
-            if (!CheckParam(changeList))
-                return;
-            foreach (WorkTypeVo vo in changeList)
-            {
-                if (SelectDao.IsRepeatedPirceTypeId(vo.TypeId)&&vo.TypeId!=0)
-                {
-                    //更新
-                    result = UpdateDao.UpdateByID(vo);
-                    if (result <= 0)
-                    {
-                        XtraMessageBox.Show(vo.TypeName + "更新失败！");
-                        break;
-                    }
-                }
-                else
-                {
-                    result = InsertDao.InsertData(vo,typeof(WorkTypeVo));
-                    if (result <= 0)
-                    {
-                        XtraMessageBox.Show(vo.TypeName + "保存失败！");
-                        break;
-                    }
-                }
-            }
-            XtraMessageBox.Show("保存成功！");
+            //List<WorkTypeVo> priceTypeOldVoList = SelectDao.SelectData<WorkTypeVo>();
+            //List<WorkTypeVo> workTypeVoList = (List<WorkTypeVo>)this.gridControl2.DataSource;
+            //List<WorkTypeVo> changeList = GenericUtil.GetChanges(workTypeVoList, priceTypeOldVoList);
+            //int result = 0;
+            //if (!CheckParam(changeList))
+            //    return;
+            //foreach (WorkTypeVo vo in changeList)
+            //{
+            //    if (SelectDao.IsRepeatedPirceTypeId(vo.TypeId)&&vo.TypeId!=0)
+            //    {
+            //        //更新
+            //        result = UpdateDao.UpdateByID(vo);
+            //        if (result <= 0)
+            //        {
+            //            XtraMessageBox.Show(vo.TypeName + "更新失败！");
+            //            break;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        result = InsertDao.InsertData(vo,typeof(WorkTypeVo));
+            //        if (result <= 0)
+            //        {
+            //            XtraMessageBox.Show(vo.TypeName + "保存失败！");
+            //            break;
+            //        }
+            //    }
+            //}
+            //XtraMessageBox.Show("保存成功！");
         }
 
         private void BtnPriceTypeAdd_Click(object sender, EventArgs e)
         {
-            WorkTypeVo addVo = new WorkTypeVo();
-            //addVo.TypeName = "xxx";
-            List<WorkTypeVo> workTypeVoList = (List<WorkTypeVo>)this.gridControl2.DataSource;
-            workTypeVoList.Add(addVo);
-            this.gridControl2.RefreshDataSource();
+            //WorkTypeVo addVo = new WorkTypeVo();
+            ////addVo.TypeName = "xxx";
+            //List<WorkTypeVo> workTypeVoList = (List<WorkTypeVo>)this.gridControl2.DataSource;
+            //workTypeVoList.Add(addVo);
+            //this.gridControl2.RefreshDataSource();
         }
     }
 }

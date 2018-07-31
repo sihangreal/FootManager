@@ -12,6 +12,7 @@ using ClientCenter.Enity;
 using ClientCenter.Core;
 using ClientCenter.DB;
 using ClientCenter.Event;
+using ClientCenter.GridViews;
 
 namespace BusinessManger
 {
@@ -24,7 +25,7 @@ namespace BusinessManger
         {
             this.proname = proname;
             InitializeComponent();
-            GridViewUtil.CreateColumnForData(gridView1, typeof(ServerVo));
+            GridViewUtil.InitGridView(gridView1, typeof(ServerVo));
             InitEvents();
         }
 
