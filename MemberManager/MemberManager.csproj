@@ -205,10 +205,6 @@
     <None Include="Resources\zoom100_32x32.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessManger\BusinessManger.csproj">
-      <Project>{9BB0935E-A9F2-4165-976D-E14B5B917478}</Project>
-      <Name>BusinessManger</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ClientCenter\ClientCenter.csproj">
       <Project>{cdd9dd3c-98ae-4457-b900-cf4b97b085e7}</Project>
       <Name>ClientCenter</Name>

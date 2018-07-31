@@ -12,6 +12,7 @@ using ClientCenter.DB;
 using ClientCenter.Enity;
 using ClientCenter.Core;
 using ClientCenter.Event;
+using ClientCenter.GridViews;
 
 namespace StaffManager.UI
 {
@@ -23,7 +24,7 @@ namespace StaffManager.UI
             EventBus.RegisterEvent(this);
             InitializeComponent();
             InitEvents();
-            GridViewUtil.CreateColumnForData(this.gridView1,typeof(StaffWorkRecordVo));
+            GridViewUtil.InitGridView(this.gridView1,typeof(StaffWorkRecordVo));
             staffRecordList = SelectDao.SelectData<StaffWorkRecordVo>();
             this.gridControl1.DataSource = staffRecordList;
             this.gridControl1.RefreshDataSource();

@@ -9,6 +9,7 @@ using ClientCenter.Enity;
 using ClientCenter.DB;
 using System.Reflection;
 using ClientCenter.Core;
+using ClientCenter.GridViews;
 
 namespace ReportManager.Report
 {

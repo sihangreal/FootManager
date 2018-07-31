@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ClientCenter.Core;
+using ClientCenter.GridViews;
 
 namespace MemberManager.UI
 {
@@ -10,7 +11,7 @@ namespace MemberManager.UI
         {
             InitializeComponent();
             InitEvents();
-            GridViewUtil.CreateColumnForData(this.gridView1, type);
+            GridViewUtil.InitGridView(this.gridView1, type);
             this.gridView1.ViewCaption = caption;
         }
 

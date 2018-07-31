@@ -14,6 +14,7 @@ using ClientCenter.Core;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.Controls;
 using ClientCenter.Event;
+using ClientCenter.GridViews;
 
 namespace StaffManager.UI
 {
@@ -29,7 +30,7 @@ namespace StaffManager.UI
 
         private void SetStaffWorkGrid()
         {
-            GridViewUtil.CreateColumnForData(gridView1, typeof(StaffWorkInfoVo));
+            GridViewUtil.InitGridView(gridView1, typeof(StaffWorkInfoVo));
             RepositoryItemComboBox repositoryItemComboStatus = new RepositoryItemComboBox();
 
             repositoryItemComboStatus.BeginInit();

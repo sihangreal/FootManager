@@ -1,4 +1,5 @@
 ﻿using ClientCenter.Core;
+using ClientCenter.GridViews;
 
 namespace ClientCenter.Enity
 {

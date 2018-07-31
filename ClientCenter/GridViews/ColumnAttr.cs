@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientCenter.Core
+namespace ClientCenter.GridViews
 {
     public class ColumnAttr:Attribute
     {

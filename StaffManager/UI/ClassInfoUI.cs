@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using ClientCenter.Enity;
 using ClientCenter.DB;
 using ClientCenter.Core;
+using ClientCenter.GridViews;
 
 namespace StaffManager.UI
 {
@@ -20,7 +21,7 @@ namespace StaffManager.UI
         public ClassInfoUI()
         {
             InitializeComponent();
-            GridViewUtil.CreateColumnForData(this.gridView1, typeof(StaffClassVo));
+            GridViewUtil.InitGridView(this.gridView1, typeof(StaffClassVo));
             RefreshClass();
         }
 

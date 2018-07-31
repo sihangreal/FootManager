@@ -12,6 +12,7 @@ using ClientCenter.Core;
 using ClientCenter.Enity;
 using ClientCenter.DB;
 using ClientCenter.Event;
+using ClientCenter.GridViews;
 
 namespace MemberManager.UI
 {
@@ -22,7 +23,7 @@ namespace MemberManager.UI
         {
             EventBus.RegisterEvent(this);
             InitializeComponent();
-            GridViewUtil.CreateColumnForData(this.gridView1,typeof(MemberRechargeVo));
+            GridViewUtil.InitGridView(this.gridView1,typeof(MemberRechargeVo));
             RefreshRecharge();
         }
         private void RefreshRecharge()

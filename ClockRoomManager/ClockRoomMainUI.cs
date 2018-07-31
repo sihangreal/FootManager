@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ClockRoomManager.UI;
-using ClientCenter.Core;
+using ClientCenter.GridViews;
 using ClientCenter.DB;
 using ClientCenter.Event;
 using ClientCenter.Enity;
@@ -58,8 +58,8 @@ namespace ClockRoomManager
 
         private void ClockRoomMainUI_Load(object sender, EventArgs e)
         {
-            GridViewUtil.CreateColumnForData(this.gridView2, typeof(RoomVo));
-            GridViewUtil.CreateColumnForData(this.gridView1, typeof(TempConsumeVo));
+            GridViewUtil.InitGridView(this.gridView2, typeof(RoomVo));
+            GridViewUtil.InitGridView(this.gridView1, typeof(TempConsumeVo));
 
             clockRoom = new ClockRoom();
             clockRoom.Dock = DockStyle.Fill;

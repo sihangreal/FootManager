@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using ClientCenter.Core;
 using ClientCenter.DB;
 using ClientCenter.Enity;
+using ClientCenter.GridViews;
 
 namespace FootManager.UI
 {
@@ -119,8 +120,8 @@ namespace FootManager.UI
 
         private void OperatSetting_Load(object sender, EventArgs e)
         {
-            GridViewUtil.CreateColumnForData(this.gridView1, typeof(PermissionVo));
-            GridViewUtil.CreateColumnForData(this.gridView2,typeof(UserRoleVo));
+            GridViewUtil.InitGridView(this.gridView1, typeof(PermissionVo));
+            GridViewUtil.InitGridView(this.gridView2,typeof(UserRoleVo));
            
             this.gridView2.Columns["Psword"].Visible = false;
             this.gridView2.Columns["Id"].Visible = false;

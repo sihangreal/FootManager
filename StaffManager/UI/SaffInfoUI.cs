@@ -14,6 +14,7 @@ using ClientCenter.Enity;
 using DevExpress.XtraEditors.Controls;
 using ClientCenter.DB;
 using ClientCenter.Event;
+using ClientCenter.GridViews;
 
 namespace StaffManager.UI
 {
@@ -28,7 +29,7 @@ namespace StaffManager.UI
         }
         private void SetStaffInfoGrid()
         {
-            GridViewUtil.CreateColumnForData(gridView1, typeof(StaffInfoVo));
+            GridViewUtil.InitGridView(gridView1, typeof(StaffInfoVo));
             RepositoryItemComboBox repositoryItemComboLevel = new RepositoryItemComboBox();
             RepositoryItemComboBox repositoryItemComboSex = new RepositoryItemComboBox();
             RepositoryItemComboBox repositoryItemComboDepartment = new RepositoryItemComboBox();

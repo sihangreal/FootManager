@@ -8,6 +8,7 @@ using DevExpress.XtraEditors;
 using ClientCenter.Event;
 using System.Linq;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using ClientCenter.GridViews;
 
 namespace ClockRoomManager.UI
 {
@@ -130,8 +131,8 @@ namespace ClockRoomManager.UI
         #region events
         private void OrderInfoForm_Load(object sender, EventArgs e)
         {
-            GridViewUtil.CreateColumnForData(this.gridView1,typeof(TempOrderVo));
-            GridViewUtil.CreateColumnForData(this.gridView2, typeof(SkillVo));
+            GridViewUtil.InitGridView(this.gridView1,typeof(TempOrderVo));
+            GridViewUtil.InitGridView(this.gridView2, typeof(SkillVo));
 
             RefreshSkill();
             FillComboStaff();

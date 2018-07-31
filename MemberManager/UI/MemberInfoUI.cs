@@ -11,6 +11,7 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors;
 using System.Linq;
 using System.Windows.Forms;
+using ClientCenter.GridViews;
 
 namespace MemberManager.UI
 {
@@ -29,7 +30,7 @@ namespace MemberManager.UI
 
         private void SetMemberInfoGrid()
         {
-            GridViewUtil.CreateColumnForData(this.gridView1, typeof(MemberInfoVo));
+            GridViewUtil.InitGridView(this.gridView1, typeof(MemberInfoVo));
             //RepositoryItemComboBox repositoryItemComboStatus = new RepositoryItemComboBox();
             //RepositoryItemComboBox repositoryItemComboLevel = new RepositoryItemComboBox();
             //repositoryItemComboStatus.BeginInit();

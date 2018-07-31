@@ -12,6 +12,7 @@ using ClientCenter.DB;
 using ClientCenter.Enity;
 using ClientCenter.Core;
 using ClientCenter.Event;
+using ClientCenter.GridViews;
 
 namespace ClockRoomManager.UI
 {
@@ -61,7 +62,7 @@ namespace ClockRoomManager.UI
         }
         private void StaffQueryUI_Load(object sender, EventArgs e)
         {
-            GridViewUtil.CreateColumnForData(this.gridView1, typeof(StaffWorkInfoVo));
+            GridViewUtil.InitGridView(this.gridView1, typeof(StaffWorkInfoVo));
             RefeshStaffInfo();
         }
 

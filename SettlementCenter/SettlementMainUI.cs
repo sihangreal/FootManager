@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using ClientCenter.Core;
 using ClientCenter.Enity;
 using ClientCenter.DB;
+using ClientCenter.GridViews;
 
 namespace SettlementCenter
 {
@@ -27,7 +28,7 @@ namespace SettlementCenter
         }
         private void Init()
         {
-            GridViewUtil.CreateColumnForData(this.gridView1, typeof(TempOrderVo));
+            GridViewUtil.InitGridView(this.gridView1, typeof(TempOrderVo));
             this.gridControl1.DataSource = tempVoList;
             FillPriceType();
         }

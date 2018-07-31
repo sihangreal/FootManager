@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using ClientCenter.Core;
 using ClientCenter.DB;
 using ClientCenter.Enity;
+using ClientCenter.GridViews;
 
 namespace MemberManager.UI
 {
@@ -33,7 +34,7 @@ namespace MemberManager.UI
 
         private void SetCardInfoGrid()
         {
-            GridViewUtil.CreateColumnForData(this.gridView1,typeof(CardVo));
+            GridViewUtil.InitGridView(this.gridView1,typeof(CardVo));
             cardVoList = SelectDao.SelectData<CardVo>();
             this.gridControl1.DataSource = cardVoList;
             this.gridControl1.RefreshDataSource();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClientCenter.Core;
+using ClientCenter.GridViews;
 
 namespace StaffManager.Enity
 {

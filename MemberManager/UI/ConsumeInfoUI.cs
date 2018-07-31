@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using ClientCenter.Core;
 using ClientCenter.Enity;
 using ClientCenter.DB;
+using ClientCenter.GridViews;
 
 namespace MemberManager.UI
 {
@@ -20,7 +21,7 @@ namespace MemberManager.UI
         public ConsumeInfoUI()
         {
             InitializeComponent();
-            GridViewUtil.CreateColumnForData(this.gridView1, typeof(MemberConsumeVo));
+            GridViewUtil.InitGridView(this.gridView1, typeof(MemberConsumeVo));
             consumeVoList = SelectDao.SelectData<MemberConsumeVo>();
             this.gridControl1.DataSource = consumeVoList;
             this.gridControl1.RefreshDataSource();
