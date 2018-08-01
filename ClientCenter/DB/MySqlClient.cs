@@ -61,6 +61,11 @@ namespace ClientCenter.DB
                 }
             }
         }
+        public int ExecuteNonQuery(MySqlCommand command)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            return cmd.ExecuteNonQuery();
+        }
 
         public int ExecuteNonQuery(string cmdText, CommandType cmdType = CommandType.Text)
         {
@@ -537,5 +542,12 @@ namespace ClientCenter.DB
             }
             return dbType;
         }
+
+        //public MySqlCommand GetCommand()
+        //{
+        //    MySqlCommand command = new MySqlCommand();
+        //    MySqlConnection conn = new MySqlConnection(connectionString)
+        //   command.Connection = conn;
+        //}
     }
 }

@@ -12,6 +12,7 @@ using ClientCenter.Core;
 using ClientCenter.Enity;
 using ClientCenter.DB;
 using ClientCenter.GridViews;
+using ClientCenter.Event;
 
 namespace SettlementCenter
 {
@@ -53,24 +54,6 @@ namespace SettlementCenter
                 this.comboType.SelectedIndex = 0;
         }
 
-        private List<DetailedOrderVo> RelationDetailedOrder(string orderId)
-        {
-            List<DetailedOrderVo> detailedVoList = new List<DetailedOrderVo>();
-            string priceType = this.comboType.Text;
-            foreach (TempOrderVo vo in selectedVoList)
-            {
-                DetailedOrderVo detVo = new DetailedOrderVo();
-                detVo.DetailID = GenrateIDUtil.GenerateDetailOrderID();
-                detVo.OrderID = orderId;
-                detVo.SkillId = vo.SkillId;
-                detVo.Price = SelectDao.GetSkillPriceDetail(vo.SkillName, vo.WorkType, priceType);
-                double gstPrice = (detVo.Price * 6) / 106;
-                detVo.Tax = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
-                detVo.TotalPrice = detVo.Price + detVo.Tax;
-                detailedVoList.Add(detVo);
-            }
-            return detailedVoList;
-        }
 
         private void CheckCashierForm_Load(object sender, EventArgs e)
         {
@@ -149,13 +132,13 @@ namespace SettlementCenter
             vo.TotalPrice = Convert.ToDouble(this.textTotal.Text);
             vo.PriceType = this.comboType.Text;
             vo.EndTime = DateTime.Now;
-
-            StaffWorkInfoVo workInfoVo = UpdateWorkInfo();
-            List<DetailedOrderVo> delOrderList = RelationDetailedOrder(vo.OrderID);
-            if (TransactionDao.DealOrder(vo, workInfoVo, delOrderList))
+            if (TransactionDao.DealOrder(vo, selectedVoList, this.comboType.Text))
             {
                 //删除临时订单
-                DeleteDao.DeleteTempOrderByRoomId(roomId);
+                foreach(TempOrderVo tempVo in selectedVoList)
+                {
+                    DeleteDao.DeleteByID(tempVo.Id,typeof(TempOrderVo));
+                }
                 //会员消费记录
                 if (!string.IsNullOrWhiteSpace(this.textMemberId.Text))
                 {
@@ -169,20 +152,8 @@ namespace SettlementCenter
                     consumeVo.CompanyId = SystemConst.companyId;
                     InsertDao.InsertData(consumeVo);
                 }
-                //员工做工记录
-                StaffWorkRecordVo recordVo = new StaffWorkRecordVo();
-                recordVo.ID = GenrateIDUtil.GenerateWorkRecordID();
-                recordVo.StaffId = staffId;
-                recordVo.StaffName = SelectDao.SelectStaffNameByID(staffId);
-                recordVo.OrderID = vo.OrderID;
-                recordVo.Amount = double.Parse(this.textTotal.Text);
-                recordVo.WorkTime = DateTime.Now;
-                InsertDao.InsertData(recordVo);
-
                 XtraMessageBox.Show("买单成功!");
-                RoomVo updateVo = SelectDao.GetRoomByRoomId<RoomVo>(roomId);
                 EventBus.PublishEvent("StaffWorkStatusChange");
-                this.DialogResult = DialogResult.OK;
             }
             else
             {

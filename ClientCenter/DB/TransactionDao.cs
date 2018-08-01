@@ -1,5 +1,7 @@
 ﻿using ClientCenter.Core;
 using ClientCenter.Enity;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 
 namespace ClientCenter.DB
@@ -70,5 +72,94 @@ namespace ClientCenter.DB
 
             return mySqlclient.ExecuteTransaction(sqlList);
         }
+
+        public static bool DealOrder(OrderInfoVo orderVo,List<TempOrderVo> tempOrderList,string priceType)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            MySqlCommand command = new MySqlCommand();
+            MySqlConnection connection = mySqlclient.GetConnect();
+            MySqlTransaction transaction = connection.BeginTransaction();
+            command.Connection = connection;
+            command.Transaction = transaction;
+            connection.Open();
+
+            string sql = mySqlclient.GenerateInsertSql(orderVo);
+            try
+            {
+                command.CommandText = sql;
+                mySqlclient.ExecuteNonQuery(command);
+            }
+            catch(Exception ex)
+            {
+                transaction.Rollback();
+                return false;
+            }
+
+            foreach(TempOrderVo tempVo in tempOrderList)
+            {
+                DetailedOrderVo detVo = new DetailedOrderVo();
+                detVo.DetailID = GenrateIDUtil.GenerateDetailOrderID();
+                detVo.OrderID = orderVo.OrderID;
+                detVo.SkillId = tempVo.SkillId;
+                detVo.Price = SelectDao.GetSkillPriceDetail(tempVo.SkillName, tempVo.WorkType, priceType);
+                double gstPrice = (detVo.Price * 6) / 106;
+                detVo.Tax = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
+                detVo.TotalPrice = detVo.Price + detVo.Tax;
+                sql = mySqlclient.GenerateInsertSql(detVo);
+                try
+                {
+                    command.CommandText = sql;
+                    mySqlclient.ExecuteNonQuery(command);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+
+            foreach (TempOrderVo tempVo in tempOrderList)
+            {
+                sql = @"update StaffWork set StaffStatus='空闲',RoomId=null,RoomName='' where StaffID='"+ tempVo.StaffID+"'";
+                try
+                {
+                    command.CommandText = sql;
+                    mySqlclient.ExecuteNonQuery(command);
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+
+            foreach(TempOrderVo tempVo in tempOrderList)
+            {
+                StaffWorkRecordVo recordVo = new StaffWorkRecordVo();
+                recordVo.ID = GenrateIDUtil.GenerateWorkRecordID();
+                recordVo.StaffId = tempVo.StaffID;
+                recordVo.StaffName = SelectDao.SelectStaffNameByID(tempVo.StaffID);
+                recordVo.OrderID = orderVo.OrderID;
+                recordVo.Amount = orderVo.TotalPrice;
+                recordVo.WorkTime = DateTime.Now;
+                sql = mySqlclient.GenerateInsertSql(recordVo);
+                try
+                {
+                    command.CommandText = sql;
+                    mySqlclient.ExecuteNonQuery(command);
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+            transaction.Commit();
+            connection.Close();
+            return true;
+        }
+
+
     }
 }
