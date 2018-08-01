@@ -12,6 +12,7 @@ using ClientCenter.Core;
 using ClientCenter.DB;
 using ClientCenter.Enity;
 using ClientCenter.GridViews;
+using ClientCenter.Event;
 
 namespace MemberManager.UI
 {
@@ -72,7 +73,8 @@ namespace MemberManager.UI
                     }
                 }
             }
-            XtraMessageBox.Show("保存成功！");
+            EventBus.PublishEvent("UpdateLevelCard");
+            //XtraMessageBox.Show("保存成功！");
         }
 
         private void BtnDel_Click(object sender, EventArgs e)

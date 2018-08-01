@@ -59,23 +59,18 @@ namespace BusinessManger
 
         private void FillComTimeAndType()
         {
-            this.comboTime.Properties.Items.AddRange(new string[] { "30分钟", "60分钟", "90分钟", "120分钟", "150分钟", "180分钟" });
-            //List<PriceTypeVo> voList = SelectDao.SelectData<PriceTypeVo>();
-            //foreach(PriceTypeVo vo in voList)
-            //{
-            //    this.comboType.Properties.Items.Add(vo.TypeName);
-            //}
-            //if(voList.Count>0)
-            //    this.comboType.SelectedIndex = 0;
+            this.comboTime.Properties.Items.Clear();
+            this.comboType.Properties.Items.Clear();
+            this.comboLevel.Properties.Items.Clear();
 
+            this.comboTime.Properties.Items.AddRange(new string[] { "30分钟", "60分钟", "90分钟", "120分钟", "150分钟", "180分钟" });
+            this.comboType.Properties.Items.AddRange(new string[] { "现金", "Visa卡" });
             List<CardVo> cardList = SelectDao.SelectData<CardVo>();
             foreach (CardVo vo in cardList)
             {
-                //if (vo.DisCount > 0)
                 this.comboType.Properties.Items.Add(vo.CardName);
             }
-            if (cardList.Count > 0)
-                this.comboType.SelectedIndex = 0;
+            this.comboType.SelectedIndex = 0;
             List<StaffLevelVo> levelList = SelectDao.SelectData<StaffLevelVo>();
             foreach (StaffLevelVo vo in levelList)
             {
@@ -465,5 +460,13 @@ namespace BusinessManger
             //workTypeVoList.Add(addVo);
             //this.gridControl2.RefreshDataSource();
         }
+
+        #region eventbus
+        [EventAttr("UpdateLevelCard")]
+        public void UpdateLevelCard()
+        {
+            FillComTimeAndType();
+        }
+        #endregion
     }
 }

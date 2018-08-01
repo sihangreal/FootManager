@@ -18,7 +18,7 @@ namespace ClockRoomManager.UI
         private List<TempOrderVo> _tempOrderList = new List<TempOrderVo>();
         //private string remark;
         private double _price;
-        private string _itype;//轮钟0，点钟1， 加钟2
+        private int _itype = 0;//轮钟0，点钟1， 加钟2
         //private string orderId;//订单编号
         //private string staffName;
         //private string staffId;
@@ -119,11 +119,11 @@ namespace ClockRoomManager.UI
         {
             switch(_itype)
             {
-                case "轮钟":
+                case 0:
                     _price += prices[0]; break;
-                case "点钟":
+                case 1:
                     _price += prices[1]; break;
-                case "加钟":
+                case 2:
                     _price += prices[2]; break;
             }
             return _price;

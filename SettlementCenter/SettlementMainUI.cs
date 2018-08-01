@@ -38,6 +38,7 @@ namespace SettlementCenter
             this.btnReadCard.Click += BtnReadCard_Click;
             this.Load += CheckCashierForm_Load;
             this.gridView1.SelectionChanged += GridView1_SelectionChanged;
+            this.comboType.SelectedIndexChanged += ComboType_SelectedIndexChanged;
         }
 
         private void FillPriceType()
@@ -62,7 +63,7 @@ namespace SettlementCenter
                 detVo.DetailID = GenrateIDUtil.GenerateDetailOrderID();
                 detVo.OrderID = orderId;
                 detVo.SkillId = vo.SkillId;
-                //detVo.Price = SelectDao.GetSkillPriceDetail(vo.SkillName, vo.WorkType, priceType);
+                detVo.Price = SelectDao.GetSkillPriceDetail(vo.SkillName, vo.WorkType, priceType);
                 double gstPrice = (detVo.Price * 6) / 106;
                 detVo.Tax = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
                 detVo.TotalPrice = detVo.Price + detVo.Tax;
@@ -107,6 +108,28 @@ namespace SettlementCenter
             }
         }
 
+        private void ComboType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            double serverPrice = 0;
+            double gstPrice = 0;
+            double totalPrice = 0;
+            string priceType = this.comboType.Text;
+
+            foreach (TempOrderVo vo in selectedVoList)
+            {
+                serverPrice += SelectDao.GetSkillPriceDetail(vo.SkillName, vo.WorkType, priceType);
+            }
+            if (priceType.Equals("现金") || priceType.Equals("Visa卡"))
+            {
+                gstPrice = (serverPrice * 6) / 106;
+            }
+            gstPrice = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
+            totalPrice = serverPrice + gstPrice;
+            this.textPrice.Text = serverPrice.ToString();
+            this.textGst.Text = gstPrice.ToString();
+            this.textTotal.Text = totalPrice.ToString();
+        }
+
         private void BtnReadCard_Click(object sender, EventArgs e)
         {
             string errorStr = default(string);
@@ -119,7 +142,52 @@ namespace SettlementCenter
 
         private void BtnQuery_Click(object sender, EventArgs e)
         {
+            OrderInfoVo vo = new OrderInfoVo();
+            vo.OrderID = GenrateIDUtil.GenerateOrderID();
+            vo.Price = Convert.ToDouble(this.textPrice.Text);
+            vo.Tax = Convert.ToDouble(this.textTotal.Text);
+            vo.TotalPrice = Convert.ToDouble(this.textTotal.Text);
+            vo.PriceType = this.comboType.Text;
+            vo.EndTime = DateTime.Now;
 
+            StaffWorkInfoVo workInfoVo = UpdateWorkInfo();
+            List<DetailedOrderVo> delOrderList = RelationDetailedOrder(vo.OrderID);
+            if (TransactionDao.DealOrder(vo, workInfoVo, delOrderList))
+            {
+                //删除临时订单
+                DeleteDao.DeleteTempOrderByRoomId(roomId);
+                //会员消费记录
+                if (!string.IsNullOrWhiteSpace(this.textMemberId.Text))
+                {
+                    MemberConsumeVo consumeVo = new MemberConsumeVo();
+                    string consumeId = GenrateIDUtil.GenerateConsumeID();
+                    consumeVo.Id = consumeId;
+                    consumeVo.MId = this.textMemberId.Text;
+                    consumeVo.MName = SelectDao.GetMemberNameByID(this.textMemberId.Text);
+                    consumeVo.Amount = double.Parse(this.textTotal.Text);
+                    consumeVo.ConsumeTime = DateTime.Now;
+                    consumeVo.CompanyId = SystemConst.companyId;
+                    InsertDao.InsertData(consumeVo);
+                }
+                //员工做工记录
+                StaffWorkRecordVo recordVo = new StaffWorkRecordVo();
+                recordVo.ID = GenrateIDUtil.GenerateWorkRecordID();
+                recordVo.StaffId = staffId;
+                recordVo.StaffName = SelectDao.SelectStaffNameByID(staffId);
+                recordVo.OrderID = vo.OrderID;
+                recordVo.Amount = double.Parse(this.textTotal.Text);
+                recordVo.WorkTime = DateTime.Now;
+                InsertDao.InsertData(recordVo);
+
+                XtraMessageBox.Show("买单成功!");
+                RoomVo updateVo = SelectDao.GetRoomByRoomId<RoomVo>(roomId);
+                EventBus.PublishEvent("StaffWorkStatusChange");
+                this.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                XtraMessageBox.Show("买单失败!");
+            }
         }
     }
 }

@@ -79,6 +79,7 @@ namespace StaffManager.UI
                 }
             }
             EventBus.PublishEvent("UpdateLevel");
+            EventBus.PublishEvent("UpdateLevelCard");
             XtraMessageBox.Show("保存成功！");
         }
         protected override void BtnDel_Click(object sender, EventArgs e)

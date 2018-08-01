@@ -18,7 +18,6 @@ namespace ClockRoomManager.UI
     public partial class PayOrderForm : DevExpress.XtraEditors.XtraForm
     {
         private List<TempOrderVo> tempOrderList;//单
-        private int iType;//轮钟0，点钟1， 加钟2
        // private string orderId;//订单编号
         private string staffName;
         private string staffId;
@@ -70,7 +69,7 @@ namespace ClockRoomManager.UI
 
             foreach (TempOrderVo vo in tempOrderList)
             {
-                serverPrice +=SelectDao.GetSkillPriceDetail(vo.SkillName,iType,priceType);
+                serverPrice +=SelectDao.GetSkillPriceDetail(vo.SkillName,vo.WorkType,priceType);
             }
             if(priceType.Equals("现金")||priceType.Equals("Visa卡"))
             {
@@ -93,7 +92,6 @@ namespace ClockRoomManager.UI
         }
         private void BtnQuery_Click(object sender, EventArgs e)
         {
-            //OrderInfoVo vo = SelectDao.GetOrderByRoomId<OrderInfoVo>(roomId);
             OrderInfoVo vo = new OrderInfoVo();
             vo.OrderID = GenrateIDUtil.GenerateOrderID();
             vo.Price = Convert.ToDouble(this.textPrice.Text);
@@ -144,7 +142,7 @@ namespace ClockRoomManager.UI
         private double CalculationPrice(TempOrderVo vo)
         {
             string priceType = this.comboType.Text;
-            double serverPrice = SelectDao.GetSkillPriceDetail(vo.SkillName, iType, priceType);
+            double serverPrice = SelectDao.GetSkillPriceDetail(vo.SkillName, vo.WorkType, priceType);
             double gstPrice = 0;
             double totalPrice= 0;
             if (priceType.Equals("现金") || priceType.Equals("Visa卡"))
@@ -155,6 +153,12 @@ namespace ClockRoomManager.UI
             totalPrice = serverPrice + gstPrice;
             return totalPrice;
         }
+
+        /// <summary>
+        /// 关联详细订单
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         private List<DetailedOrderVo> RelationDetailedOrder(string orderId)
         {
             List<DetailedOrderVo> detailedVoList = new List<DetailedOrderVo>();
@@ -165,7 +169,7 @@ namespace ClockRoomManager.UI
                 detVo.DetailID = GenrateIDUtil.GenerateDetailOrderID();
                 detVo.OrderID = orderId;
                 detVo.SkillId = vo.SkillId;
-                detVo.Price = SelectDao.GetSkillPriceDetail(vo.SkillName, iType, priceType);
+                detVo.Price = SelectDao.GetSkillPriceDetail(vo.SkillName, vo.WorkType, priceType);
                 double gstPrice = (detVo.Price * 6) / 106;
                 detVo.Tax = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
                 detVo.TotalPrice = detVo.Price + detVo.Tax;

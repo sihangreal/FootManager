@@ -66,9 +66,13 @@ namespace ClientCenter.Enity
             get { return staffName; }
             set { staffName = value; }
         }
+        /// <summary>
+        /// 0 轮 点 加
+        /// </summary>
         [ColumnAttr("做工类型", false)]
         [DataAttr(true)]
-        public string WorkType { get; set; }
+        public int WorkType { get; set; }
+
         private DateTime startTime;
         [ColumnAttr("开始时间", true)]
         [DataAttr(true)]
