@@ -15,6 +15,7 @@ using DevExpress.XtraBars.Navigation;
 using ReportManager.Enity;
 using ClientCenter.DB;
 using ClientCenter.Enity;
+using System.Reflection;
 
 namespace ReportManager
 {
@@ -59,11 +60,13 @@ namespace ReportManager
 
         private void AccordionControlElement_Click(object sender, EventArgs e)
         {
-            string key = (sender as AccordionControlElement).Text;
-            Type type = reportDic[key];
-            List<OrderInfoVo> orderVoList = SelectDao.SelectData<OrderInfoVo>();
-            reportControl.SetData(orderVoList);
-
+            string methodName = (sender as AccordionControlElement).Text;
+            //Type type = reportDic[key];
+            //List<SalesVo> orderVoList = SelectDao.SelectData<SalesVo>();
+            //reportControl.SetSalesData(orderVoList);
+            Type type = this.GetType();
+            MethodInfo method = type.GetMethod(methodName);
+            method.Invoke(this,null);
         }
 
         private void InitReportDic()
@@ -79,6 +82,11 @@ namespace ReportManager
             reportDic.Add("年员工做工报表", typeof(SalesVo));
 
             reportDic.Add("会员充值报表", typeof(SalesVo));
+        }
+        private void 日营业报表()
+        {
+            List<SalesVo> orderVoList = SelectDao.SelectData<SalesVo>();
+            reportControl.SetSalesData(orderVoList);
         }
         #endregion
 

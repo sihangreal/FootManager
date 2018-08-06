@@ -103,7 +103,6 @@
             // documentViewer1
             // 
             this.documentViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.documentViewer1.DocumentSource = typeof(ReportManager.Report.XtraReport1);
             this.documentViewer1.IsMetric = true;
             this.documentViewer1.Location = new System.Drawing.Point(0, 31);
             this.documentViewer1.Name = "documentViewer1";

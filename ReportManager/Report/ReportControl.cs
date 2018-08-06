@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using ReportManager.Enity;
 
 namespace ReportManager.Report
 {
@@ -23,15 +24,13 @@ namespace ReportManager.Report
 
         private void ReportControl_Load(object sender, EventArgs e)
         {
-            //this.documentViewer1.DocumentSource = report;
-            //report.CreateDocument(false);
+
         }
 
-        public void SetData<T>(List<T> tList)
+        public void SetSalesData(List<SalesVo> tList)
         {
-            XtraReport1 report = new XtraReport1();
+            SalesReport report = new SalesReport(tList);
             this.documentViewer1.DocumentSource = report;
-            report.SetTableSource(tList);
             report.CreateDocument(false);
         }
     }
