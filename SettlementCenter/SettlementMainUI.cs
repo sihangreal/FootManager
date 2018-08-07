@@ -128,7 +128,7 @@ namespace SettlementCenter
             OrderInfoVo vo = new OrderInfoVo();
             vo.OrderID = GenrateIDUtil.GenerateOrderID();
             vo.Price = Convert.ToDouble(this.textPrice.Text);
-            vo.Tax = Convert.ToDouble(this.textTotal.Text);
+            vo.Tax = Convert.ToDouble(this.textGst.Text);
             vo.TotalPrice = Convert.ToDouble(this.textTotal.Text);
             vo.PriceType = this.comboType.Text;
             vo.EndTime = DateTime.Now;
