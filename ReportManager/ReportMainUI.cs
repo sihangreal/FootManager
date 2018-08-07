@@ -22,13 +22,11 @@ namespace ReportManager
     public partial class ReportMainUI : DevExpress.XtraEditors.XtraUserControl
     {
         private ReportControl reportControl = new ReportControl();
-        private Dictionary<string, Type> reportDic = new Dictionary<string, Type>();
 
         public ReportMainUI()
         {
             InitializeComponent();
             InitEvents();
-            InitReportDic();
         }
 
         private static int WeekOfYear(DateTime dt, CultureInfo ci)
@@ -61,32 +59,34 @@ namespace ReportManager
         private void AccordionControlElement_Click(object sender, EventArgs e)
         {
             string methodName = (sender as AccordionControlElement).Text;
-            //Type type = reportDic[key];
-            //List<SalesVo> orderVoList = SelectDao.SelectData<SalesVo>();
-            //reportControl.SetSalesData(orderVoList);
             Type type = this.GetType();
             MethodInfo method = type.GetMethod(methodName);
             method.Invoke(this,null);
         }
 
-        private void InitReportDic()
+        public void 日营业报表()
         {
-            reportDic.Add("日营业报表",typeof(SalesVo));
-            reportDic.Add("周营业报表", typeof(SalesVo));
-            reportDic.Add("月营业报表", typeof(SalesVo));
-            reportDic.Add("年营业报表", typeof(SalesVo));
-
-            reportDic.Add("日员工做工报表", typeof(SalesVo));
-            reportDic.Add("周员工做工报表", typeof(SalesVo));
-            reportDic.Add("月员工做工报表", typeof(SalesVo));
-            reportDic.Add("年员工做工报表", typeof(SalesVo));
-
-            reportDic.Add("会员充值报表", typeof(SalesVo));
-        }
-        private void 日营业报表()
-        {
-            List<SalesVo> orderVoList = SelectDao.SelectData<SalesVo>();
-            reportControl.SetSalesData(orderVoList);
+            List<SalesVo> salesVoList = new List<SalesVo>();
+            List<OrderInfoVo> orderVoList = SelectDao.SelectData<OrderInfoVo>();
+            var orderDic = orderVoList.GroupBy(v => v.EndTime.Date).ToDictionary(v => v.First().EndTime, v => v.ToList());
+            foreach(var key in orderDic.Keys)
+            {
+                SalesVo vo = new SalesVo();
+                vo.Date = key.Date;
+                foreach(var item in orderDic[key])
+                {
+                    if (item.PriceType.Equals("现金"))
+                        vo.Cash += item.Price;
+                    else if (item.PriceType.Equals("Visa卡"))
+                        vo.CCard += item.Price;
+                    else
+                        vo.MemberUse += item.Price;
+                    vo.Gst += item.Tax;
+                    vo.Sales += item.TotalPrice;
+                }
+                salesVoList.Add(vo);
+            }
+            reportControl.SetSalesData(salesVoList);
         }
         #endregion
 

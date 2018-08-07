@@ -27,22 +27,6 @@ namespace ClientCenter.Enity
             get { return roomID; }
             set { roomID = value; }
         }
-        private string staffName;
-        [ColumnAttr("技师", true)]
-        [DataAttr(true)]
-        public string StaffName
-        {
-            get { return staffName; }
-            set { staffName = value; }
-        }
-        //private DateTime? startTime;
-        //[ColumnAttr("开始时间", true)]
-        //[DataAttr(true)]
-        //public DateTime? StartTime
-        //{
-        //    get { return startTime; }
-        //    set { startTime = value; }
-        //}
         private DateTime endTime;
         [ColumnAttr("时间", true)]
         [DataAttr(true)]
@@ -83,13 +67,5 @@ namespace ClientCenter.Enity
             get { return totalPrice; }
             set { totalPrice = value; }
         }
-        //private string status;
-        //[ColumnAttr("状态", true)]
-        //[DataAttr(true)]
-        //public string Status
-        //{
-        //    get { return status; }
-        //    set { status = value; }
-        //}
     }
 }
