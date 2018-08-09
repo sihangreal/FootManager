@@ -66,5 +66,7 @@ namespace ClientCenter.Enity
             get { return orderID; }
             set { orderID = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

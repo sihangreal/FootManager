@@ -70,7 +70,8 @@ namespace MemberManager.UI
                  memberVo.MName = this.textMName.Text;
                  memberVo.MPhone = this.textPhone.Text;
                  memberVo.CardName = this.comCardLevel.Text;
-                 if(InsertDao.InsertData(memberVo, typeof(MemberInfoVo))>0)
+                 memberVo.CompanyId = SystemConst.companyId;
+                 if (InsertDao.InsertData(memberVo, typeof(MemberInfoVo))>0)
                  {
                      XtraMessageBox.Show("更新会员成功!", "提示");
                  }

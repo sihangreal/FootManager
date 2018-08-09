@@ -35,5 +35,7 @@ namespace ClientCenter.Enity
             get { return disCount; }
             set { disCount = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

@@ -9,23 +9,8 @@ namespace ClientCenter.DB
     public class TransactionDao
     {
         private static MySqlClient mySqlclient;
-
-        /// <summary>
-        /// 发送订单
-        /// </summary>
-        /// <param name="staffworkVo"></param>
-        /// <param name="orderVo"></param>
-        /// <returns></returns>
-        public static bool SendOrder(StaffWorkInfoVo staffworkVo, OrderInfoVo orderVo)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            List<string> strList = new List<string>();
-            string para1 = mySqlclient.GenerateUpdateSql(staffworkVo);
-            string para2 = mySqlclient.GenerateInsertSql(orderVo);
-            strList.AddRange(new string[] { para1 , para2});
-            return mySqlclient.ExecuteTransaction(strList);
-        }
+        private static string ANDCOMPANYID = " AND CompanyId = " + SystemConst.companyId;
+        private static string WHERECOMPANYID = " WHERE CompanyId = " + SystemConst.companyId;
 
         public static bool SendTempOrder(List<TempOrderVo> tempOrderList)
         {
@@ -36,9 +21,9 @@ namespace ClientCenter.DB
             {
                 string sql= mySqlclient.GenerateInsertSql(vo);
                 parameterList.Add(sql);
-                sql = "update room set RoomStatus='空闲' where RoomId=" + vo.RoomID;
+                sql = "update room set RoomStatus='空闲' where RoomId=" + vo.RoomID+ ANDCOMPANYID;
                 parameterList.Add(sql);
-                sql = "update staffwork set StaffStatus='工作中' where StaffID='" + vo.StaffID + "'";
+                sql = "update staffwork set StaffStatus='工作中' where StaffID='" + vo.StaffID + "'"+ ANDCOMPANYID;
                 parameterList.Add(sql);
             }
             return mySqlclient.ExecuteTransaction(parameterList);
@@ -56,10 +41,10 @@ namespace ClientCenter.DB
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             List<string> sqlList = new List<string>();
-            string para1 = mySqlclient.GenerateUpdateSql(orderVo);
-            string para2 = mySqlclient.GenerateUpdateSql(staffworkVo);
-            string para3 = @"delete from TempOrder where RoomID= "+orderVo.RoomID;
-            string para4 = @"update Room set roomStatus='空闲' where RoomId=" + orderVo.RoomID;
+            string para1 = mySqlclient.GenerateUpdateSql(orderVo)+ANDCOMPANYID;
+            string para2 = mySqlclient.GenerateUpdateSql(staffworkVo)+ ANDCOMPANYID;
+            string para3 = @"delete from TempOrder where RoomID= "+orderVo.RoomID+ ANDCOMPANYID;
+            string para4 = @"update Room set roomStatus='空闲' where RoomId=" + orderVo.RoomID+ ANDCOMPANYID;
             
             sqlList.AddRange(new string[]{ para1, para2, para3, para4 });
             
@@ -106,6 +91,7 @@ namespace ClientCenter.DB
                 double gstPrice = (detVo.Price * 6) / 106;
                 detVo.Tax = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
                 detVo.TotalPrice = detVo.Price + detVo.Tax;
+                detVo.CompanyId = SystemConst.companyId;
                 sql = mySqlclient.GenerateInsertSql(detVo);
                 try
                 {
@@ -121,7 +107,7 @@ namespace ClientCenter.DB
 
             foreach (TempOrderVo tempVo in tempOrderList)
             {
-                sql = @"update StaffWork set StaffStatus='空闲',RoomId=null,RoomName='' where StaffID='"+ tempVo.StaffID+"'";
+                sql = @"update StaffWork set StaffStatus='空闲',RoomId=null,RoomName='' where StaffID='"+ tempVo.StaffID+"'"+ANDCOMPANYID;
                 try
                 {
                     command.CommandText = sql;
@@ -143,6 +129,7 @@ namespace ClientCenter.DB
                 recordVo.OrderID = orderVo.OrderID;
                 recordVo.Amount = orderVo.TotalPrice;
                 recordVo.WorkTime = DateTime.Now;
+                recordVo.CompanyId=SystemConst.companyId; 
                 sql = mySqlclient.GenerateInsertSql(recordVo);
                 try
                 {
@@ -159,7 +146,5 @@ namespace ClientCenter.DB
             connection.Close();
             return true;
         }
-
-
     }
 }

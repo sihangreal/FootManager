@@ -113,5 +113,7 @@ namespace ClientCenter.Enity
             get { return priceC; }
             set { priceC = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

@@ -29,5 +29,7 @@ namespace ClientCenter.Enity
         [DataAttr(true)]
         [ColumnAttr("做工时间", true, false)]
         public DateTime WorkTime { set; get; }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

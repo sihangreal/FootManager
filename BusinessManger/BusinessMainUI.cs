@@ -201,7 +201,8 @@ namespace BusinessManger
                 PriceA = Convert.ToDouble(this.textPriceAT.Text),
                 PriceB = Convert.ToDouble(this.textPriceBT.Text),
                 PriceC = Convert.ToDouble(this.textPriceCT.Text),
-                Remark = this.textreamark.Text
+                Remark = this.textreamark.Text,
+                CompanyId = SystemConst.companyId
             };
             if (InsertDao.InsertData(vo, typeof(SkillCommisionVo)) > 0)
             {
@@ -278,7 +279,8 @@ namespace BusinessManger
                 PriceA = Convert.ToDouble(this.textPriceA.Text),
                 PriceB = Convert.ToDouble(this.textPriceB.Text),
                 PriceC = Convert.ToDouble(this.textPriceC.Text),
-                Remark = this.textreamark.Text
+                Remark = this.textreamark.Text,
+                CompanyId = SystemConst.companyId
             };
 
             if(SelectDao.IsExistSkillPrice(vo.SkillName,vo.PriceType))
@@ -391,6 +393,7 @@ namespace BusinessManger
             vo.SecondName = this.textSecond.Text;
             vo.ServerTime = this.comboTime.Text;
             vo.Remark = this.memoSerRemark.Text;
+            vo.CompanyId = SystemConst.companyId;
             if (InsertDao.InsertData(vo, typeof(SkillVo)) > 0)
             {
                 XtraMessageBox.Show("添加项目成功!");

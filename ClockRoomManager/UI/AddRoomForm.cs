@@ -57,7 +57,13 @@ namespace ClockRoomManager.UI
                 XtraMessageBox.Show("房间编号必须为数字或者房间编号已存在!");
                 return;
             }
-            RoomVo vo = new RoomVo() { RoomId = Convert.ToInt32(this.textRoomId.Text), RoomName = this.textRoomName.Text ,RoomStatus=this.comboStatus.Text};
+            RoomVo vo = new RoomVo()
+            {
+                RoomId = Convert.ToInt32(this.textRoomId.Text),
+                RoomName = this.textRoomName.Text ,
+                RoomStatus =this.comboStatus.Text,
+                CompanyId = SystemConst.companyId
+            };
             if(InsertDao.InsertData(vo,typeof(RoomVo))>0)
             {
                 XtraMessageBox.Show("添加房间成功!");

@@ -15,6 +15,9 @@ namespace ClientCenter.DB
     {
         private static MySqlClient mySqlclient;
 
+        private static string ANDCOMPANYID= " AND CompanyId = "+SystemConst.companyId;
+        private static string WHERECOMPANYID = " WHERE CompanyId = " + SystemConst.companyId;
+
         private static object ConvertDBNull(Type type)
         {
             object value = null;
@@ -89,7 +92,8 @@ namespace ClientCenter.DB
                 sb.Append(info.Name + ",");
             }
             sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
-            sb.Append(" FROM " + dataAttr.TableName);
+            sb.Append(" FROM " + dataAttr.TableName+ " WHERE CompanyId= ");
+            sb.Append(SystemConst.companyId);
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), CommandType.Text);
             return ds.Tables[0];
         }
@@ -116,7 +120,8 @@ namespace ClientCenter.DB
                 sb.Append(info.Name + ",");
             }
             sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
-            sb.Append(" FROM " + dataAttr.TableName);
+            sb.Append(" FROM " + dataAttr.TableName + " WHERE CompanyId= ");
+            sb.Append(SystemConst.companyId);
             List<MySqlParameter> parameters = new List<MySqlParameter>();
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             DataTable dt = ds.Tables[0];
@@ -154,11 +159,13 @@ namespace ClientCenter.DB
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT MName FROM  member ");
             //筛选条件
-            sb.Append("WHERE MId  = @MId ");
+            sb.Append("WHERE MId  = @MId AND CompanyId=@CompanyId");
             List<MySqlParameter> parameters = new List<MySqlParameter>() {
-                                     new MySqlParameter("@MId", MySqlDbType.String)
+                                     new MySqlParameter("@MId", MySqlDbType.String),
+                                     new MySqlParameter("@CompanyId", MySqlDbType.Int32)
                                  };
             parameters[0].Value = id;
+            parameters[1].Value = SystemConst.companyId;
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
             return ds.Tables[0].Rows[0][0].ToString();
         }
@@ -166,43 +173,36 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT MId FROM  member ");
-            //筛选条件
-            sb.Append("WHERE MName  = @MName ");
+            string sql="SELECT MId FROM  member WHERE MName  = @MName"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@MName", MySqlDbType.String)
                                  };
             parameters[0].Value = name;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return ds.Tables[0].Rows[0][0].ToString();
         }
         public static double GetMemberBalance(string mId)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT MBalance FROM  member ");
-            //筛选条件
-            sb.Append("WHERE MId  = @MId ");
+            string sql= "SELECT MBalance FROM  member WHERE MId  = @MId" + ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@MId", MySqlDbType.String)
                                  };
             parameters[0].Value = mId;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return Convert.ToDouble(ds.Tables[0].Rows[0][0]);
         }
         public static DataTable GetMemberRechargeByName(string name)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Id,MId,MName,Amount,UpdateTime,CompanyId FROM memberRecharge WHERE MName=@MName");
+           string sql="SELECT Id,MId,MName,Amount,UpdateTime,CompanyId FROM memberRecharge WHERE MName=@MName"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@MName", MySqlDbType.String)
                                  };
             parameters[0].Value = name;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return ds.Tables[0];
         }
         /// <summary>
@@ -213,9 +213,8 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT cardName from card ");
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), CommandType.Text);
+            string sql="SELECT cardName from card "+ANDCOMPANYID;
+            DataSet ds = mySqlclient.GetDataSet(sql, CommandType.Text);
             return ds.Tables[0];
         }
         /// <summary>
@@ -227,205 +226,94 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM member WHERE CardName=@CardName ");
+            string sql="SELECT * FROM member WHERE CardName=@CardName "+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@CardName", MySqlDbType.String)
                                  };
             parameters[0].Value = level;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return ds.Tables[0];
-        }
-        public static List<string> GetSkillByStaffID(string staffId)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT skillName FROM skill WHERE skillId in (SELECT skillId from staffSkill where staffId=@staffId)");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@staffId", MySqlDbType.String)
-                                 };
-            parameters[0].Value = staffId;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            DataTable dt = ds.Tables[0];
-            List<string> skillNameList = new List<string>();
-            foreach (DataRow dr in dt.Rows)
-            {
-                string name = dr[0].ToString();
-                skillNameList.Add(name);
-            }
-            return skillNameList;
-        }
-        public static DataTable GetServerShipByID(int serverId)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT skillId,skillName FROM skill WHERE skillId in (SELECT skillId from ServerSkillShip where ServerId=@serverId)");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@serverId", MySqlDbType.String)
-                                 };
-            parameters[0].Value = serverId;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return ds.Tables[0];
-        }
-        //根据服务名
-        public static DataTable GetServerByName(string serverName)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT ServerId, ServerName,Price,ServerTime FROM CustomServer WHERE ServerName=@ServerName");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@ServerName", MySqlDbType.String)
-                                 };
-            parameters[0].Value = serverName;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return ds.Tables[0];
-        }
-        public static object GetSkillIdByName(string skillName)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT SkillId FROM Skill WHERE SkillName=@SkillName");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@SkillName", MySqlDbType.String)
-                                 };
-            parameters[0].Value = skillName;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return ds.Tables[0].Rows[0][0];
         }
         public static DataTable GetPermission()
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT DISTINCT Name FROM Permission");
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), CommandType.Text);
+            string sql="SELECT DISTINCT Name FROM Permission"+ANDCOMPANYID;
+            DataSet ds = mySqlclient.GetDataSet(sql, CommandType.Text);
             return ds.Tables[0];
         }
         public static bool UserLogion(string userName, string psword)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT count(*) FROM UserRole WHERE Name=@Name and Psword=@Psword");
+            string sql="SELECT count(*) FROM UserRole WHERE Name=@Name and Psword=@Psword"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@Name", MySqlDbType.String),
                                      new MySqlParameter("@Psword", MySqlDbType.String)
                                  };
             parameters[0].Value = userName;
             parameters[1].Value = psword;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
         }
         public static bool IsUserExist(string userName)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT count(*) FROM UserRole WHERE Name=@Name ");
+            string sql="SELECT count(*) FROM UserRole WHERE Name=@Name "+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@Name", MySqlDbType.String)
                                  };
             parameters[0].Value = userName;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
-        }
-        public static bool IsMemberExist(string mId)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT count(*) FROM member WHERE mId=@mId ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@mId", MySqlDbType.String)
-                                 };
-            parameters[0].Value = mId;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
         }
         public static DataTable GetPermission(string userName)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Role FROM UserRole WHERE Name=@Name");
+            string sql="SELECT Role FROM UserRole WHERE Name=@Name"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@Name", MySqlDbType.String)
                                  };
             parameters[0].Value = userName;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             string role = ds.Tables[0].Rows[0][0].ToString();
 
-            sb.Clear();
+
             ds.Clear();
             parameters.Clear();
-            sb.Append("SELECT ModeName FROM Permission WHERE Name=@Name");
+            sql="SELECT ModeName FROM Permission WHERE Name=@Name"+ANDCOMPANYID;
             parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@Name", MySqlDbType.String)
                                  };
             parameters[0].Value = role;
-            ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return ds.Tables[0];
         }
         public static bool IsServerNameExist(string skillName)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT count(*) FROM Skill WHERE SkillName=@SkillName ");
+            string sql="SELECT count(*) FROM Skill WHERE SkillName=@SkillName "+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@skillName", MySqlDbType.String)
                                  };
             parameters[0].Value = skillName;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
         }
         public static bool CheckRoomExist(int roomId)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT count(*) FROM Room WHERE RoomId=@RoomId ");
+            string sql="SELECT count(*) FROM Room WHERE RoomId=@RoomId "+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@RoomId", MySqlDbType.String)
                                  };
             parameters[0].Value = roomId;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
-        }
-        public static DataTable SelectCardByID(int cardId)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM Card WHERE CardId=@CardId ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@CardId", MySqlDbType.Int32)
-                                 };
-            parameters[0].Value = cardId;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return ds.Tables[0];
-        }
-        /// <summary>
-        /// 根据员工名字找该员工信息
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static DataTable SelectStaffByName(string name)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM StaffInfo WHERE StaffName=@StaffName ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@StaffName", MySqlDbType.String)
-                                 };
-            parameters[0].Value = name;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return ds.Tables[0];
         }
          /// <summary>
          /// 根据性别找出员工
@@ -436,13 +324,12 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM StaffInfo WHERE StaffSex=@StaffSex ");
+            string sql="SELECT * FROM StaffInfo WHERE StaffSex=@StaffSex "+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@StaffSex", MySqlDbType.String)
                                  };
             parameters[0].Value = sex;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return ds.Tables[0];
         }
         /// <summary>
@@ -453,7 +340,7 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-             string sql=@"SELECT StaffName FROM StaffInfo WHERE StaffId=@StaffId ";
+             string sql=@"SELECT StaffName FROM StaffInfo WHERE StaffId=@StaffId "+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@StaffId", MySqlDbType.String)
                                  };
@@ -469,51 +356,12 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = @"SELECT StaffId FROM StaffInfo WHERE StaffName=@StaffName ";
+            string sql = @"SELECT StaffId FROM StaffInfo WHERE StaffName=@StaffName "+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@StaffName", MySqlDbType.String)
                                  };
             parameters[0].Value = staffName;
             return mySqlclient.ExecuteScalar(sql, parameters) as string;
-        }
-        public static DataTable SelectStaffWorkByName(string name)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM StaffWork WHERE StaffName=@StaffName ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@StaffName", MySqlDbType.String)
-                                 };
-            parameters[0].Value = name;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return ds.Tables[0];
-        }
-        public static DataTable SelectStaffWorkByStatus(string status)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM StaffWork WHERE StaffStatus=@StaffStatus ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@StaffStatus", MySqlDbType.String)
-                                 };
-            parameters[0].Value = status;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return ds.Tables[0];
-        }
-        public static DataTable SelectStaffWorkByLevel(string level)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM StaffWork WHERE StaffLevel=@StaffLevel ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@StaffLevel", MySqlDbType.String)
-                                 };
-            parameters[0].Value = level;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            return ds.Tables[0];
         }
         public static void GetSkillPriceByName<T>(string skillName, ref List<T> tList)
         {
@@ -521,15 +369,14 @@ namespace ClientCenter.DB
                 mySqlclient = MySqlClient.GetMySqlClient();
             Type type = typeof(T);
             DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Id,SkillName,PriceType,PriceA,PriceB,PriceC,Remark");
-            sb.Append(" FROM  SkillPrice WHERE SkillName = @SkillName");
+            string sql=@"SELECT Id,SkillName,PriceType,PriceA,PriceB,PriceC,Remark
+                              FROM  SkillPrice WHERE SkillName = @SkillName"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@SkillName", MySqlDbType.String)
                                  };
             parameters[0].Value = skillName;
 
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             DataTable dt = ds.Tables[0];
             PropertyInfo[] propertyInfos = type.GetProperties();
             for (int i = 0; i < dt.Rows.Count; ++i)
@@ -568,15 +415,14 @@ namespace ClientCenter.DB
                 default:
                     priceT = "PriceA"; break;
             }
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT " + priceT + " FROM SkillPrice WHERE SkillName= @SkillName And PriceType=@PriceType");
+            string sql="SELECT " + priceT + " FROM SkillPrice WHERE SkillName= @SkillName And PriceType=@PriceType"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@SkillName", MySqlDbType.String),
                                      new MySqlParameter("@PriceType", MySqlDbType.String)
                                  };
             parameters[0].Value = skillName;
             parameters[1].Value = priceType;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count <= 0)
                 return 0;
@@ -588,15 +434,14 @@ namespace ClientCenter.DB
                 mySqlclient = MySqlClient.GetMySqlClient();
             Type type = typeof(T);
             DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Id,SkillName,StaffLevel,PriceA,PriceB,PriceC,Remark");
-            sb.Append(" FROM  SkillCommision WHERE SkillName = @SkillName");
+            string sql=@"SELECT Id,SkillName,StaffLevel,PriceA,PriceB,PriceC,Remark
+                                FROM  SkillCommision WHERE SkillName = @SkillName"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@SkillName", MySqlDbType.String)
                                  };
             parameters[0].Value = skillName;
 
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             DataTable dt = ds.Tables[0];
             PropertyInfo[] propertyInfos = type.GetProperties();
             for (int i = 0; i < dt.Rows.Count; ++i)
@@ -622,43 +467,40 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT ServerTime FROM Skill WHERE SkillId=@SkillId");
+            string sql="SELECT ServerTime FROM Skill WHERE SkillId=@SkillId"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@SkillId", MySqlDbType.Int32)
             };
             parameters[0].Value = skillId;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return ds.Tables[0].Rows[0][0].ToString();
         }
         public static bool IsExistSkillPrice(string skillName, string strType)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT COUNT(Id) FROM SkillPrice WHERE SkillName=@SkillName and PriceType=@PriceType");
+            string sql=@"SELECT COUNT(Id) FROM SkillPrice WHERE SkillName=@SkillName and PriceType=@PriceType"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@SkillName", MySqlDbType.String),
                                      new MySqlParameter("@PriceType", MySqlDbType.String)
                                  };
             parameters[0].Value = skillName;
             parameters[1].Value = strType;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return Convert.ToInt32(ds.Tables[0].Rows[0][0]) > 0;
         }
         public static double[] GetSkillPrice(string skillName, string strType)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT PriceA,PriceB,PriceC FROM SkillPrice WHERE SkillName=@SkillName and PriceType=@PriceType");
+            string sql="SELECT PriceA,PriceB,PriceC FROM SkillPrice WHERE SkillName=@SkillName and PriceType=@PriceType"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@SkillName", MySqlDbType.String),
                                      new MySqlParameter("@PriceType", MySqlDbType.String)
                                  };
             parameters[0].Value = skillName;
             parameters[1].Value = strType;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             DataTable dt = ds.Tables[0];
             double[] result = new double[3];
             if (dt.Rows.Count > 0)
@@ -677,14 +519,13 @@ namespace ClientCenter.DB
             Type type = typeof(T);
             DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT *");
-            sb.Append(" FROM  TempOrder WHERE RoomID = @RoomID");
+            string sql = @"SELECT *  FROM  TempOrder WHERE RoomID = @RoomID"+ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@RoomID", MySqlDbType.Int32)
                                  };
             parameters[0].Value = roomID;
 
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             DataTable dt = ds.Tables[0];
             PropertyInfo[] propertyInfos = type.GetProperties();
             for (int i = 0; i < dt.Rows.Count; ++i)
@@ -721,12 +562,12 @@ namespace ClientCenter.DB
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT StaffSex FROM StaffInfo WHERE StaffId=@StaffId ");
+            string sql = @"SELECT StaffSex FROM StaffInfo WHERE StaffId=@StaffId " + ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@StaffId", MySqlDbType.String)
                                  };
             parameters[0].Value = staffId;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count < 0)
                 return "";
@@ -737,13 +578,12 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT ModeName FROM Permission WHERE Name=@Name ");
+            string sql = @"SELECT ModeName FROM Permission WHERE Name=@Name " + ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@Name", MySqlDbType.String)
                                  };
             parameters[0].Value = name;
-            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            DataSet ds = mySqlclient.GetDataSet(sql, parameters, CommandType.Text);
             return ds.Tables[0];
         }
         public static List<T> SelectDataByID<T>(object id)
@@ -768,7 +608,7 @@ namespace ClientCenter.DB
                 }
             }
             sb.Append(" SELECT * FROM " + dataAttr.TableName + " WHERE " + strkey + "=@" + strkey);
-
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>();
             MySqlParameter parameter = new MySqlParameter("@" + strkey, mySqlclient.ConvertDBType(keyType));
             parameter.Value = id;
@@ -808,7 +648,7 @@ namespace ClientCenter.DB
             Type type = typeof(T);
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string strsql = "SELECT * FROM StaffWork WHERE RoomId =@RoomId ";
+            string strsql = "SELECT * FROM StaffWork WHERE RoomId =@RoomId "+ ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@RoomId", MySqlDbType.Int32)
                                  };
@@ -829,42 +669,25 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = "select * from room where roomid=" + roomId;
+            string sql = "select * from room where roomid=" + roomId+ANDCOMPANYID;
             DataSet ds = mySqlclient.GetDataSet(sql);
             DataTable dt = ds.Tables[0];
             if (dt == null || dt.Rows.Count == 0)
                 return default(T);
             return ConvertDataRowToT<T>(dt.Rows[0], dt.Columns.Count);
         }
-        /// <summary>
-        /// 根据房间号来到订单
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        public static T GetOrderByRoomId<T>(int roomId)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = "select * from OrderInfo where RoomID=" + roomId + "  limit 1";
-            DataSet ds = mySqlclient.GetDataSet(sql);
-            DataTable dt = ds.Tables[0];
-            if (dt == null || dt.Rows.Count == 0)
-                return default(T);
-            return ConvertDataRowToT<T>(dt.Rows[0],dt.Columns.Count);
-        }
         public static string GetStaffIdByRoomId(int roomId)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = "select staffId from staffwork where roomid=" + roomId;
+            string sql = "select staffId from staffwork where roomid=" + roomId+ ANDCOMPANYID;
             return mySqlclient.ExecuteScalar(sql, null) as string;
         }
         public static string GetStaffNameByRoomId(int roomId)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = "select staffName from staffwork where roomid=" + roomId;
+            string sql = "select staffName from staffwork where roomid=" + roomId+ ANDCOMPANYID;
             return mySqlclient.ExecuteScalar(sql, null) as string;
         }
         /// <summary>
@@ -874,7 +697,7 @@ namespace ClientCenter.DB
         /// <returns></returns>
         public static bool IsRepeatedStaffId(string staffId)
         {
-            string sql = "SELECT Count(StaffId) FROM StaffInfo Where StaffId='" + staffId + "'";
+            string sql = "SELECT Count(StaffId) FROM StaffInfo Where StaffId='" + staffId + "'"+ ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
@@ -885,7 +708,7 @@ namespace ClientCenter.DB
         }
         public static bool IsRepeatedDepartmentId(int id)
         {
-            string sql = "SELECT Count(id) FROM Department Where id='" + id + "'";
+            string sql = "SELECT Count(id) FROM Department Where id='" + id + "'"+ ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
@@ -896,7 +719,7 @@ namespace ClientCenter.DB
         }
         public static bool IsRepeatedLevelId(int id)
         {
-            string sql = "SELECT Count(id) FROM Level Where id='" + id + "'";
+            string sql = "SELECT Count(id) FROM Level Where id='" + id + "'"+ ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
@@ -907,7 +730,7 @@ namespace ClientCenter.DB
         }
         public static bool IsRepeatedClassId(int id)
         {
-            string sql = "SELECT Count(StaffClassID) FROM StaffClass Where StaffClassID='" + id + "'";
+            string sql = "SELECT Count(StaffClassID) FROM StaffClass Where StaffClassID='" + id + "'"+ ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
@@ -918,7 +741,7 @@ namespace ClientCenter.DB
         }
         public static bool IsRepeatedMemberId(string id)
         {
-            string sql = "SELECT Count(MId) FROM member Where MId='" + id + "'";
+            string sql = "SELECT Count(MId) FROM member Where MId='" + id + "'"+ ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
@@ -934,7 +757,7 @@ namespace ClientCenter.DB
         /// <returns></returns>
         public static bool IsRepeatedCardId(int id)
         {
-            string sql = "SELECT Count(CardId) FROM Card Where CardId='" + id + "'";
+            string sql = "SELECT Count(CardId) FROM Card Where CardId='" + id + "'"+ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
@@ -946,7 +769,7 @@ namespace ClientCenter.DB
         public static List<T> SelectStaffWorkRecordByName<T>(string name)
         {
             List<T> tList = new List<T>();
-            string sql = "SELECT * FROM StaffWorkRecord WHERE StaffName =" + name;
+            string sql = "SELECT * FROM StaffWorkRecord WHERE StaffName =" + name+ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             DataSet ds = mySqlclient.GetDataSet(sql);
@@ -968,7 +791,7 @@ namespace ClientCenter.DB
         public static List<T> SelectMemberConsumeByName<T>(string mName)
         {
             List<T> tList = new List<T>();
-            string sql = "SELECT * FROM MemberConsume WHERE MName =" + mName;
+            string sql = "SELECT * FROM MemberConsume WHERE MName =" + mName+ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             DataSet ds = mySqlclient.GetDataSet(sql);
@@ -990,7 +813,7 @@ namespace ClientCenter.DB
         public static List<T> SelectMemberConsumeByID<T>(string mId)
         {
             List<T> tList = new List<T>();
-            string sql = "SELECT * FROM MemberConsume WHERE MId =" + mId;
+            string sql = "SELECT * FROM MemberConsume WHERE MId =" + mId+ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             DataSet ds = mySqlclient.GetDataSet(sql);
@@ -1012,7 +835,7 @@ namespace ClientCenter.DB
         public static List<T> SelectMemberRechargeByName<T>(string mName)
         {
             List<T> tList = new List<T>();
-            string sql = "SELECT * FROM memberRecharge WHERE MName =" + mName;
+            string sql = "SELECT * FROM memberRecharge WHERE MName =" + mName+ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             DataSet ds = mySqlclient.GetDataSet(sql);
@@ -1034,7 +857,7 @@ namespace ClientCenter.DB
         public static List<T> SelectMemberRechargeByID<T>(string mId)
         {
             List<T> tList = new List<T>();
-            string sql = "SELECT * FROM memberRecharge WHERE MId =" + mId;
+            string sql = "SELECT * FROM memberRecharge WHERE MId =" + mId+ANDCOMPANYID;
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             DataSet ds = mySqlclient.GetDataSet(sql);
@@ -1047,25 +870,18 @@ namespace ClientCenter.DB
             }
             return tList;
         }
-
-        public static bool IsRepeatedPirceTypeId(int id)
-        {
-            string sql = "SELECT Count(TypeId) FROM PriceType Where TypeId=" + id ;
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            int count = Convert.ToInt32(mySqlclient.ExecuteScalar(sql, null));
-            if (count > 0)
-                return true;
-            else
-                return false;
-        }
-
+        /// <summary>
+        /// 获取临时订单的该结束的时间
+        /// </summary>
+        /// <param name="skillId"></param>
+        /// <param name="startTime"></param>
+        /// <returns></returns>
         public static DateTime GetTempOrderEndTime(int skillId,DateTime startTime)
         {
             DateTime endTime = new DateTime();
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = "select ServerTime from skill where SkillId="+skillId;
+            string sql = "select ServerTime from skill where SkillId="+skillId+ANDCOMPANYID; 
             string strTime = mySqlclient.ExecuteScalar(sql, null) as string;
             //"30分钟", "60分钟", "90分钟", "120分钟", "150分钟", "180分钟"
             endTime=TimeUtil.AddMinute(startTime,strTime);

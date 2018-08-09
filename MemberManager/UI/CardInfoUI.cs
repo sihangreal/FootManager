@@ -65,6 +65,7 @@ namespace MemberManager.UI
                 }
                 else
                 {
+                    vo.CompanyId = SystemConst.companyId;
                     result = InsertDao.InsertData(vo);
                     if (result <= 0)
                     {

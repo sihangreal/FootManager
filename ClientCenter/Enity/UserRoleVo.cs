@@ -43,5 +43,7 @@ namespace ClientCenter.Enity
             get { return psword; }
             set { psword = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

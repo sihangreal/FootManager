@@ -58,5 +58,7 @@ namespace ClientCenter.Enity
             get { return staffName; }
             set { staffName = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

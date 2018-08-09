@@ -38,5 +38,7 @@ namespace ClientCenter.Enity
             get { return roomStatus; }
             set { roomStatus = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

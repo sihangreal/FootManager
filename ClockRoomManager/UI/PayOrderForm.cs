@@ -127,6 +127,7 @@ namespace ClockRoomManager.UI
                 recordVo.OrderID = vo.OrderID;
                 recordVo.Amount= double.Parse(this.textTotal.Text);
                 recordVo.WorkTime = DateTime.Now;
+                recordVo.CompanyId = SystemConst.companyId;
                 InsertDao.InsertData(recordVo);
 
                 XtraMessageBox.Show("买单成功!");

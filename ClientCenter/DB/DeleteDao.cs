@@ -11,21 +11,8 @@ namespace ClientCenter.DB
     public class DeleteDao
     {
         private static MySqlClient mySqlclient;
-
-        public static int DelMemberByID(string id)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("DELETE  FROM  member ");
-            //筛选条件
-            sb.Append("WHERE MId  = @MId ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>() {
-                                     new MySqlParameter("@MId", MySqlDbType.String)
-                                 };
-            parameters[0].Value = id;
-            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
-        }
+        private static string ANDCOMPANYID = " AND CompanyId = " + SystemConst.companyId;
+        private static string WHERECOMPANYID = " WHERE CompanyId = " + SystemConst.companyId;
 
         public static int DelSkillByID(int id)
         {
@@ -35,57 +22,11 @@ namespace ClientCenter.DB
             sb.Append("DELETE  FROM  Skill ");
             //筛选条件
             sb.Append("WHERE SkillId  = @SkillId ");
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@SkillId", MySqlDbType.Int32)
                                  };
             parameters[0].Value = id;
-            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
-        }
-
-        public static int DelSeverByName(string serverName,string skillName)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("DELETE  FROM  CustomServer ");
-            //筛选条件
-            sb.Append("WHERE ServerName  = @ServerName AND SkillName=@SkillName");
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@ServerName", MySqlDbType.String),
-                                     new MySqlParameter("@SkillName", MySqlDbType.String)
-                                 };
-            parameters[0].Value = serverName;
-            parameters[1].Value = skillName;
-            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
-        }
-
-        public static int DelDepartmentByID(int id)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("DELETE  FROM  Department ");
-            //筛选条件
-            sb.Append("WHERE id  = @id ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>() {
-                                     new MySqlParameter("@id", MySqlDbType.Int32)
-                                 };
-            parameters[0].Value = id;
-            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
-        }
-
-        public static int DelCardByID(int cardId)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("DELETE  FROM  Card ");
-            //筛选条件
-            sb.Append("WHERE cardId  = @cardId ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>() {
-                                     new MySqlParameter("@cardId", MySqlDbType.Int32)
-                                 };
-            parameters[0].Value = cardId;
             return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
         }
 
@@ -100,6 +41,7 @@ namespace ClientCenter.DB
             List<MySqlParameter> parameters = new List<MySqlParameter>() {
                                      new MySqlParameter("@RoomId", MySqlDbType.Int32)
                                  };
+            sb.Append(ANDCOMPANYID);
             parameters[0].Value = roomId;
             return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
         }
@@ -112,28 +54,13 @@ namespace ClientCenter.DB
             sb.Append("DELETE  FROM  StaffInfo ");
             //筛选条件
             sb.Append("WHERE StaffId  = @StaffId ");
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>() {
                                      new MySqlParameter("@StaffId", MySqlDbType.String)
                                  };
             parameters[0].Value = staffId;
             return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
         }
-
-        public static int DelStaffLevelByID(int id)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("DELETE  FROM  Level ");
-            //筛选条件
-            sb.Append("WHERE Id  = @Id ");
-            List<MySqlParameter> parameters = new List<MySqlParameter>() {
-                                     new MySqlParameter("@Id", MySqlDbType.Int32)
-                                 };
-            parameters[0].Value = id;
-            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
-        }
-
         public static int DeleteByID(object id,Type type)
         {
             if (mySqlclient == null)
@@ -159,14 +86,13 @@ namespace ClientCenter.DB
                     break;
                 }
             }
-
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>();
             MySqlParameter parameter = new MySqlParameter("@"+key, mySqlclient.ConvertDBType(keyType));
             parameter.Value = id;
             parameters.Add(parameter);
             return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
         }
-
         /// <summary>
         ///根据名字删除权限
         /// </summary>
@@ -176,22 +102,19 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("DELETE  FROM  Permission WHERE Name  = @Name");
+            string sql = "DELETE  FROM  Permission WHERE Name  = @Name" + ANDCOMPANYID;
             List<MySqlParameter> parameters = new List<MySqlParameter>() {
                                      new MySqlParameter("@Name", MySqlDbType.String)
                                  };
             parameters[0].Value = name;
-            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.Text);
+            return mySqlclient.ExecuteNonQuery(sql, parameters, CommandType.Text);
         }
-
         public static int DeleteStaffQueue()
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("DELETE  FROM  StaffQueue");
-            return mySqlclient.ExecuteNonQuery(sb.ToString(),CommandType.Text);
+            string sql="DELETE  FROM  StaffQueue"+ WHERECOMPANYID;
+            return mySqlclient.ExecuteNonQuery(sql, CommandType.Text);
         }
         /// <summary>
         /// 结账的时候根据房间号删除临时订单
@@ -202,7 +125,7 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = @"DELETE  FROM  temporder where RoomId=" + roomId;
+            string sql = @"DELETE  FROM  temporder where RoomId=" + roomId+ ANDCOMPANYID;
             return mySqlclient.ExecuteNonQuery(sql, CommandType.Text);
         }
 

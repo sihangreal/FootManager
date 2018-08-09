@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using ClientCenter.DB;
 using ClientCenter.Event;
 using ClientCenter.Enity;
+using ClientCenter.Core;
 
 namespace FootManager.UI
 {
@@ -54,7 +55,13 @@ namespace FootManager.UI
                     return;
                 }
                 //新增
-                UserRoleVo vo = new UserRoleVo() { Name = this.textUserName.Text, Role = this.comMode.Text, Psword = this.textPassword.Text };
+                UserRoleVo vo = new UserRoleVo()
+                {
+                    Name = this.textUserName.Text,
+                    Role = this.comMode.Text,
+                    Psword = this.textPassword.Text,
+                    CompanyId = SystemConst.companyId
+                };
                 if (SelectDao.IsUserExist(vo.Name))
                 {
                     XtraMessageBox.Show("该用户已经存在!");

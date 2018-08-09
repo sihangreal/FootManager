@@ -51,5 +51,7 @@ namespace ClientCenter.Enity
             get { return remark; }
             set { remark = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

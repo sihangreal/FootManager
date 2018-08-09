@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using ClientCenter.DB;
 using ClientCenter.Event;
 using ClientCenter.Enity;
+using ClientCenter.Core;
 
 namespace FootManager.UI
 {
@@ -127,7 +128,7 @@ namespace FootManager.UI
             }
              foreach(string name in modeList)
             {
-                PermissionVo vo = new PermissionVo() { Name=this.textName.Text,ModeName =name};
+                PermissionVo vo = new PermissionVo() { Name=this.textName.Text,ModeName =name, CompanyId = SystemConst.companyId };
                 InsertDao.InsertData(vo, typeof(PermissionVo));
             }
             XtraMessageBox.Show("保存权限组成功!");

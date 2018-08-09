@@ -27,5 +27,7 @@ namespace ClientCenter.Enity
             get { return modeName; }
             set { modeName = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

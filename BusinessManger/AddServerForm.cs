@@ -60,7 +60,7 @@ namespace BusinessManger
             }
             foreach (SkillVo skill in skillVoList)
             {
-                ServerVo vo = new ServerVo() { ServerName = this.textName.Text, SkillId = skill.SkillId, SkillName = skill.SkillName };
+                ServerVo vo = new ServerVo() { ServerName = this.textName.Text, SkillId = skill.SkillId, SkillName = skill.SkillName ,CompanyId=SystemConst.companyId};
                 InsertDao.InsertData(vo, typeof(ServerVo));
             }
             XtraMessageBox.Show("添加项目成功!");

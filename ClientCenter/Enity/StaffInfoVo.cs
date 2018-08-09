@@ -83,5 +83,7 @@ namespace ClientCenter.Enity
               get { return commssion; }
               set { commssion = value; }
           }
-      }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
+    }
 }

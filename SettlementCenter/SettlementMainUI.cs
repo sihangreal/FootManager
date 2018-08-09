@@ -132,6 +132,7 @@ namespace SettlementCenter
             vo.TotalPrice = Convert.ToDouble(this.textTotal.Text);
             vo.PriceType = this.comboType.Text;
             vo.EndTime = DateTime.Now;
+            vo.CompanyId = SystemConst.companyId;
             if (TransactionDao.DealOrder(vo, selectedVoList, this.comboType.Text))
             {
                 //删除临时订单

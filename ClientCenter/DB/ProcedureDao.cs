@@ -59,21 +59,6 @@ namespace ClientCenter.DB
             return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters,CommandType.StoredProcedure);
         }
 
-        public static int AddStaffSkill(string staffId, string skillName)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("addStaffSkill ");//存储过程名称
-            List<MySqlParameter> parameters = new List<MySqlParameter>(){
-                                     new MySqlParameter("@v_staffId", MySqlDbType.String),
-                                     new MySqlParameter("@v_skillName",MySqlDbType.String)
-                                 };
-            parameters[0].Value = staffId;
-            parameters[1].Value = skillName;
-            return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters,CommandType.StoredProcedure);
-        }
-
         public static int StaffRegister(object[] infoArry)
         {
             if (mySqlclient == null)
@@ -89,7 +74,8 @@ namespace ClientCenter.DB
                                      new MySqlParameter("@v_department",MySqlDbType.String),
                                      new MySqlParameter("@v_idNumber",MySqlDbType.String),
                                      new MySqlParameter("@v_basicSalary",MySqlDbType.String),
-                                     new MySqlParameter("@v_commision",MySqlDbType.Byte)
+                                     new MySqlParameter("@v_commision",MySqlDbType.Byte),
+                                     new MySqlParameter("@v_companyId",MySqlDbType.Int32)
                                  };
             parameters[0].Value = infoArry[0];
             parameters[1].Value = infoArry[1];
@@ -100,6 +86,7 @@ namespace ClientCenter.DB
             parameters[6].Value = infoArry[6];
             parameters[7].Value = infoArry[7];
             parameters[8].Value = infoArry[8];
+            parameters[9].Value = infoArry[9];
             return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.StoredProcedure);
         }
     }

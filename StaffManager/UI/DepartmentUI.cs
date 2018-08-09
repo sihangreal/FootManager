@@ -71,7 +71,8 @@ namespace StaffManager.UI
                 }
                 else
                 {
-                    result=InsertDao.InsertData(vo);
+                    vo.CompanyId = SystemConst.companyId;
+                    result =InsertDao.InsertData(vo);
                     if (result <= 0)
                     {
                         XtraMessageBox.Show(vo.Id + "保存失败！");

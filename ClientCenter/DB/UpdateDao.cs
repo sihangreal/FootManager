@@ -12,6 +12,9 @@ namespace ClientCenter.DB
     {
         private static MySqlClient mySqlclient;
 
+        private static string ANDCOMPANYID = " AND CompanyId = " + SystemConst.companyId;
+        private static string WHERECOMPANYID = " WHERE CompanyId = " + SystemConst.companyId;
+
         //会员挂失
         public static int MemberLossByID(string id)
         {
@@ -21,6 +24,7 @@ namespace ClientCenter.DB
             sb.Append("UPDATE  member  SET  MStatus= @MStatus ");
             //筛选条件
             sb.Append("WHERE MId  = @MId ");
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@MStatus",MySqlDbType.String),
                                      new MySqlParameter("@MId", MySqlDbType.String)
@@ -38,6 +42,7 @@ namespace ClientCenter.DB
             sb.Append("UPDATE  member  SET  MStatus= @MStatus ");
             //筛选条件
             sb.Append("WHERE MId  = @MId ");
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@MStatus",MySqlDbType.String),
                                      new MySqlParameter("@MId", MySqlDbType.String)
@@ -55,6 +60,7 @@ namespace ClientCenter.DB
             sb.Append("UPDATE  Card  SET  CardName= @CardName, DisCount=@DisCount ");
             //筛选条件
             sb.Append("WHERE CardId  = @CardId ");
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@CardName",MySqlDbType.String),
                                      new MySqlParameter("@DisCount", MySqlDbType.Double),
@@ -98,7 +104,7 @@ namespace ClientCenter.DB
             }
             sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
             sb.Append("Where " + key + " =@" + key);
-
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>();
             for (int i = 0; i < propertyInfos.Length; ++i)
             {
@@ -128,6 +134,7 @@ namespace ClientCenter.DB
             sb.Append("UPDATE  StaffWork  SET  StaffStatus= @StaffStatus ");
             //筛选条件
             sb.Append("WHERE StaffID  = @StaffID ");
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@StaffID",MySqlDbType.String),
                                      new MySqlParameter("@StaffStatus", MySqlDbType.String)
@@ -148,6 +155,7 @@ namespace ClientCenter.DB
             sb.Append("UPDATE  StaffWork  SET  StaffStatus= @StaffStatus,RoomId= @RoomId, RoomName= @RoomName ");
             //筛选条件
             sb.Append("WHERE StaffID  = @StaffID ");
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@StaffID",MySqlDbType.String),
                                      new MySqlParameter("@StaffStatus", MySqlDbType.String),
@@ -169,6 +177,7 @@ namespace ClientCenter.DB
             sb.Append("UPDATE  StaffWork  SET  StaffStatus= @StaffStatus,RoomId= @RoomId, RoomName= @RoomName ");
             //筛选条件
             sb.Append("WHERE StaffID  = @StaffID ");
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@StaffID",MySqlDbType.String),
                                      new MySqlParameter("@StaffStatus", MySqlDbType.String),
@@ -190,6 +199,7 @@ namespace ClientCenter.DB
             sb.Append("UPDATE  StaffWork  SET  StaffStatus= @StaffStatus");
             //筛选条件
             sb.Append("WHERE StaffID  = @StaffID ");
+            sb.Append(ANDCOMPANYID);
             List<MySqlParameter> parameters = new List<MySqlParameter>(){
                                      new MySqlParameter("@StaffID",MySqlDbType.String),
                                      new MySqlParameter("@StaffStatus", MySqlDbType.String)

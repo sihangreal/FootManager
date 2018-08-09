@@ -43,6 +43,7 @@ namespace StaffManager.UI
                 queueVo.StaffID = infoVo.StaffId;
                 queueVo.StaffName = infoVo.StaffName;
                 queueVo.StaffSex = infoVo.StaffSex;
+                queueVo.CompanyId = infoVo.CompanyId;
                 queueList.Add(queueVo);
             }
             List<StaffQueueVo> newqueueList = RandomSortList(queueList);

@@ -35,5 +35,7 @@ namespace ClientCenter.Enity
             get { return skillName; }
             set { skillName = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }

@@ -43,5 +43,7 @@ namespace ClientCenter.Enity
             get { return staffSex; }
             set { staffSex = value; }
         }
+        [DataAttr(true)]
+        public int CompanyId { get; set; }
     }
 }
