@@ -42,6 +42,12 @@ namespace MemberManager.UI
         }
         private bool CheckParam(List<CardVo> changeList)
         {
+            var result = cardVoList.GroupBy(v => v.CardName).Select(v=>new { count=v.Count(),key=v.Key});
+            foreach(var s in result)
+            {
+                if (s.count > 2)
+                    return false;
+            }
             return true;
         }
         private void BtnSave_Click(object sender, EventArgs e)
@@ -75,7 +81,7 @@ namespace MemberManager.UI
                 }
             }
             EventBus.PublishEvent("UpdateLevelCard");
-            //XtraMessageBox.Show("保存成功！");
+            XtraMessageBox.Show("保存成功！");
         }
 
         private void BtnDel_Click(object sender, EventArgs e)

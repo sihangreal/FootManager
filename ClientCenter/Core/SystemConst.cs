@@ -9,6 +9,6 @@ namespace ClientCenter.Core
     public class SystemConst
     {
         public static string APPPATH= System.AppDomain.CurrentDomain.BaseDirectory + "FootConfig.xml";
-        public static int companyId;
+        public static int companyId =Convert.ToInt32 (XmlUtil.ReadDataInfo(APPPATH, "CompanyId"));
     }
 }

@@ -287,6 +287,10 @@
       <Project>{cdd9dd3c-98ae-4457-b900-cf4b97b085e7}</Project>
       <Name>ClientCenter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StaffManager\StaffManager.csproj">
+      <Project>{FB540EC7-0D37-4F28-B605-B5EDBC4F0B2E}</Project>
+      <Name>StaffManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\add_32x32.png" />

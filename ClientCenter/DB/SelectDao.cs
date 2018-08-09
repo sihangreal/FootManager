@@ -213,7 +213,7 @@ namespace ClientCenter.DB
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
-            string sql="SELECT cardName from card "+ANDCOMPANYID;
+            string sql="SELECT cardName from card "+WHERECOMPANYID;
             DataSet ds = mySqlclient.GetDataSet(sql, CommandType.Text);
             return ds.Tables[0];
         }

@@ -72,17 +72,17 @@ namespace StaffManager.UI
 
         private void RefreshDepartment()
         {
-            RepositoryItemComboBox repositoryItemComboLevel = (RepositoryItemComboBox)this.gridView1.Columns["StaffLevel"].ColumnEdit;
+            RepositoryItemComboBox repositoryItemComboLevel = (RepositoryItemComboBox)this.gridView1.Columns["Department"].ColumnEdit;
             repositoryItemComboLevel.Items.Clear();
             foreach (StaffLevelVo vo in SelectDao.SelectData<StaffLevelVo>())
             {
                 repositoryItemComboLevel.Items.Add(vo.StaffLevel);
             }
         }
-
+        
         private void RefreshLevel()
         {
-            RepositoryItemComboBox repositoryItemComboDepartment = (RepositoryItemComboBox)this.gridView1.Columns["Department"].ColumnEdit;
+            RepositoryItemComboBox repositoryItemComboDepartment = (RepositoryItemComboBox)this.gridView1.Columns["StaffLevel"].ColumnEdit;
             repositoryItemComboDepartment.Items.Clear();
             foreach (DepartmentVo vo in SelectDao.SelectData<DepartmentVo>())
             {
@@ -181,7 +181,7 @@ namespace StaffManager.UI
         [EventAttr("UpdateLevel")]
         public void UpdateLevel()
         {
-            RefreshDepartment();
+            RefreshLevel();
         }
         #endregion
     }
