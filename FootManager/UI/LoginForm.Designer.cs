@@ -48,42 +48,42 @@
             // 
             // textName
             // 
-            this.textName.Location = new System.Drawing.Point(147, 310);
+            this.textName.Location = new System.Drawing.Point(139, 283);
             this.textName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(143, 24);
+            this.textName.Size = new System.Drawing.Size(143, 20);
             this.textName.TabIndex = 1;
             // 
             // textPsw
             // 
-            this.textPsw.Location = new System.Drawing.Point(147, 357);
+            this.textPsw.Location = new System.Drawing.Point(139, 314);
             this.textPsw.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textPsw.Name = "textPsw";
             this.textPsw.Properties.UseSystemPasswordChar = true;
-            this.textPsw.Size = new System.Drawing.Size(143, 24);
+            this.textPsw.Size = new System.Drawing.Size(143, 20);
             this.textPsw.TabIndex = 2;
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(80, 311);
+            this.labelControl1.Location = new System.Drawing.Point(103, 284);
             this.labelControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(30, 18);
+            this.labelControl1.Size = new System.Drawing.Size(24, 14);
             this.labelControl1.TabIndex = 3;
             this.labelControl1.Text = "账号";
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(80, 359);
+            this.labelControl2.Location = new System.Drawing.Point(103, 317);
             this.labelControl2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(30, 18);
+            this.labelControl2.Size = new System.Drawing.Size(24, 14);
             this.labelControl2.TabIndex = 4;
             this.labelControl2.Text = "密码";
             // 
             // loginBtn
             // 
-            this.loginBtn.Location = new System.Drawing.Point(168, 396);
+            this.loginBtn.Location = new System.Drawing.Point(156, 342);
             this.loginBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(105, 30);
@@ -96,10 +96,10 @@
             this.hyperlinkLabelControl1.Appearance.LinkColor = System.Drawing.Color.Gray;
             this.hyperlinkLabelControl1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.hyperlinkLabelControl1.LineColor = System.Drawing.Color.Gray;
-            this.hyperlinkLabelControl1.Location = new System.Drawing.Point(297, 311);
+            this.hyperlinkLabelControl1.Location = new System.Drawing.Point(288, 284);
             this.hyperlinkLabelControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hyperlinkLabelControl1.Name = "hyperlinkLabelControl1";
-            this.hyperlinkLabelControl1.Size = new System.Drawing.Size(60, 18);
+            this.hyperlinkLabelControl1.Size = new System.Drawing.Size(48, 14);
             this.hyperlinkLabelControl1.TabIndex = 6;
             this.hyperlinkLabelControl1.Text = "用户注册";
             this.hyperlinkLabelControl1.Visible = false;
@@ -110,28 +110,28 @@
             this.hyperlinkLabelControl2.Appearance.LinkColor = System.Drawing.Color.Gray;
             this.hyperlinkLabelControl2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.hyperlinkLabelControl2.LineColor = System.Drawing.Color.Gray;
-            this.hyperlinkLabelControl2.Location = new System.Drawing.Point(297, 359);
+            this.hyperlinkLabelControl2.Location = new System.Drawing.Point(288, 317);
             this.hyperlinkLabelControl2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hyperlinkLabelControl2.Name = "hyperlinkLabelControl2";
-            this.hyperlinkLabelControl2.Size = new System.Drawing.Size(60, 18);
+            this.hyperlinkLabelControl2.Size = new System.Drawing.Size(48, 14);
             this.hyperlinkLabelControl2.TabIndex = 7;
             this.hyperlinkLabelControl2.Text = "忘记密码";
             this.hyperlinkLabelControl2.Visible = false;
             // 
             // checkEdit1
             // 
-            this.checkEdit1.Location = new System.Drawing.Point(297, 397);
+            this.checkEdit1.Location = new System.Drawing.Point(288, 347);
             this.checkEdit1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkEdit1.Name = "checkEdit1";
             this.checkEdit1.Properties.Caption = "记住密码";
-            this.checkEdit1.Size = new System.Drawing.Size(86, 22);
+            this.checkEdit1.Size = new System.Drawing.Size(86, 19);
             this.checkEdit1.TabIndex = 8;
             // 
             // pictureEdit1
             // 
             this.pictureEdit1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureEdit1.EditValue = global::FootManager.Properties.Resources.logo;
-            this.pictureEdit1.Location = new System.Drawing.Point(114, 9);
+            this.pictureEdit1.Location = new System.Drawing.Point(94, 13);
             this.pictureEdit1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
@@ -140,12 +140,12 @@
             this.pictureEdit1.Properties.InitialImage = null;
             this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            this.pictureEdit1.Size = new System.Drawing.Size(217, 244);
+            this.pictureEdit1.Size = new System.Drawing.Size(217, 210);
             this.pictureEdit1.TabIndex = 10;
             // 
             // progressBarControl1
             // 
-            this.progressBarControl1.Location = new System.Drawing.Point(107, 266);
+            this.progressBarControl1.Location = new System.Drawing.Point(103, 252);
             this.progressBarControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.progressBarControl1.Name = "progressBarControl1";
             this.progressBarControl1.Size = new System.Drawing.Size(224, 23);
@@ -155,8 +155,9 @@
             // 
             this.Appearance.BackColor = System.Drawing.Color.White;
             this.Appearance.Options.UseBackColor = true;
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(425, 436);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(414, 382);
             this.Controls.Add(this.progressBarControl1);
             this.Controls.Add(this.pictureEdit1);
             this.Controls.Add(this.checkEdit1);

@@ -202,10 +202,11 @@ namespace ClockRoomManager.UI
                     StaffName = staffName,
                     WorkType = _itype,
                     StartTime = tempTime,
-                    EndTime =SelectDao.GetTempOrderEndTime(vo.SkillId, tempTime),
+                    EndTime = SelectDao.GetTempOrderEndTime(vo.SkillId, tempTime),
                     PriceA = prices[0],
-                    PriceB=prices[1],
-                    PriceC=prices[2]
+                    PriceB = prices[1],
+                    PriceC = prices[2],
+                    CompanyId = SystemConst.companyId
                 };
                 _tempOrderList.Add(tempVo);
                 this.gridControl1.DataSource = _tempOrderList;

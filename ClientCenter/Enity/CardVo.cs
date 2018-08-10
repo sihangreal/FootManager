@@ -13,7 +13,7 @@ namespace ClientCenter.Enity
     {
         private int cardId;
         [ColumnAttr("会员卡编号", false)]
-        [DataAttr(false)]
+        [DataAttr(false,true)]
         public int CardId
         {
             get { return cardId; }

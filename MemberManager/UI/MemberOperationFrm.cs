@@ -52,7 +52,7 @@ namespace MemberManager.UI
             if (memberVo==null)
             {
                     //添加会员
-                List<object> infoList = new List<object>() { this.textMId.Text, this.textMName.Text, this.comCardLevel.Text, this.textPhone.Text, this.comStatus.Text, Convert.ToDouble  (this.textBalance.Text), 1 };
+                List<object> infoList = new List<object>() { this.textMId.Text, this.textMName.Text, this.comCardLevel.Text, this.textPhone.Text, this.comStatus.Text, Convert.ToDouble  (this.textBalance.Text), SystemConst.companyId};
                 if (ProcedureDao.MemberRegister(infoList) > 0)
                 {
                     XtraMessageBox.Show("添加会员成功!", "提示");

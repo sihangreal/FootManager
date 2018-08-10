@@ -323,10 +323,28 @@ namespace BusinessManger
 
         private void BtnUpdateSever_Click(object sender, EventArgs e)
         {
-            SkillVo vo = (SkillVo)this.gridView1.GetRow(this.gridView1.FocusedRowHandle);
-            if (vo == null)
+            if (string.IsNullOrWhiteSpace(this.textServerName.Text))
+            {
+                XtraMessageBox.Show("请填写项目名!");
                 return;
-            if (UpdateDao.UpdateByID(vo) > 0)
+            }
+            if (string.IsNullOrWhiteSpace(this.textSecond.Text))
+            {
+                XtraMessageBox.Show("请填写项目别名!");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(this.comboTime.Text))
+            {
+                XtraMessageBox.Show("请填写项目时长!");
+                return;
+            }
+            SkillVo vo = (SkillVo)this.gridView1.GetFocusedRow();
+            vo.SkillName = this.textServerName.Text;
+            vo.SecondName = this.textSecond.Text;
+            vo.ServerTime = this.comboTime.Text;
+            vo.Remark = this.memoSerRemark.Text;
+            vo.CompanyId = SystemConst.companyId;
+            if (UpdateDao.UpdateByID(vo)>0)
             {
                 XtraMessageBox.Show("更新项目成功!");
                 RefreshSkill();

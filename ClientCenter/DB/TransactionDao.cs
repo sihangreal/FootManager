@@ -21,10 +21,11 @@ namespace ClientCenter.DB
             {
                 string sql= mySqlclient.GenerateInsertSql(vo);
                 parameterList.Add(sql);
-                sql = "update room set RoomStatus='空闲' where RoomId=" + vo.RoomID+ ANDCOMPANYID;
+                sql = "update room set RoomStatus='占用' where RoomId=" + vo.RoomID+ ANDCOMPANYID;
                 parameterList.Add(sql);
-                sql = "update staffwork set StaffStatus='工作中' where StaffID='" + vo.StaffID + "'"+ ANDCOMPANYID;
+                sql = "update staffwork set StaffStatus='工作中' , RoomId="+vo.RoomID+" where StaffID='" + vo.StaffID + "'"+ ANDCOMPANYID;
                 parameterList.Add(sql);
+
             }
             return mySqlclient.ExecuteTransaction(parameterList);
         }

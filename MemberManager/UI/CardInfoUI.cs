@@ -30,7 +30,7 @@ namespace MemberManager.UI
         {
             this.btnAdd.Click += BtnAdd_Click;
             this.btnSave.Click += BtnSave_Click;
-            this.btnDel.Click += BtnSave_Click;
+            this.btnDel.Click += BtnDel_Click;
         }
 
         private void SetCardInfoGrid()
@@ -90,10 +90,13 @@ namespace MemberManager.UI
             if (vo == null)
                 return;
             cardVoList.Remove(vo);
-            if (DeleteDao.DeleteByID(vo, typeof(CardVo)) > 0)
+            if (DeleteDao.DeleteByID(vo.CardId, typeof(CardVo)) <= 0)
             {
                 XtraMessageBox.Show("删除卡失败!");
+                return;
             }
+            EventBus.PublishEvent("UpdateLevelCard");
+            XtraMessageBox.Show("删除卡成功!");
             this.gridControl1.RefreshDataSource();
         }
 

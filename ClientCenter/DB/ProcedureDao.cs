@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using ClientCenter.Core;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -86,7 +87,7 @@ namespace ClientCenter.DB
             parameters[6].Value = infoArry[6];
             parameters[7].Value = infoArry[7];
             parameters[8].Value = infoArry[8];
-            parameters[9].Value = infoArry[9];
+            parameters[9].Value = SystemConst.companyId;
             return mySqlclient.ExecuteNonQuery(sb.ToString(), parameters, CommandType.StoredProcedure);
         }
     }

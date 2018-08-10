@@ -147,7 +147,7 @@ namespace StaffManager.UI
                 }
             }
             EventBus.PublishEvent("StaffWorkStatusChange");
-            //XtraMessageBox.Show("保存成功！");
+            XtraMessageBox.Show("保存成功！");
         }
 
         protected override void BtnDel_Click(object sender, EventArgs e)
