@@ -34,11 +34,12 @@ namespace FootManager.UI
             this.btnReport.ItemClick += RibbonBtn_ItemClick;
             this.btnStore.ItemClick += RibbonBtn_ItemClick;
             this.btnSettlement.ItemClick += RibbonBtn_ItemClick;
+            this.btnOrderQuery.ItemClick += RibbonBtn_ItemClick;
 
             this.btnExit.ItemClick += BtnExit_ItemClick;
             this.btnUserSet.ItemClick += BtnUserSet_ItemClick;
             this.btnCheck.ItemClick += BtnCheck_ItemClick;
-            this.btnSetting.ItemClick += BtnSetting_ItemClick         ;
+            this.btnSetting.ItemClick += BtnSetting_ItemClick;
         }
 
         /// <summary>

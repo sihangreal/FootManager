@@ -12,6 +12,11 @@ namespace ClientCenter.DB
         private static string ANDCOMPANYID = " AND CompanyId = " + SystemConst.companyId;
         private static string WHERECOMPANYID = " WHERE CompanyId = " + SystemConst.companyId;
 
+        /// <summary>
+        /// 发送临时订单
+        /// </summary>
+        /// <param name="tempOrderList"></param>
+        /// <returns></returns>
         public static bool SendTempOrder(List<TempOrderVo> tempOrderList)
         {
             if (mySqlclient == null)
@@ -30,58 +35,38 @@ namespace ClientCenter.DB
             return mySqlclient.ExecuteTransaction(parameterList);
         }
 
+
         /// <summary>
         /// 处理订单
         /// </summary>
         /// <param name="orderVo"></param>
-        /// <param name="staffworkVo"></param>
-        /// <param name="delOrderList"></param>
+        /// <param name="tempOrderList"></param>
+        /// <param name="priceType"></param>
         /// <returns></returns>
-        public static bool DealOrder(OrderInfoVo orderVo, StaffWorkInfoVo staffworkVo, List<DetailedOrderVo> delOrderList)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            List<string> sqlList = new List<string>();
-            string para1 = mySqlclient.GenerateUpdateSql(orderVo)+ANDCOMPANYID;
-            string para2 = mySqlclient.GenerateUpdateSql(staffworkVo)+ ANDCOMPANYID;
-            string para3 = @"delete from TempOrder where RoomID= "+orderVo.RoomID+ ANDCOMPANYID;
-            string para4 = @"update Room set roomStatus='空闲' where RoomId=" + orderVo.RoomID+ ANDCOMPANYID;
-            
-            sqlList.AddRange(new string[]{ para1, para2, para3, para4 });
-            
-            foreach (DetailedOrderVo vo in delOrderList)
-            {
-                string sql = mySqlclient.GenerateInsertSql(vo);
-                sqlList.Add(sql);
-            }
-            //员工做工
-
-            return mySqlclient.ExecuteTransaction(sqlList);
-        }
-
         public static bool DealOrder(OrderInfoVo orderVo,List<TempOrderVo> tempOrderList,string priceType)
         {
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             MySqlCommand command = new MySqlCommand();
             MySqlConnection connection = mySqlclient.GetConnect();
+
+            connection.Open();
             MySqlTransaction transaction = connection.BeginTransaction();
             command.Connection = connection;
             command.Transaction = transaction;
-            connection.Open();
-
+            //订单
             string sql = mySqlclient.GenerateInsertSql(orderVo);
             try
             {
                 command.CommandText = sql;
-                mySqlclient.ExecuteNonQuery(command);
+                command.ExecuteNonQuery();
             }
             catch(Exception ex)
             {
                 transaction.Rollback();
                 return false;
             }
-
+            //详细订单
             foreach(TempOrderVo tempVo in tempOrderList)
             {
                 DetailedOrderVo detVo = new DetailedOrderVo();
@@ -97,7 +82,7 @@ namespace ClientCenter.DB
                 try
                 {
                     command.CommandText = sql;
-                    mySqlclient.ExecuteNonQuery(command);
+                    command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -105,14 +90,14 @@ namespace ClientCenter.DB
                     return false;
                 }
             }
-
+            //员工工作状态
             foreach (TempOrderVo tempVo in tempOrderList)
             {
                 sql = @"update StaffWork set StaffStatus='空闲',RoomId=null,RoomName='' where StaffID='"+ tempVo.StaffID+"'"+ANDCOMPANYID;
                 try
                 {
                     command.CommandText = sql;
-                    mySqlclient.ExecuteNonQuery(command);
+                    command.ExecuteNonQuery();
                 }
                 catch (Exception)
                 {
@@ -120,7 +105,7 @@ namespace ClientCenter.DB
                     return false;
                 }
             }
-
+            //员工做工记录
             foreach(TempOrderVo tempVo in tempOrderList)
             {
                 StaffWorkRecordVo recordVo = new StaffWorkRecordVo();
@@ -135,7 +120,7 @@ namespace ClientCenter.DB
                 try
                 {
                     command.CommandText = sql;
-                    mySqlclient.ExecuteNonQuery(command);
+                    command.ExecuteNonQuery();
                 }
                 catch (Exception)
                 {
@@ -143,7 +128,22 @@ namespace ClientCenter.DB
                     return false;
                 }
             }
-            transaction.Commit();
+            //房间状态
+            foreach (TempOrderVo tempVo in tempOrderList)
+            {
+                sql = @"update Room set roomStatus='空闲' where RoomId=" + tempVo.RoomID + ANDCOMPANYID;
+                try
+                {
+                    command.CommandText = sql;
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+                transaction.Commit();
             connection.Close();
             return true;
         }

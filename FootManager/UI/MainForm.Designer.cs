@@ -28,13 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnOpenOrder = new DevExpress.XtraBars.BarButtonItem();
             this.btnSetting = new DevExpress.XtraBars.BarButtonItem();
             this.btnCheck = new DevExpress.XtraBars.BarButtonItem();
             this.btnSkin = new DevExpress.XtraBars.BarButtonItem();
-            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu();
+            this.barManager1 = new DevExpress.XtraBars.BarManager();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -54,6 +53,7 @@
             this.btnExit = new DevExpress.XtraBars.BarButtonItem();
             this.btnUserSet = new DevExpress.XtraBars.BarButtonItem();
             this.btnSettlement = new DevExpress.XtraBars.BarButtonItem();
+            this.btnOrderQuery = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -110,7 +110,7 @@
             this.btnSetting,
             this.btnCheck,
             this.barButtonItem1});
-            this.barManager1.MaxItemId = 31;
+            this.barManager1.MaxItemId = 33;
             // 
             // barDockControlTop
             // 
@@ -170,10 +170,11 @@
             this.btnStore,
             this.btnExit,
             this.btnUserSet,
-            this.btnSettlement});
+            this.btnSettlement,
+            this.btnOrderQuery});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ribbonControl1.MaxItemId = 23;
+            this.ribbonControl1.MaxItemId = 24;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -288,6 +289,15 @@
             this.btnSettlement.LargeGlyph = global::FootManager.Properties.Resources.clearformatting_32x32;
             this.btnSettlement.Name = "btnSettlement";
             // 
+            // btnOrderQuery
+            // 
+            this.btnOrderQuery.Caption = "订单查询";
+            this.btnOrderQuery.Glyph = global::FootManager.Properties.Resources.conditionalformatting_16x16;
+            this.btnOrderQuery.Id = 23;
+            this.btnOrderQuery.LargeGlyph = global::FootManager.Properties.Resources.conditionalformatting_32x32;
+            this.btnOrderQuery.Name = "btnOrderQuery";
+            this.btnOrderQuery.Tag = "11";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -303,6 +313,7 @@
             this.ribbonPageGroup3.ItemLinks.Add(this.btnStaff);
             this.ribbonPageGroup3.ItemLinks.Add(this.btnMember);
             this.ribbonPageGroup3.ItemLinks.Add(this.btnStore);
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnOrderQuery);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "ribbonPageGroup3";
             // 
@@ -387,5 +398,6 @@
         private DevExpress.XtraEditors.PanelControl mainPanel;
         private DevExpress.XtraBars.BarButtonItem btnUserSet;
         private DevExpress.XtraBars.BarButtonItem btnSettlement;
+        private DevExpress.XtraBars.BarButtonItem btnOrderQuery;
     }
 }

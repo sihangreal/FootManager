@@ -44,14 +44,13 @@ namespace SettlementCenter
 
         private void FillPriceType()
         {
+            this.comboType.Properties.Items.AddRange(new string[] { "现金","Visa卡"});
             List<CardVo> cardList = SelectDao.SelectData<CardVo>();
             foreach (CardVo vo in cardList)
             {
-                //if (vo.DisCount > 0)
                 this.comboType.Properties.Items.Add(vo.CardName);
             }
-            if (cardList.Count > 0)
-                this.comboType.SelectedIndex = 0;
+            this.comboType.SelectedIndex = 0;
         }
 
 

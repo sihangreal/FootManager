@@ -18,9 +18,6 @@ namespace ClockRoomManager.UI
     public partial class PayOrderForm : DevExpress.XtraEditors.XtraForm
     {
         private List<TempOrderVo> tempOrderList;//单
-       // private string orderId;//订单编号
-        private string staffName;
-        private string staffId;
         private int  roomId;
 
         public PayOrderForm(int roomId)
@@ -40,9 +37,6 @@ namespace ClockRoomManager.UI
         public void InitData()
         {
             tempOrderList = SelectDao.GetTempOrderByRoomID<TempOrderVo>(roomId);
-            //orderId = SelectDao.GetOrderByRoomId(roomId);
-            staffId = SelectDao.GetStaffIdByRoomId(roomId);
-            staffName = SelectDao.GetStaffNameByRoomId(roomId);
         }
         private void FillComType()
         {
@@ -99,10 +93,9 @@ namespace ClockRoomManager.UI
             vo.TotalPrice = Convert.ToDouble(this.textTotal.Text);
             vo.PriceType = this.comboType.Text;
             vo.EndTime = DateTime.Now;
-
-            StaffWorkInfoVo workInfoVo = UpdateWorkInfo();
-            List<DetailedOrderVo> delOrderList = RelationDetailedOrder(vo.OrderID);
-            if (TransactionDao.DealOrder(vo, workInfoVo, delOrderList))
+            vo.CompanyId = SystemConst.companyId;
+       
+            if (TransactionDao.DealOrder(vo, tempOrderList, this.comboType.Text))
             {
                 //删除临时订单
                 DeleteDao.DeleteTempOrderByRoomId(roomId);
@@ -119,17 +112,6 @@ namespace ClockRoomManager.UI
                     consumeVo.CompanyId = SystemConst.companyId;
                     InsertDao.InsertData(consumeVo);
                 }
-                //员工做工记录
-                StaffWorkRecordVo recordVo = new StaffWorkRecordVo();
-                recordVo.ID = GenrateIDUtil.GenerateWorkRecordID();
-                recordVo.StaffId = staffId;
-                recordVo.StaffName = SelectDao.SelectStaffNameByID(staffId);
-                recordVo.OrderID = vo.OrderID;
-                recordVo.Amount= double.Parse(this.textTotal.Text);
-                recordVo.WorkTime = DateTime.Now;
-                recordVo.CompanyId = SystemConst.companyId;
-                InsertDao.InsertData(recordVo);
-
                 XtraMessageBox.Show("买单成功!");
                 RoomVo updateVo = SelectDao.GetRoomByRoomId<RoomVo>(roomId);
                 EventBus.PublishEvent("StaffWorkStatusChange");
@@ -177,18 +159,6 @@ namespace ClockRoomManager.UI
                 detailedVoList.Add(detVo);
             }
             return detailedVoList;
-        }
-
-        private StaffWorkInfoVo UpdateWorkInfo()
-        {
-            StaffWorkInfoVo workVo = new StaffWorkInfoVo();
-            workVo.StaffID = staffId;
-            workVo.StaffName = staffName;
-            workVo.StaffSex = SelectDao.GetStaffSexByID(staffId);
-            workVo.StaffStatus = "空闲";
-            workVo.RoomId = null;
-            workVo.RoomName = "";
-            return workVo;
         }
         #endregion
     }

@@ -28,6 +28,9 @@ namespace FootManager
             controlDict.Add("钟房管理", mode);
             mode = new Mode("SettlementCenter.dll", "SettlementCenter.SettlementMainUI") { Id = 10, ModeName = "钟房管理" };
             controlDict.Add("结账中心", mode);
+            mode = new Mode("OrderInfoManager.dll", "OrderInfoManager.OrderInfoMainUI") { Id = 11, ModeName = "订单查询" };
+            controlDict.Add("订单查询", mode);
+           
         }
 
         public static UIFactory GetUIFactory()

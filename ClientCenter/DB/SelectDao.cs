@@ -887,5 +887,30 @@ namespace ClientCenter.DB
             endTime=TimeUtil.AddMinute(startTime,strTime);
             return endTime;
         }
+        /// <summary>
+        /// 根据时间查询订单
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        public static DataTable GetOrderInfoForTime(DateTime startTime,DateTime endTime)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string sql = @"select OrderId, EndTime,PriceType,Price,Tax,TotalPrice from OrderInfo 
+                                   where EndTime> '" + startTime + "' and EndTime<='" + endTime+"'" +ANDCOMPANYID;
+            DataSet ds= mySqlclient.GetDataSet(sql);
+            return ds.Tables[0];
+        }
+
+        public static DataTable GetDetailedOrderForTime(DateTime startTime, DateTime endTime)
+        {
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            string sql = @"select DetailID, OrderID,SkillId,Price,Tax,TotalPrice from DetailedOrder 
+                                   where EndTime> '" + startTime + "' and EndTime<='" + endTime + "'"+ ANDCOMPANYID;
+            DataSet ds = mySqlclient.GetDataSet(sql);
+            return ds.Tables[0];
+        }
     }
 }

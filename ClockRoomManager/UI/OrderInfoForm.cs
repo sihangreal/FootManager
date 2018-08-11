@@ -254,39 +254,6 @@ namespace ClockRoomManager.UI
                 XtraMessageBox.Show("下单失败！");
                 return;
             }
-
-
-            //this.roomVo.RoomStatus = "占用";
-            //if (UpdateDao.UpdateByID(this.roomVo) < 0)
-            //{
-            //    XtraMessageBox.Show("下单失败！");
-            //    return;
-            //}
-          
-            //string staffName = comboStaff.Text;
-            //string staffId = SelectDao.SelectSatffIDByName(staffName);
-
-            //StaffWorkInfoVo workVo = new StaffWorkInfoVo();
-            //workVo.StaffID = staffId;
-            //workVo.StaffName = staffName;
-            //workVo.StaffSex = SelectDao.GetStaffSexByID(staffId);
-            //workVo.StaffStatus = "工作中";
-            //workVo.RoomId = roomVo.RoomId;
-            //workVo.RoomName = roomVo.RoomName;
-            //workVo.OrderID = orderId;
-            ////报单
-            //OrderInfoVo orderVo = new OrderInfoVo();
-            //orderVo.OrderID = orderId;
-            //orderVo.RoomID = roomVo.RoomId;
-            //orderVo.StaffName = staffName;
-            //orderVo.StartTime = DateTime.Now;
-            //orderVo.Status = "未完成";
-
-            //if(!TransactionDao.SendOrder(workVo, orderVo))
-            //{
-            //    XtraMessageBox.Show("下单失败！");
-            //    return;
-            //}
             this.btnCancelOrder1.Enabled = true;
             this.btnOrder.Enabled = false;
             this._rommVo.RoomStatus = "占用";

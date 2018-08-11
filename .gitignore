@@ -48,3 +48,7 @@
 
 /SettlementCenter/bin
 /.vs
+
+OrderInfoManager/obj
+
+OrderInfoManager/bin

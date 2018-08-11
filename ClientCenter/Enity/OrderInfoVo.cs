@@ -19,14 +19,6 @@ namespace ClientCenter.Enity
             get { return orderID; }
             set { orderID = value; }
         }
-        private int roomID;
-        [ColumnAttr("房间编号", false)]
-        [DataAttr(true)]
-        public int RoomID
-        {
-            get { return roomID; }
-            set { roomID = value; }
-        }
         private DateTime endTime;
         [ColumnAttr("时间", true)]
         [DataAttr(true)]

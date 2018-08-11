@@ -57,16 +57,23 @@ namespace ClientCenter.Core
             if (mySqlclient == null)
                 mySqlclient = MySqlClient.GetMySqlClient();
             detailId = mySqlclient.ExecuteScalar(sql,null) as string;
-            string temp = detailId.Substring(2, 8);
-            string comp = DateTime.Today.Date.ToString("yyyyMMdd");
-            if(temp.Equals(comp))
+            if(detailId==null)
             {
-                string tmp= detailId.Substring(2);
-                detailId = "DP"+(Convert.ToInt64(tmp) + _count);
+                detailId = "DP" + DateTime.Now.ToString("yyyyMMdd") + _count.ToString("0000");
             }
-           else
+            else
             {
-                detailId = "DP" + DateTime.Now.ToString("yyyyMMdd") + _count.ToString("00000");
+                string temp = detailId.Substring(2, 8);
+                string comp = DateTime.Today.Date.ToString("yyyyMMdd");
+                if (temp.Equals(comp))
+                {
+                    string tmp = detailId.Substring(2);
+                    detailId = "DP" + (Convert.ToInt64(tmp) + _count);
+                }
+                else
+                {
+                    detailId = "DP" + DateTime.Now.ToString("yyyyMMdd") + _count.ToString("00000");
+                }
             }
             mutex.ReleaseMutex();
             return detailId;

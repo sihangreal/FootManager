@@ -243,6 +243,26 @@ namespace FootManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap conditionalformatting_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("conditionalformatting_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap conditionalformatting_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("conditionalformatting_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap home_16x16 {
             get {
                 object obj = ResourceManager.GetObject("home_16x16", resourceCulture);
