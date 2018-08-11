@@ -35,7 +35,7 @@ namespace OrderInfoManager
         //订单
         private void AccordionControlElement2_Click(object sender, EventArgs e)
         {
-            DataTable dt = SelectDao.GetOrderInfoForTime(dateTimeStart.Value, dateTimeEnd.Value);
+            DataTable dt = SelectDao.GetOrderInfoForTime(dateTimeStart.Value.Date, dateTimeEnd.Value.Date);
         }
     }
 }
