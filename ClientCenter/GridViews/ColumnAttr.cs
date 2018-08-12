@@ -14,7 +14,7 @@ namespace ClientCenter.GridViews
             get { return caption; }
             set { caption = value; }
         }
-        private bool visble;
+        private bool visble=true;
         public bool Visble
         {
             get { return visble; }

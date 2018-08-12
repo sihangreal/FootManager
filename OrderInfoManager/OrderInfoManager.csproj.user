@@ -2,6 +2,6 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
-    <StartProgram>F:\项目文件\FootManager\FootManager\bin\Debug\FootManager.exe</StartProgram>
+    <StartProgram>D:\work\FootManager\FootManager\bin\Debug\FootManager.exe</StartProgram>
   </PropertyGroup>
 </Project>

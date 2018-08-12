@@ -71,6 +71,7 @@ namespace ClientCenter.DB
             t = (T)objPacked;
             return t;
         }
+        
         /// <summary>
         /// 根据Type获取DataTable
         /// </summary>
@@ -124,29 +125,39 @@ namespace ClientCenter.DB
             sb.Append(SystemConst.companyId);
             List<MySqlParameter> parameters = new List<MySqlParameter>();
             DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
-            DataTable dt = ds.Tables[0];
-            for (int i = 0; i < dt.Rows.Count; ++i)
+            foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                T t = (T)Activator.CreateInstance(type);
-                object objPacked = t;
-                for (int j = 0; j < ds.Tables[0].Columns.Count && j < propertyInfos.Length; ++j)
-                {
-                    PropertyInfo info = propertyInfos[j];
-                    DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
-                    if (infoAttr == null)
-                        continue;
-                    if (dt.Rows[i][j] == null)
-                    {
-                        info.SetValue(t, "");
-                    }
-                    else if (dt.Rows[i][j] == System.DBNull.Value)
-                    {
-                        info.SetValue(t, null);
-                    }
-                    else
-                        info.SetValue(t, dt.Rows[i][j]);
-                }
-                t = (T)objPacked;
+                T t = ConvertDataRowToT<T>(dr, ds.Tables[0].Columns.Count);
+                tList.Add(t);
+            }
+            return tList;
+        }
+        public static List<T> SelectData<T>(string conditionStr)
+        {
+            List<T> tList = new List<T>();
+            if (mySqlclient == null)
+                mySqlclient = MySqlClient.GetMySqlClient();
+            Type type = typeof(T);
+            DataAttr dataAttr = (DataAttr)type.GetCustomAttribute(typeof(DataAttr), false);
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT ");
+            PropertyInfo[] propertyInfos = type.GetProperties();
+            foreach (PropertyInfo info in propertyInfos)
+            {
+                DataAttr infoAttr = (DataAttr)info.GetCustomAttribute(typeof(DataAttr), false);
+                if (infoAttr == null)
+                    continue;
+                sb.Append(info.Name + ",");
+            }
+            sb.Remove(sb.Length - 1, 1);//移除 多余的 ","
+            sb.Append(" FROM " + dataAttr.TableName + " WHERE CompanyId= ");
+            sb.Append(SystemConst.companyId);
+            sb.Append(" AND "+conditionStr);
+            List<MySqlParameter> parameters = new List<MySqlParameter>();
+            DataSet ds = mySqlclient.GetDataSet(sb.ToString(), parameters, CommandType.Text);
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                T t = ConvertDataRowToT<T>(dr, ds.Tables[0].Columns.Count);
                 tList.Add(t);
             }
             return tList;
@@ -886,31 +897,6 @@ namespace ClientCenter.DB
             //"30分钟", "60分钟", "90分钟", "120分钟", "150分钟", "180分钟"
             endTime=TimeUtil.AddMinute(startTime,strTime);
             return endTime;
-        }
-        /// <summary>
-        /// 根据时间查询订单
-        /// </summary>
-        /// <param name="startTime"></param>
-        /// <param name="endTime"></param>
-        /// <returns></returns>
-        public static DataTable GetOrderInfoForTime(DateTime startTime,DateTime endTime)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = @"select OrderId, EndTime,PriceType,Price,Tax,TotalPrice from OrderInfo 
-                                   where EndTime> '" + startTime + "' and EndTime<='" + endTime+"'" +ANDCOMPANYID;
-            DataSet ds= mySqlclient.GetDataSet(sql);
-            return ds.Tables[0];
-        }
-
-        public static DataTable GetDetailedOrderForTime(DateTime startTime, DateTime endTime)
-        {
-            if (mySqlclient == null)
-                mySqlclient = MySqlClient.GetMySqlClient();
-            string sql = @"select DetailID, OrderID,SkillId,Price,Tax,TotalPrice from DetailedOrder 
-                                   where EndTime> '" + startTime + "' and EndTime<='" + endTime + "'"+ ANDCOMPANYID;
-            DataSet ds = mySqlclient.GetDataSet(sql);
-            return ds.Tables[0];
         }
     }
 }
