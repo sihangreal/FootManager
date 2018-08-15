@@ -35,6 +35,22 @@ namespace ClientCenter.Enity
             get { return skillId; }
             set { skillId = value; }
         }
+        private DateTime startTime;
+        [ColumnAttr("开始时间", true)]
+        [DataAttr(true)]
+        public DateTime StartTime
+        {
+            get { return startTime; }
+            set { startTime = value; }
+        }
+        private DateTime endTime;
+        [ColumnAttr("结束时间", true)]
+        [DataAttr(true)]
+        public DateTime EndTime
+        {
+            get { return endTime; }
+            set { endTime = value; }
+        }
         private double price;
         [DataAttr(true)]
         [ColumnAttr("价格")]

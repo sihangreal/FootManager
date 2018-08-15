@@ -77,6 +77,8 @@ namespace ClientCenter.DB
                 double gstPrice = (detVo.Price * 6) / 106;
                 detVo.Tax = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
                 detVo.TotalPrice = detVo.Price + detVo.Tax;
+                detVo.StartTime = tempVo.StartTime;
+                detVo.EndTime = tempVo.EndTime;
                 detVo.CompanyId = SystemConst.companyId;
                 sql = mySqlclient.GenerateInsertSql(detVo);
                 try

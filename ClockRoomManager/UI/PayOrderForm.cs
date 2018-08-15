@@ -136,30 +136,6 @@ namespace ClockRoomManager.UI
             totalPrice = serverPrice + gstPrice;
             return totalPrice;
         }
-
-        /// <summary>
-        /// 关联详细订单
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
-        private List<DetailedOrderVo> RelationDetailedOrder(string orderId)
-        {
-            List<DetailedOrderVo> detailedVoList = new List<DetailedOrderVo>();
-            string priceType = this.comboType.Text;
-            foreach (TempOrderVo vo in tempOrderList)
-            {
-                DetailedOrderVo detVo = new DetailedOrderVo();
-                detVo.DetailID = GenrateIDUtil.GenerateDetailOrderID();
-                detVo.OrderID = orderId;
-                detVo.SkillId = vo.SkillId;
-                detVo.Price = SelectDao.GetSkillPriceDetail(vo.SkillName, vo.WorkType, priceType);
-                double gstPrice = (detVo.Price * 6) / 106;
-                detVo.Tax = Math.Round(gstPrice, 2, MidpointRounding.AwayFromZero);
-                detVo.TotalPrice = detVo.Price + detVo.Tax;
-                detailedVoList.Add(detVo);
-            }
-            return detailedVoList;
-        }
         #endregion
     }
 }
