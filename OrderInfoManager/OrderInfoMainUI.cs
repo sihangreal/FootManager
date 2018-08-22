@@ -41,9 +41,9 @@ namespace OrderInfoManager
             }
             if(this.gridView1.ViewCaption.Equals("详细订单"))
             {
-                //List<DetailedOrderVo> delorderList = SelectDao.SelectData<DetailedOrderVo>("EndTime> '" + startTime + "' and EndTime<='" + endTime + "'");
-                //GridViewUtil.InitGridView(this.gridView1, typeof(DetailedOrderVo));
-                //this.gridControl1.DataSource = delorderList;
+                List<DetailedOrderVo> delorderList = SelectDao.SelectData<DetailedOrderVo>("EndTime> '" + startTime + "' and EndTime<='" + endTime + "'");
+                GridViewUtil.InitGridView(this.gridView1, typeof(DetailedOrderVo));
+                this.gridControl1.DataSource = delorderList;
             }
         }
 
