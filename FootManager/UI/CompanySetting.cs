@@ -11,11 +11,14 @@ using DevExpress.XtraEditors;
 using ClientCenter.Enity;
 using ClientCenter.DB;
 using ClientCenter.Core;
+using System.Configuration;
 
 namespace FootManager.UI
 {
     public partial class CompanySetting : DevExpress.XtraEditors.XtraUserControl
     {
+        private static Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
         public CompanySetting()
         {
             InitializeComponent();
@@ -31,10 +34,7 @@ namespace FootManager.UI
 
         private void CompanySetting_Load(object sender, EventArgs e)
         {
-            string str = XmlUtil.ReadDataInfo(SystemConst.APPPATH, "CompanyId");
-            if (string.IsNullOrWhiteSpace(str))
-                return;
-            int companyId = Convert.ToInt32(str);
+            int companyId = SystemConst.companyId;
             CompanyVo vo= SelectDao.SelectDataByID<CompanyVo>(companyId).FirstOrDefault();
             if(vo!=null)
             {
@@ -66,7 +66,7 @@ namespace FootManager.UI
             object id;
             if ((id = InsertDao.InsertDataRetrunID(vo))!=null)
             {
-                XmlUtil.SavaDataInfo(SystemConst.APPPATH, "CompanyId",id.ToString());
+                config.AppSettings.Settings["CompanyId"].Value = id.ToString();
                 XtraMessageBox.Show("操作成功！");
             }
         }

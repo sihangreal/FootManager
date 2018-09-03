@@ -8,6 +8,7 @@ using System.Data;
 using System.Collections;
 using MySql.Data.MySqlClient;
 using System.Reflection;
+using System.Configuration;
 
 namespace ClientCenter.DB
 {
@@ -21,10 +22,10 @@ namespace ClientCenter.DB
         private MySqlClient()
         {
             string appPath = System.AppDomain.CurrentDomain.BaseDirectory + "FootConfig.xml";
-            string server = XmlUtil.ReadDataInfo(appPath, "Server");
-            string dataBase= XmlUtil.ReadDataInfo(appPath, "DataBase");
-            string user= XmlUtil.ReadDataInfo(appPath, "DataUser");
-            string password = XmlUtil.ReadDataInfo(appPath, "DataPassword");
+            string server = ConfigurationManager.AppSettings["Server"]; 
+            string dataBase= ConfigurationManager.AppSettings["DataBase"];
+            string user= ConfigurationManager.AppSettings["DataUser"];
+            string password = ConfigurationManager.AppSettings["DataPassword"];
             //string providerName = XmlUtil.ReadDataInfo(appPath, "ProviderName");
             connectionString = "Data Source=" + server + "; Database=" + dataBase + "; User ID=" + user + ";Password=" + password + " ;CharSet=utf8;";
         }

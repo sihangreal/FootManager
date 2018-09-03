@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using ClientCenter.Core;
+using System.Configuration;
 
 namespace FootManager.UI
 {
@@ -75,17 +76,20 @@ namespace FootManager.UI
         #region event
         private void MainFormNew_Load(object sender, EventArgs e)
         {
-            //获取公司ID
-            string str = XmlUtil.ReadDataInfo(SystemConst.APPPATH, "CompanyId");
-            if (!string.IsNullOrWhiteSpace(str))
-                SystemConst.companyId = Convert.ToInt32(str);
             factory = UIFactory.GetUIFactory();
             factory.ShowControl(this.mainPanel, "钟房管理");
             SetSkin();
         }
         private void RibbonBtn_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            factory.ShowControl(this.mainPanel, e.Item.Caption);
+            try
+            {
+                factory.ShowControl(this.mainPanel, e.Item.Caption);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         //权限用户设置
         private void BtnUserSet_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
