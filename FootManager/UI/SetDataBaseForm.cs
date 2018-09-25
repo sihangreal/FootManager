@@ -30,8 +30,7 @@ namespace FootManager.UI
 
         private void SimpleButton1_Click(object sender, EventArgs e)
         {
-            _config.AppSettings.Settings["Server"].Value= this.textEdit1.Text;
-            _config.AppSettings.Settings[ "Server"].Value= this.textEdit1.Text;
+            _config.AppSettings.Settings["MySqlServer"].Value= this.textEdit1.Text;
             _config.AppSettings.Settings[ "DataBase"].Value= this.textEdit2.Text;
             _config.AppSettings.Settings[ "User"].Value= this.textEdit3.Text;
             _config.AppSettings.Settings[ "Password"].Value= this.textEdit4.Text;

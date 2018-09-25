@@ -44,16 +44,19 @@ namespace FootManager.UI
                 this.txtPassWord.Focus();
                 return;
             }
-            string password = XmlUtil.Encryption(this.txtPassWord.Text);
-            if(SelectDao.UserLogion(this.txtUserName.Text, password))
+        
+            if(SelectDao.UserLogion(this.txtUserName.Text, this.txtPassWord.Text))
             {
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 config.AppSettings.Settings["User"].Value = this.txtUserName.Text;
                 if (this.checkEdit1.Checked)
                 {
+                    string password = XmlUtil.Encryption(this.txtPassWord.Text);
                     config.AppSettings.Settings["Password"].Value = password;
                     config.AppSettings.Settings["Remember"].Value = "true";
                 }
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             else
             {

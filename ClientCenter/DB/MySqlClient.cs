@@ -21,7 +21,7 @@ namespace ClientCenter.DB
  
         private MySqlClient()
         {
-            string server = ConfigurationManager.AppSettings["Server"]; 
+            string server = ConfigurationManager.AppSettings["MySqlServer"]; 
             string dataBase= ConfigurationManager.AppSettings["DataBase"];
             string user= ConfigurationManager.AppSettings["DataUser"];
             string password = ConfigurationManager.AppSettings["DataPassword"];

@@ -35,7 +35,7 @@ namespace FootManager
                 Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
                 //处理非UI线程异常
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                LoginForm loginForm = new LoginForm();
+                LoginFormNew loginForm = new LoginFormNew();
                 Application.Run(loginForm);
                 if (loginForm.DialogResult == DialogResult.OK)
                 {
