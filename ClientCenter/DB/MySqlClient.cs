@@ -21,7 +21,6 @@ namespace ClientCenter.DB
  
         private MySqlClient()
         {
-            string appPath = System.AppDomain.CurrentDomain.BaseDirectory + "FootConfig.xml";
             string server = ConfigurationManager.AppSettings["Server"]; 
             string dataBase= ConfigurationManager.AppSettings["DataBase"];
             string user= ConfigurationManager.AppSettings["DataUser"];

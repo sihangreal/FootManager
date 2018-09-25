@@ -1,9 +1,8 @@
 ﻿using System;
-using ClientCenter.Core;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,11 +12,11 @@ using System.Configuration;
 
 namespace FootManager.UI
 {
-    public partial class DataBaseSetting : DevExpress.XtraEditors.XtraUserControl
+    public partial class SetDataBaseForm : DevExpress.XtraEditors.XtraForm
     {
-        Configuration _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        Configuration _config =ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-        public DataBaseSetting()
+        public SetDataBaseForm()
         {
             InitializeComponent();
             InitEvents();
@@ -31,11 +30,11 @@ namespace FootManager.UI
 
         private void SimpleButton1_Click(object sender, EventArgs e)
         {
-            _config.AppSettings.Settings["Server"].Value = this.textEdit1.Text;
-            _config.AppSettings.Settings["Server"].Value = this.textEdit1.Text;
-            _config.AppSettings.Settings["DataBase"].Value = this.textEdit2.Text;
-            _config.AppSettings.Settings["User"].Value = this.textEdit3.Text;
-            _config.AppSettings.Settings["Password"].Value = this.textEdit4.Text;
+            _config.AppSettings.Settings["Server"].Value= this.textEdit1.Text;
+            _config.AppSettings.Settings[ "Server"].Value= this.textEdit1.Text;
+            _config.AppSettings.Settings[ "DataBase"].Value= this.textEdit2.Text;
+            _config.AppSettings.Settings[ "User"].Value= this.textEdit3.Text;
+            _config.AppSettings.Settings[ "Password"].Value= this.textEdit4.Text;
             XtraMessageBox.Show("保存成功！");
         }
 

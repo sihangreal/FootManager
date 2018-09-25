@@ -148,6 +148,9 @@
   <data name="clearformatting_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clearformatting_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PassWord" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PassWord.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ide_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ide_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -160,14 +163,14 @@
   <data name="technology_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\technology_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="boperson_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\boperson_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cleartablestyle_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cleartablestyle_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="team_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\team_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="managedatasource_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\managedatasource_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="conditionalformatting_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\conditionalformatting_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="home_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\home_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -177,6 +180,9 @@
   </data>
   <data name="properties_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\properties_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="botask_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\botask_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="team_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\team_32x321.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -202,6 +208,9 @@
   <data name="question_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\question_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="reverssort_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reverssort_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="clearformatting_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clearformatting_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -217,11 +226,14 @@
   <data name="allowuserstoeditranges_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\allowuserstoeditranges_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="botask_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\botask_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="managedatasource_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\managedatasource_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="close_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UserName" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UserName.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="conditionalformatting_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\conditionalformatting_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -238,6 +250,9 @@
   <data name="bocustomer_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bocustomer_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Visible" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Visible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="notes_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\notes_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -247,13 +262,16 @@
   <data name="openhyperlink_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\openhyperlink_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="boperson_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\boperson_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="team_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\team_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="boperson_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\boperson_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="conditionalformatting_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\conditionalformatting_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="undo_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\undo_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Invisible" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Invisible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
