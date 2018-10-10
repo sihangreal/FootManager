@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\SplashScrennHelper.cs" />
     <Compile Include="GridViews\ColumnAttr.cs" />
     <Compile Include="Core\D3Core.cs" />
     <Compile Include="Core\DataAttr.cs" />

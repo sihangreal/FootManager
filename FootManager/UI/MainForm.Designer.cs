@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnOpenOrder = new DevExpress.XtraBars.BarButtonItem();
             this.btnSetting = new DevExpress.XtraBars.BarButtonItem();
             this.btnCheck = new DevExpress.XtraBars.BarButtonItem();
             this.btnSkin = new DevExpress.XtraBars.BarButtonItem();
-            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu();
-            this.barManager1 = new DevExpress.XtraBars.BarManager();
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -110,7 +111,7 @@
             this.btnSetting,
             this.btnCheck,
             this.barButtonItem1});
-            this.barManager1.MaxItemId = 33;
+            this.barManager1.MaxItemId = 34;
             // 
             // barDockControlTop
             // 
@@ -357,6 +358,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "足浴管理系统";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
