@@ -29,9 +29,17 @@ namespace ReportManager
             InitEvents();
         }
 
+        /// <summary>
+        /// 获取当天是当年的第几周
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="ci"></param>
+        /// <returns></returns>
         private static int WeekOfYear(DateTime dt, CultureInfo ci)
         {
-            return ci.Calendar.GetWeekOfYear(dt, ci.DateTimeFormat.CalendarWeekRule, ci.DateTimeFormat.FirstDayOfWeek);
+            GregorianCalendar gc = new GregorianCalendar();
+            int weekOfYear = gc.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            return weekOfYear;
         }
 
         private static int MonthOfYear(DateTime dt)
@@ -87,6 +95,16 @@ namespace ReportManager
                 salesVoList.Add(vo);
             }
             reportControl.SetSalesData(salesVoList);
+        }
+
+        public void 日员工做工报表()
+        {
+            List<StaffWorkRecordVo> recordVoList = SelectDao.SelectData<StaffWorkRecordVo>();
+            reportControl.SetStaffWorkRecordData(recordVoList);
+        }
+        public void 会员充值报表()
+        {
+
         }
         #endregion
 

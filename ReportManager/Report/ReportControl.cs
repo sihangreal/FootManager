@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using ReportManager.Enity;
+using ClientCenter.Enity;
 
 namespace ReportManager.Report
 {
@@ -30,6 +31,13 @@ namespace ReportManager.Report
         public void SetSalesData(List<SalesVo> tList)
         {
             SalesReport report = new SalesReport(tList);
+            this.documentViewer1.DocumentSource = report;
+            report.CreateDocument(false);
+        }
+
+        public void SetStaffWorkRecordData(List<StaffWorkRecordVo> tList)
+        {
+            StaffWorkRecordReport report = new StaffWorkRecordReport(tList);
             this.documentViewer1.DocumentSource = report;
             report.CreateDocument(false);
         }
