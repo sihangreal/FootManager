@@ -100,6 +100,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enity\SalesVo.cs" />
+    <Compile Include="Report\MemberConsumeReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\MemberConsumeReport.Designer.cs">
+      <DependentUpon>MemberConsumeReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\MemberRechargeReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\MemberRechargeReport.Designer.cs">
+      <DependentUpon>MemberRechargeReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Report\ReportControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -129,8 +141,20 @@
     <Compile Include="Report\SalesReport.Designer.cs">
       <DependentUpon>SalesReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Report\StaffWorkRecordReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\StaffWorkRecordReport.Designer.cs">
+      <DependentUpon>StaffWorkRecordReport.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Report\MemberConsumeReport.resx">
+      <DependentUpon>MemberConsumeReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\MemberRechargeReport.resx">
+      <DependentUpon>MemberRechargeReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\ReportControl.resx">
       <DependentUpon>ReportControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Report\SalesReport.resx">
       <DependentUpon>SalesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\StaffWorkRecordReport.resx">
+      <DependentUpon>StaffWorkRecordReport.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

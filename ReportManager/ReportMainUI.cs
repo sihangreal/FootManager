@@ -104,7 +104,13 @@ namespace ReportManager
         }
         public void 会员充值报表()
         {
-
+            List<MemberRechargeVo> rechargeVoList = SelectDao.SelectData<MemberRechargeVo>();
+            reportControl.SetMemberRechargeData(rechargeVoList);
+        }
+        public void 会员消费报表()
+        {
+            List<MemberConsumeVo> rechargeVoList = SelectDao.SelectData<MemberConsumeVo>();
+            reportControl.SetMemberConsumeData(rechargeVoList);
         }
         #endregion
 

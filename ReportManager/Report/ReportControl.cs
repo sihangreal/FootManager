@@ -41,5 +41,19 @@ namespace ReportManager.Report
             this.documentViewer1.DocumentSource = report;
             report.CreateDocument(false);
         }
+
+        public void SetMemberRechargeData(List<MemberRechargeVo> tList)
+        {
+            MemberRechargeReport report = new MemberRechargeReport(tList);
+            this.documentViewer1.DocumentSource = report;
+            report.CreateDocument(false);
+        }
+
+        public void SetMemberConsumeData(List<MemberConsumeVo> tList)
+        {
+            MemberConsumeReport report = new MemberConsumeReport(tList);
+            this.documentViewer1.DocumentSource = report;
+            report.CreateDocument(false);
+        }
     }
 }

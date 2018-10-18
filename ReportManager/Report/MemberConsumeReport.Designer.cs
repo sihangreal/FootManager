@@ -1,6 +1,6 @@
 ﻿namespace ReportManager.Report
 {
-    partial class StaffWorkRecordReport
+    partial class MemberConsumeReport
     {
         /// <summary>
         /// Required designer variable.
@@ -57,8 +57,6 @@
             this.xrTableCell16 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell17 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell18 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrTableCell19 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrTableCell20 = new DevExpress.XtraReports.UI.XRTableCell();
             this.pageFooterBand1 = new DevExpress.XtraReports.UI.PageFooterBand();
             this.xrPageInfo1 = new DevExpress.XtraReports.UI.XRPageInfo();
             this.xrPageInfo2 = new DevExpress.XtraReports.UI.XRPageInfo();
@@ -111,7 +109,7 @@
             this.xrTable1.Name = "xrTable1";
             this.xrTable1.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.xrTableRow3});
-            this.xrTable1.SizeF = new System.Drawing.SizeF(638F, 36F);
+            this.xrTable1.SizeF = new System.Drawing.SizeF(637F, 36F);
             // 
             // xrTableRow1
             // 
@@ -147,7 +145,7 @@
             this.xrTable2.Name = "xrTable2";
             this.xrTable2.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.xrTableRow4});
-            this.xrTable2.SizeF = new System.Drawing.SizeF(638F, 23F);
+            this.xrTable2.SizeF = new System.Drawing.SizeF(637F, 23F);
             // 
             // xrTableRow2
             // 
@@ -184,8 +182,7 @@
             this.xrTableCell11,
             this.xrTableCell13,
             this.xrTableCell15,
-            this.xrTableCell17,
-            this.xrTableCell19});
+            this.xrTableCell17});
             this.xrTableRow3.Name = "xrTableRow3";
             this.xrTableRow3.Weight = 1D;
             // 
@@ -197,8 +194,7 @@
             this.xrTableCell12,
             this.xrTableCell14,
             this.xrTableCell16,
-            this.xrTableCell18,
-            this.xrTableCell20});
+            this.xrTableCell18});
             this.xrTableRow4.Name = "xrTableRow4";
             this.xrTableRow4.Weight = 1D;
             // 
@@ -207,19 +203,19 @@
             this.xrTableCell7.CanGrow = false;
             this.xrTableCell7.Name = "xrTableCell7";
             this.xrTableCell7.StyleName = "FieldCaption";
-            this.xrTableCell7.Text = "做工时间";
+            this.xrTableCell7.Text = "消费时间";
             this.xrTableCell7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell7.Weight = 28.5D;
+            this.xrTableCell7.Weight = 45.943692786727254D;
             // 
             // xrTableCell8
             // 
             this.xrTableCell8.CanGrow = false;
             this.xrTableCell8.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "WorkTime")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "ConsumeTime")});
             this.xrTableCell8.Name = "xrTableCell8";
             this.xrTableCell8.StyleName = "DataField";
             this.xrTableCell8.Text = "xrTableCell8";
-            this.xrTableCell8.Weight = 28.5D;
+            this.xrTableCell8.Weight = 45.943694685093085D;
             // 
             // xrTableCell9
             // 
@@ -228,112 +224,93 @@
             this.xrTableCell9.StyleName = "FieldCaption";
             this.xrTableCell9.Text = "编号";
             this.xrTableCell9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell9.Weight = 27.237860246138144D;
+            this.xrTableCell9.Weight = 40.472926897880356D;
             // 
             // xrTableCell10
             // 
             this.xrTableCell10.CanGrow = false;
             this.xrTableCell10.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "ID")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Id")});
             this.xrTableCell10.Name = "xrTableCell10";
             this.xrTableCell10.StyleName = "DataField";
             this.xrTableCell10.Text = "xrTableCell10";
-            this.xrTableCell10.Weight = 27.237856455357473D;
+            this.xrTableCell10.Weight = 40.472919937205653D;
             // 
             // xrTableCell11
             // 
             this.xrTableCell11.CanGrow = false;
             this.xrTableCell11.Name = "xrTableCell11";
             this.xrTableCell11.StyleName = "FieldCaption";
-            this.xrTableCell11.Text = "员工编号";
+            this.xrTableCell11.Text = "会员编号";
             this.xrTableCell11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell11.Weight = 18.473634851389917D;
+            this.xrTableCell11.Weight = 37.438659875571318D;
             // 
             // xrTableCell12
             // 
             this.xrTableCell12.CanGrow = false;
             this.xrTableCell12.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "StaffId")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MId")});
             this.xrTableCell12.Name = "xrTableCell12";
             this.xrTableCell12.StyleName = "DataField";
             this.xrTableCell12.Text = "xrTableCell12";
-            this.xrTableCell12.Weight = 18.473623479047909D;
+            this.xrTableCell12.Weight = 37.438659875571318D;
             // 
             // xrTableCell13
             // 
             this.xrTableCell13.CanGrow = false;
             this.xrTableCell13.Name = "xrTableCell13";
             this.xrTableCell13.StyleName = "FieldCaption";
-            this.xrTableCell13.Text = "员工姓名";
+            this.xrTableCell13.Text = "会员姓名";
             this.xrTableCell13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell13.Weight = 18.639868368549408D;
+            this.xrTableCell13.Weight = 38.529367619568873D;
             // 
             // xrTableCell14
             // 
             this.xrTableCell14.CanGrow = false;
             this.xrTableCell14.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "StaffName")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "MName")});
             this.xrTableCell14.Name = "xrTableCell14";
             this.xrTableCell14.StyleName = "DataField";
             this.xrTableCell14.Text = "xrTableCell14";
-            this.xrTableCell14.Weight = 18.639875950110738D;
+            this.xrTableCell14.Weight = 38.529372681877746D;
             // 
             // xrTableCell15
             // 
             this.xrTableCell15.CanGrow = false;
             this.xrTableCell15.Name = "xrTableCell15";
             this.xrTableCell15.StyleName = "FieldCaption";
-            this.xrTableCell15.Text = "工单编号";
+            this.xrTableCell15.Text = "金额";
             this.xrTableCell15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell15.Weight = 26.381748032046708D;
+            this.xrTableCell15.Weight = 25.323573760746775D;
             // 
             // xrTableCell16
             // 
             this.xrTableCell16.CanGrow = false;
             this.xrTableCell16.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "OrderID")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Amount")});
             this.xrTableCell16.Name = "xrTableCell16";
             this.xrTableCell16.StyleName = "DataField";
             this.xrTableCell16.Text = "xrTableCell16";
-            this.xrTableCell16.Weight = 26.381740450485371D;
+            this.xrTableCell16.Weight = 25.323594009982287D;
             // 
             // xrTableCell17
             // 
             this.xrTableCell17.CanGrow = false;
             this.xrTableCell17.Name = "xrTableCell17";
             this.xrTableCell17.StyleName = "FieldCaption";
-            this.xrTableCell17.Text = "金额";
+            this.xrTableCell17.Text = "公司编号";
             this.xrTableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell17.Weight = 20.73244092456973D;
+            this.xrTableCell17.Weight = 23.625112392838751D;
             // 
             // xrTableCell18
             // 
             this.xrTableCell18.CanGrow = false;
             this.xrTableCell18.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "Amount")});
+            new DevExpress.XtraReports.UI.XRBinding("Text", null, "CompanyId")});
             this.xrTableCell18.Name = "xrTableCell18";
             this.xrTableCell18.StyleName = "DataField";
             this.xrTableCell18.Text = "xrTableCell18";
-            this.xrTableCell18.Weight = 20.732456087692405D;
-            // 
-            // xrTableCell19
-            // 
-            this.xrTableCell19.CanGrow = false;
-            this.xrTableCell19.Name = "xrTableCell19";
-            this.xrTableCell19.StyleName = "FieldCaption";
-            this.xrTableCell19.Text = "公司编号";
-            this.xrTableCell19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell19.Weight = 18.534447577306093D;
-            // 
-            // xrTableCell20
-            // 
-            this.xrTableCell20.CanGrow = false;
-            this.xrTableCell20.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "CompanyId")});
-            this.xrTableCell20.Name = "xrTableCell20";
-            this.xrTableCell20.StyleName = "DataField";
-            this.xrTableCell20.Text = "xrTableCell20";
-            this.xrTableCell20.Weight = 18.534447577306096D;
+            this.xrTableCell18.Weight = 23.62509214360324D;
             // 
             // pageFooterBand1
             // 
@@ -376,7 +353,7 @@
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel1.SizeF = new System.Drawing.SizeF(638F, 35F);
             this.xrLabel1.StyleName = "Title";
-            this.xrLabel1.Text = "员工做工报表";
+            this.xrLabel1.Text = "会员消费报表";
             // 
             // Title
             // 
@@ -424,10 +401,10 @@
             // 
             // objectDataSource1
             // 
-            this.objectDataSource1.DataSource = typeof(ClientCenter.Enity.StaffWorkRecordVo);
+            this.objectDataSource1.DataSource = typeof(ClientCenter.Enity.MemberConsumeVo);
             this.objectDataSource1.Name = "objectDataSource1";
             // 
-            // StaffWorkRecordReport
+            // MemberConsumeReport
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.Detail,
@@ -465,7 +442,6 @@
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell14;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell16;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell18;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell20;
         private DevExpress.DataAccess.ObjectBinding.ObjectDataSource objectDataSource1;
         private DevExpress.XtraReports.UI.PageHeaderBand pageHeaderBand1;
         private DevExpress.XtraReports.UI.XRTable xrTable1;
@@ -476,7 +452,6 @@
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell13;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell15;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell17;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell19;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell1;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell2;

@@ -329,6 +329,7 @@
             this.xrLabel15.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel15.SizeF = new System.Drawing.SizeF(638F, 33F);
             this.xrLabel15.StyleName = "Title";
+            this.xrLabel15.Text = "营业报表";
             // 
             // xrLine3
             // 

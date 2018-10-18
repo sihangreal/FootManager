@@ -3,22 +3,21 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using DevExpress.XtraReports.UI;
-using ClientCenter.Enity;
 using System.Collections.Generic;
+using ClientCenter.Enity;
 
 namespace ReportManager.Report
 {
-    public partial class StaffWorkRecordReport : DevExpress.XtraReports.UI.XtraReport
+    public partial class MemberConsumeReport : DevExpress.XtraReports.UI.XtraReport
     {
-        public StaffWorkRecordReport()
+        public MemberConsumeReport()
         {
             InitializeComponent();
         }
-
-        public StaffWorkRecordReport(List<StaffWorkRecordVo> recordVoList):this()
+        public MemberConsumeReport(List<MemberConsumeVo> consumeVoList):this()
         {
             InitializeComponent();
-            this.DataSource = recordVoList;
+            this.DataSource = consumeVoList;
         }
     }
 }

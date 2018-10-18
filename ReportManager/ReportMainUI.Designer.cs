@@ -47,6 +47,7 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.reportPanel = new DevExpress.XtraEditors.PanelControl();
+            this.accordionControlElement13 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.accordionControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -145,7 +146,8 @@
             // accordionControlElement3
             // 
             this.accordionControlElement3.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.accordionControlElement12});
+            this.accordionControlElement12,
+            this.accordionControlElement13});
             this.accordionControlElement3.Expanded = true;
             this.accordionControlElement3.Name = "accordionControlElement3";
             this.accordionControlElement3.Text = "会员充值报表";
@@ -206,6 +208,12 @@
             this.reportPanel.Size = new System.Drawing.Size(765, 528);
             this.reportPanel.TabIndex = 8;
             // 
+            // accordionControlElement13
+            // 
+            this.accordionControlElement13.Name = "accordionControlElement13";
+            this.accordionControlElement13.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.accordionControlElement13.Text = "会员消费报表";
+            // 
             // ReportMainUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -245,5 +253,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement13;
     }
 }
